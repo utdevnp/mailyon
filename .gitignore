@@ -11,6 +11,9 @@ yarn.lock
 # dist/
 # out/
 
+# GitHub Pages docs folder (allow this)
+# docs/
+
 
 # Environment variables
 .env
