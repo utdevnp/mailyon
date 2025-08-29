@@ -6,6 +6,11 @@ yarn-error.log*
 package-lock.json
 yarn.lock
 
+# Production builds (commented out for GitHub Pages)
+# build/
+# dist/
+# out/
+
 
 # Environment variables
 .env

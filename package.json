@@ -9,7 +9,9 @@
     "build": "react-scripts build",
     "build:package": "tsc --project tsconfig.package.json",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "keywords": [
     "email",
@@ -36,7 +38,8 @@
     "zustand": "^4.4.0"
   },
   "devDependencies": {
-    "@types/react-dnd": "^3.0.2"
+    "@types/react-dnd": "^3.0.2",
+    "gh-pages": "^6.3.0"
   },
   "browserslist": {
     "production": [
@@ -49,5 +52,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://yourusername.github.io/email-temp-453"
 }
