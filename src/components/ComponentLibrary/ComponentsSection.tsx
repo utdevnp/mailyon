@@ -81,6 +81,16 @@ export const ComponentsSection: React.FC<ComponentsSectionProps> = ({
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
         </svg>
       )
+    },
+    { 
+      type: 'socialMedia' as ComponentType, 
+      label: 'Social Media', 
+      description: 'Social media icons and links',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2M9 4v2h6V4M9 4h6" />
+        </svg>
+      )
     }
   ];
 

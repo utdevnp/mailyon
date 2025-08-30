@@ -60,8 +60,8 @@ export const DraggableComponent: React.FC<DraggableComponentProps> = ({
         isSelected={isSelected}
       />
       
-      {/* Top Overlay Controls - Sitting on the border line */}
-      <div className="absolute top-0 left-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+      {/* Top Overlay Controls - Floating above the border */}
+      <div className="absolute -top-3 left-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
         <div className="flex items-center space-x-1">
           {/* Component Type Badge */}
           <div className="bg-gray-800 text-white px-1.5 py-0.5 rounded text-xs font-medium whitespace-nowrap shadow-md">

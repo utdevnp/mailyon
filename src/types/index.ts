@@ -16,7 +16,8 @@ export type ComponentType =
   | 'divider'
   | 'columns'
   | 'footer'
-  | 'spacer';
+  | 'spacer'
+  | 'socialMedia';
 
 // Specific component props
 export interface HeaderProps {
@@ -30,6 +31,7 @@ export interface HeaderProps {
   logoVisible?: boolean;
   titleVisible?: boolean;
   subtitleVisible?: boolean;
+  padding?: string;
 }
 
 export interface TextProps {
@@ -41,6 +43,7 @@ export interface TextProps {
   lineHeight?: string;
   backgroundColor?: string;
   textVisible?: boolean;
+  padding?: string;
 }
 
 export interface ImageProps {
@@ -51,6 +54,7 @@ export interface ImageProps {
   align?: 'left' | 'center' | 'right';
   borderRadius?: string;
   imageVisible?: boolean;
+  padding?: string;
 }
 
 export interface ButtonProps {
@@ -60,6 +64,7 @@ export interface ButtonProps {
   textColor?: string;
   borderRadius?: string;
   padding?: string;
+  canvasPadding?: string;
   fontSize?: string;
   buttonVisible?: boolean;
 }
@@ -68,12 +73,14 @@ export interface DividerProps {
   color?: string;
   height?: string;
   margin?: string;
+  padding?: string;
 }
 
 export interface ColumnsProps {
   columns: number;
   gap?: string;
   backgroundColor?: string;
+  padding?: string;
 }
 
 export interface FooterProps {
@@ -85,10 +92,26 @@ export interface FooterProps {
   unsubscribeText?: string;
   unsubscribeUrl?: string;
   backgroundColor?: string;
+  padding?: string;
 }
 
 export interface SpacerProps {
   height: string;
+  padding?: string;
+}
+
+export interface SocialMediaProps {
+  platforms: Array<{
+    platform: string;
+    url: string;
+    color: string;
+  }>;
+  alignment: 'horizontal' | 'vertical';
+  type: 'icon' | 'text' | 'iconText';
+  spacing: string;
+  iconSize: string;
+  backgroundColor?: string;
+  padding?: string;
 }
 
 // Template structure

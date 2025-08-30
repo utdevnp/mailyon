@@ -8,6 +8,11 @@ import { CodeExport } from './CodeExport';
 export const Inspector: React.FC = () => {
   const { selectedComponent, updateComponent, deleteComponent, duplicateComponent, template, updateTemplateSettings, exportJSON, exportMJML } = useBuilderStore();
   const [activeTab, setActiveTab] = React.useState<'template' | 'code'>('template');
+  
+  // Debug logging
+  React.useEffect(() => {
+    console.log('Inspector selectedComponent changed:', selectedComponent);
+  }, [selectedComponent]);
 
   // Generate HTML from template
   const generateHTML = (): string => {
@@ -17,48 +22,48 @@ export const Inspector: React.FC = () => {
       switch (component.type) {
         case 'header':
           return `
-            <div style="background-color: ${props.backgroundColor || '#ffffff'}; padding: 20px; text-align: center;">
-              ${props.logo ? `<img src="${props.logo}" alt="Logo" style="max-height: 60px; margin-bottom: 10px;" />` : ''}
-              ${props.title ? `<h1 style="color: ${props.textColor || '#000000'}; margin: 0; font-size: 24px; font-weight: bold;">${props.title}</h1>` : ''}
-              ${props.subtitle ? `<p style="color: ${props.textColor || '#000000'}; margin: 10px 0 0 0; font-size: 16px;">${props.subtitle}</p>` : ''}
+            <div style="background-color: ${props.backgroundColor || 'transparent'}; padding: ${props.padding || '5px'}; text-align: center;">
+              ${props.logo && props.logoVisible !== false ? `<img src="${props.logo}" alt="Logo" style="max-height: 60px; margin-bottom: 10px; width: ${props.logoWidth || '200px'}; height: ${props.logoHeight || '60px'};" />` : ''}
+              ${props.title && props.titleVisible !== false ? `<h1 style="color: ${props.textColor || '#000000'}; margin: 0; font-size: 24px; font-weight: bold;">${props.title}</h1>` : ''}
+              ${props.subtitle && props.subtitleVisible !== false ? `<p style="color: ${props.textColor || '#000000'}; margin: 10px 0 0 0; font-size: 16px;">${props.subtitle}</p>` : ''}
             </div>
           `;
         
         case 'text':
           return `
-            <div style="padding: 20px; text-align: ${props.textAlign || 'left'};">
-              <p style="color: ${props.color || '#000000'}; font-size: ${props.fontSize || '16px'}; margin: 0; line-height: 1.6;">
+            <div style="background-color: ${props.backgroundColor || 'transparent'}; padding: ${props.padding || '5px'}; text-align: ${props.textAlign || 'left'};">
+              ${props.textVisible !== false ? `<p style="color: ${props.color || '#000000'}; font-size: ${props.fontSize || '16px'}; margin: 0; line-height: ${props.lineHeight || '1.5'}; font-weight: ${props.fontWeight || 'normal'};">
                 ${props.content || ''}
-              </p>
+              </p>` : ''}
             </div>
           `;
         
         case 'image':
           return `
-            <div style="padding: 20px; text-align: ${props.align || 'center'};">
-              <img src="${props.src || ''}" alt="${props.alt || ''}" style="max-width: ${props.width || '100%'}; height: auto;" />
+            <div style="background-color: ${props.backgroundColor || 'transparent'}; padding: ${props.padding || '5px'}; text-align: ${props.align || 'center'};">
+              ${props.imageVisible !== false ? `<img src="${props.src || ''}" alt="${props.alt || ''}" style="max-width: ${props.width || '100%'}; height: auto; border-radius: ${props.borderRadius || '0px'};" />` : ''}
             </div>
           `;
         
         case 'button':
           return `
-            <div style="padding: 20px; text-align: center;">
-              <a href="${props.url || '#'}" style="
+            <div style="padding: ${props.canvasPadding || '5px'}; text-align: center;">
+              ${props.buttonVisible !== false ? `<a href="${props.url || '#'}" style="
                 display: inline-block;
                 background-color: ${props.backgroundColor || '#3b82f6'};
                 color: ${props.textColor || '#ffffff'};
-                padding: 12px 24px;
+                padding: ${props.padding || '12px 24px'};
                 text-decoration: none;
-                border-radius: 6px;
+                border-radius: ${props.borderRadius || '6px'};
                 font-weight: bold;
                 font-size: ${props.fontSize || '16px'};
-              ">${props.text || 'Click me'}</a>
+              ">${props.text || 'Click me'}</a>` : ''}
             </div>
           `;
         
         case 'footer':
           return `
-            <div style="background-color: ${props.backgroundColor || '#f8f9fa'}; padding: 20px; text-align: center;">
+            <div style="background-color: ${props.backgroundColor || 'transparent'}; padding: ${props.padding || '5px'}; text-align: center;">
               ${props.companyName ? `<h3 style="margin: 0 0 15px 0; color: #333;">${props.companyName}</h3>` : ''}
               ${props.address ? `<p style="margin: 5px 0; color: #666;">${props.address}</p>` : ''}
               ${props.phone ? `<p style="margin: 5px 0; color: #666;">${props.phone}</p>` : ''}
@@ -76,8 +81,46 @@ export const Inspector: React.FC = () => {
             </div>
           `;
         
+        case 'socialMedia':
+          return `
+            <div style="background-color: ${props.backgroundColor || 'transparent'}; padding: ${props.padding || '5px'}; text-align: center;">
+              <div style="display: flex; justify-content: center; flex-direction: ${props.alignment === 'vertical' ? 'column' : 'row'}; gap: ${props.spacing || '16px'}; align-items: center;">
+                ${props.platforms && props.platforms.map((platform: any) => `
+                  <a href="${platform.url}" style="color: ${platform.color}; text-decoration: none; width: ${props.iconSize || '24px'}; height: ${props.iconSize || '24px'};">
+                    ${platform.platform === 'Facebook' ? '📘' : platform.platform === 'Twitter' ? '🐦' : platform.platform === 'Instagram' ? '📷' : platform.platform === 'LinkedIn' ? '💼' : platform.platform === 'YouTube' ? '📺' : platform.platform === 'TikTok' ? '🎵' : platform.platform === 'Pinterest' ? '📌' : platform.platform === 'Snapchat' ? '👻' : platform.platform}
+                  </a>
+                `).join('')}
+              </div>
+            </div>
+          `;
+
+        case 'columns':
+          return `
+            <div style="background-color: ${props.backgroundColor || 'transparent'}; padding: ${props.padding || '5px'};">
+              <div style="display: grid; grid-template-columns: repeat(${props.columns || 2}, 1fr); gap: ${props.gap || '20px'};">
+                ${Array.from({ length: props.columns || 2 }).map((_, index) => `
+                  <div style="background-color: #f3f4f6; padding: 20px; text-align: center; color: #6b7280; border-radius: 8px;">
+                    Column ${index + 1}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+
+        case 'spacer':
+          return `
+            <div style="background-color: ${props.backgroundColor || 'transparent'}; padding: ${props.padding || '5px'}; height: ${props.height || '20px'};"></div>
+          `;
+
+        case 'divider':
+          return `
+            <div style="background-color: ${props.backgroundColor || 'transparent'}; padding: ${props.padding || '5px'};">
+              <hr style="border-color: ${props.color || '#e5e7eb'}; border-width: ${props.height || '1px'}; margin: 20px 0; border-style: solid;" />
+            </div>
+          `;
+
         default:
-          return `<div style="padding: 20px; color: #666;">Component type: ${component.type}</div>`;
+          return `<div style="padding: ${props.padding || '5px'}; color: #666;">Component type: ${component.type}</div>`;
       }
     };
 

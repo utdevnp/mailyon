@@ -372,7 +372,31 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </div>
               </div>
             </div>
-            
+
+            {/* 6. Padding Control */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Padding
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={selectedComponent.props.padding || '5px'}
+                  onChange={(e) => handlePropertyChange('padding', e.target.value)}
+                  className="input-field pr-8"
+                  placeholder="5px, 10px, 20px"
+                />
+                <button
+                  onClick={() => handlePropertyChange('padding', '5px')}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  title="Reset to default (5px)"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </button>
+              </div>
+            </div>
 
           </div>
         );
@@ -499,6 +523,31 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   label="Background Color"
                   placeholder="Select background color"
                 />
+              </div>
+            </div>
+
+            {/* 5. Padding Control */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Padding
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={selectedComponent.props.padding || '5px'}
+                  onChange={(e) => handlePropertyChange('padding', e.target.value)}
+                  className="input-field pr-8"
+                  placeholder="5px, 10px, 20px"
+                />
+                <button
+                  onClick={() => handlePropertyChange('padding', '5px')}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  title="Reset to default (5px)"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.001 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -643,6 +692,31 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </div>
               </div>
             </div>
+
+            {/* 5. Padding Control */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Padding
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={selectedComponent.props.padding || '5px'}
+                  onChange={(e) => handlePropertyChange('padding', e.target.value)}
+                  className="input-field pr-8"
+                  placeholder="5px, 10px, 20px"
+                />
+                <button
+                  onClick={() => handlePropertyChange('padding', '5px')}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  title="Reset to default (5px)"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         );
 
@@ -765,10 +839,10 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
               </div>
             </div>
 
-            {/* 5. Padding Control */}
+            {/* 5. Button Padding Control */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Padding
+                Button Padding
               </label>
               <div className="space-y-2">
                 {/* Padding Preset Selector */}
@@ -861,6 +935,31 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     </div>
                   </div>
                 )}
+              </div>
+            </div>
+
+            {/* 6. Padding Control */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Padding
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={selectedComponent.props.canvasPadding || '5px'}
+                  onChange={(e) => handlePropertyChange('canvasPadding', e.target.value)}
+                  className="input-field pr-8"
+                  placeholder="5px, 10px, 20px (Container spacing)"
+                />
+                <button
+                  onClick={() => handlePropertyChange('canvasPadding', '5px')}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  title="Reset to default (5px)"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -1007,6 +1106,31 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 )}
                 
 
+              </div>
+            </div>
+
+            {/* 3. Padding Control */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Padding
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={selectedComponent.props.padding || '5px'}
+                  onChange={(e) => handlePropertyChange('padding', e.target.value)}
+                  className="input-field pr-8"
+                  placeholder="5px, 10px, 20px"
+                />
+                <button
+                  onClick={() => handlePropertyChange('padding', '5px')}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  title="Reset to default (5px)"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -1245,6 +1369,223 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* Padding Control */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Padding
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={selectedComponent.props.padding || '5px'}
+                  onChange={(e) => handlePropertyChange('padding', e.target.value)}
+                  className="input-field pr-8"
+                  placeholder="5px, 10px, 20px"
+                />
+                <button
+                  onClick={() => handlePropertyChange('padding', '5px')}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  title="Reset to default (5px)"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'socialMedia':
+        return (
+          <div className="space-y-4">
+            {/* Layout Controls - 2x2 Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Alignment
+                </label>
+                <select
+                  value={selectedComponent.props.alignment || 'horizontal'}
+                  onChange={(e) => handlePropertyChange('alignment', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                >
+                  <option value="horizontal">Horizontal</option>
+                  <option value="vertical">Vertical</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Type
+                </label>
+                <select
+                  value={selectedComponent.props.type || 'icon'}
+                  onChange={(e) => handlePropertyChange('type', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                >
+                  <option value="icon">Icon Only</option>
+                  <option value="text">Text Only</option>
+                  <option value="iconText">Icon + Text</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Size and Spacing - 2x2 Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Icon Size
+                </label>
+                <input
+                  type="text"
+                  value={selectedComponent.props.iconSize || '24px'}
+                  onChange={(e) => handlePropertyChange('iconSize', e.target.value)}
+                  className="input-field"
+                  placeholder="24px, 32px, 48px"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Spacing
+                </label>
+                <input
+                  type="text"
+                  value={selectedComponent.props.spacing || '16px'}
+                  onChange={(e) => handlePropertyChange('spacing', e.target.value)}
+                  className="input-field"
+                  placeholder="16px, 24px, 32px"
+                />
+              </div>
+            </div>
+
+            {/* Background and Padding - 2x2 Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <ColorPicker
+                  value={selectedComponent.props.backgroundColor || 'transparent'}
+                  onChange={(color) => handlePropertyChange('backgroundColor', color)}
+                  label="Background Color"
+                  placeholder="Select background color"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Padding
+                </label>
+                <input
+                  type="text"
+                  value={selectedComponent.props.padding || '5px'}
+                  onChange={(e) => handlePropertyChange('padding', e.target.value)}
+                  className="input-field"
+                  placeholder="5px, 10px, 20px"
+                />
+              </div>
+            </div>
+
+            {/* Social Media Platforms */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <label className="block text-sm font-medium text-gray-700">
+                  Social Media Platforms
+                </label>
+                <button
+                  onClick={() => {
+                    const newPlatform = {
+                      platform: 'Facebook',
+                      url: '#',
+                      color: '#6b7280'
+                    };
+                    const currentPlatforms = selectedComponent.props.platforms || [];
+                    handlePropertyChange('platforms', [...currentPlatforms, newPlatform]);
+                  }}
+                  className="px-3 py-1 text-sm bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
+                >
+                  + Add Platform
+                </button>
+              </div>
+              
+              <div className="space-y-3">
+                {(selectedComponent.props.platforms || []).map((platform: any, index: number) => (
+                  <div key={index} className="border border-gray-200 rounded-lg p-3 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-gray-700">Platform {index + 1}</span>
+                      <button
+                        onClick={() => {
+                          const currentPlatforms = [...(selectedComponent.props.platforms || [])];
+                          currentPlatforms.splice(index, 1);
+                          handlePropertyChange('platforms', currentPlatforms);
+                        }}
+                        className="text-red-500 hover:text-red-700 transition-colors"
+                        title="Remove platform"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">
+                          Platform Name
+                        </label>
+                        <select
+                          value={platform.platform}
+                          onChange={(e) => {
+                            const currentPlatforms = [...(selectedComponent.props.platforms || [])];
+                            currentPlatforms[index] = { ...platform, platform: e.target.value };
+                            handlePropertyChange('platforms', currentPlatforms);
+                          }}
+                          className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
+                        >
+                          <option value="Facebook">Facebook</option>
+                          <option value="Twitter">Twitter</option>
+                          <option value="Instagram">Instagram</option>
+                          <option value="LinkedIn">LinkedIn</option>
+                          <option value="YouTube">YouTube</option>
+                          <option value="TikTok">TikTok</option>
+                          <option value="Pinterest">Pinterest</option>
+                          <option value="Snapchat">Snapchat</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">
+                          Color
+                        </label>
+                        <ColorPicker
+                          value={platform.color}
+                          onChange={(color) => {
+                            const currentPlatforms = [...(selectedComponent.props.platforms || [])];
+                            currentPlatforms[index] = { ...platform, color };
+                            handlePropertyChange('platforms', currentPlatforms);
+                          }}
+                          label=""
+                          placeholder=""
+                        />
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                        URL
+                      </label>
+                      <input
+                        type="text"
+                        value={platform.url}
+                        onChange={(e) => {
+                          const currentPlatforms = [...(selectedComponent.props.platforms || [])];
+                          currentPlatforms[index] = { ...platform, url: e.target.value };
+                          handlePropertyChange('platforms', currentPlatforms);
+                        }}
+                        className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="https://example.com"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         );
