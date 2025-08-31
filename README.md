@@ -1,69 +1,408 @@
 # 🎯 Email Template Builder
 
-A complete email template builder that combines:
-- **JSON Structure** (flexible component system)
-- **MJML Integration** (cross-client compatible output) 
-- **Visual Drag & Drop Builder** (intuitive interface)
+A **complete, professional email template builder** built with React, TypeScript, and modern web technologies. Features a headerless design for seamless integration into your applications.
 
-## ✨ Features
+## ✨ **Features**
 
-### 🎨 **Visual Builder**
-- **Drag & Drop Interface**: Intuitive component placement
+### 🎨 **Visual Builder Interface**
+- **Drag & Drop Canvas**: Intuitive component placement with visual feedback
+- **Component Library**: 8 pre-built email components with full customization
+- **Property Inspector**: Real-time editing of component properties
 - **Real-time Preview**: See changes as you build
-- **Component Library**: Pre-built email components
-- **Property Inspector**: Edit component properties
+- **Responsive Design**: Works on all device sizes
 
 ### 🧩 **Component Library**
-- **Header**: Company logo, navigation, hero sections
-- **Text Block**: Paragraphs, headings, rich text
-- **Image**: Single images with responsive behavior
-- **Button**: Call-to-action buttons
-- **Divider**: Horizontal lines and spacers
-- **Columns**: Multi-column layouts
-- **Footer**: Contact info, social links, unsubscribe
-- **Spacer**: Vertical spacing elements
+- **Header**: Logo, title, subtitle with customizable colors and visibility
+- **Text Block**: Rich text with font size, alignment, color, and line height
+- **Image**: Responsive images with alignment, border radius, and sizing
+- **Button**: Call-to-action buttons with custom styling and URLs
+- **Divider**: Horizontal lines and spacers with color and margin control
+- **Footer**: Company info, social links, unsubscribe with alignment options
+- **Spacer**: Vertical spacing elements with customizable height
+- **Social Media**: Social platform icons with alignment and spacing options
+
+**Note**: These are pre-built, fully functional components. Custom component types are not currently supported.
 
 ### 💾 **Template Management**
-- **Save/Load**: Local storage for templates
-- **Undo/Redo**: Full history management
-- **Export Options**: JSON and MJML formats
-- **Version Control**: Track template changes
+- **Local Storage**: Automatic template saving
+- **History Management**: Full undo/redo functionality
+- **JSON Export**: Raw template data structure
+- **Template Loading**: Programmatic template creation and loading
+- **Version Control**: Track creation and update timestamps
 
-### 🎯 **Cross-Client Compatibility**
-- **MJML Integration**: Ensures email compatibility
-- **Responsive Design**: Works on all devices
-- **Email Client Support**: Gmail, Outlook, Apple Mail, etc.
+### 🔧 **Technical Features**
+- **TypeScript**: Full type safety and IntelliSense
+- **State Management**: Zustand store for efficient state handling
+- **Drag & Drop**: React DnD for smooth interactions
+- **Responsive UI**: Tailwind CSS for modern, responsive design
+- **Component Architecture**: Modular, reusable components
 
-## 🚀 Getting Started
+## 🚀 **Quick Start**
 
-### Prerequisites
-- Node.js 16+ 
-- npm or yarn
+### **Installation**
+```bash
+npm install email-template-builder
+```
 
-### Installation
+### **Basic Usage**
+```tsx
+import { EmailTemplateBuilder } from 'email-template-builder';
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd email-template-builder
-   ```
+function MyApp() {
+  return (
+    <div>
+      <h1>My Email App</h1>
+      <EmailTemplateBuilder />
+    </div>
+  );
+}
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+## 🪝 **Custom React Hooks**
 
-3. **Start development server**
-   ```bash
-   npm start
-   ```
+### **1. useEmailTemplateBuilder()**
+Main hook for template building functionality:
 
-4. **Open your browser**
-   Navigate to `http://localhost:3000`
+```tsx
+import { useEmailTemplateBuilder } from 'email-template-builder';
 
-## 🛠️ Development
+function MyComponent() {
+  const { 
+    template, 
+    selectedComponent, 
+    addComponent, 
+    updateComponent,
+    deleteComponent,
+    selectComponent,
+    undo,
+    redo 
+  } = useEmailTemplateBuilder();
+  
+  // Use the functions...
+}
+```
 
-### Project Structure
+**Available Functions:**
+- `addComponent(component, parentId?)` - Add new component
+- `updateComponent(id, updates)` - Update component properties
+- `deleteComponent(id)` - Remove component
+- `selectComponent(component)` - Select component for editing
+- `moveComponent(id, newIndex)` - Reorder components
+- `duplicateComponent(id)` - Clone component
+- `undo()` / `redo()` - History management
+
+### **2. useEmailExport()**
+Export templates in various formats:
+
+```tsx
+import { useEmailExport } from 'email-template-builder';
+
+function ExportControls() {
+  const { 
+    exportAsJSON, 
+    exportAsHTML, 
+    exportAsMJML,
+    downloadJSON,
+    downloadHTML,
+    downloadMJML 
+  } = useEmailExport();
+  
+  const handleExport = () => {
+    const html = exportAsHTML();
+    console.log('Generated HTML:', html);
+    downloadHTML('my-template.html');
+  };
+  
+  return <button onClick={handleExport}>Export HTML</button>;
+}
+```
+
+**Available Functions:**
+- `exportAsJSON()` - Get template as JSON string
+- `exportAsHTML()` - Get template as HTML string
+- `exportAsMJML()` - Get template as MJML string
+- `downloadJSON(filename)` - Download JSON file
+- `downloadHTML(filename)` - Download HTML file
+- `downloadMJML(filename)` - Download MJML file
+
+### **3. useEmailTemplateManager()**
+Manage template loading, saving, and validation:
+
+```tsx
+import { useEmailTemplateManager } from 'email-template-builder';
+
+function TemplateManager() {
+  const { 
+    loadTemplateFromJSON, 
+    createNewTemplate, 
+    cloneTemplate,
+    resetTemplate,
+    validateTemplate 
+  } = useEmailTemplateManager();
+  
+  const handleLoadTemplate = (jsonString: string) => {
+    const success = loadTemplateFromJSON(jsonString);
+    if (success) {
+      console.log('Template loaded successfully!');
+    }
+  };
+  
+  return <button onClick={() => createNewTemplate()}>New Template</button>;
+}
+```
+
+**Available Functions:**
+- `loadTemplateFromJSON(jsonString)` - Load from JSON string
+- `loadTemplateFromObject(template)` - Load from template object
+- `createNewTemplate(name?)` - Create empty template
+- `cloneTemplate(newName?)` - Clone current template
+- `resetTemplate()` - Reset to default
+- `validateTemplate(template)` - Validate template structure
+
+## 🧩 **Individual Components**
+
+Build your own custom layout:
+
+```tsx
+import { 
+  Builder, 
+  ComponentLibrary, 
+  Inspector, 
+  Toolbar 
+} from 'email-template-builder';
+
+function CustomLayout() {
+  return (
+    <div className="grid grid-cols-12 gap-6">
+      <div className="col-span-3">
+        <ComponentLibrary />
+      </div>
+      <div className="col-span-6">
+        <Builder />
+      </div>
+      <div className="col-span-3">
+        <Inspector />
+      </div>
+    </div>
+  );
+}
+```
+
+## 📤 **Export Examples**
+
+### **Export to API**
+```tsx
+const { exportAsHTML } = useEmailExport();
+
+const sendToAPI = async () => {
+  const html = exportAsHTML();
+  
+  try {
+    await fetch('/api/email-templates', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ html, template: template })
+    });
+  } catch (error) {
+    console.error('Failed to send template:', error);
+  }
+};
+```
+
+### **Save to Database**
+```tsx
+const { exportAsJSON } = useEmailExport();
+
+const saveToDatabase = async () => {
+  const json = exportAsJSON();
+  
+  try {
+    await db.emailTemplates.create({
+      name: template.name,
+      data: json,
+      createdAt: new Date()
+    });
+  } catch (error) {
+    console.error('Failed to save template:', error);
+  }
+};
+```
+
+### **Preview in Modal**
+```tsx
+const { exportAsHTML } = useEmailExport();
+const [showPreview, setShowPreview] = useState(false);
+const [previewHTML, setPreviewHTML] = useState('');
+
+const showPreviewModal = () => {
+  const html = exportAsHTML();
+  setPreviewHTML(html);
+  setShowPreview(true);
+};
+
+// In your JSX:
+{showPreview && (
+  <div className="modal">
+    <div dangerouslySetInnerHTML={{ __html: previewHTML }} />
+  </div>
+)}
+```
+
+## 🔄 **Template Loading Examples**
+
+### **Load from File Upload**
+```tsx
+const { loadTemplateFromJSON } = useEmailTemplateManager();
+
+const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  const file = event.target.files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const jsonString = e.target?.result as string;
+      loadTemplateFromJSON(jsonString);
+    };
+    reader.readAsText(file);
+  }
+};
+
+return <input type="file" accept=".json" onChange={handleFileUpload} />;
+```
+
+### **Load from URL**
+```tsx
+const { loadTemplateFromJSON } = useEmailTemplateManager();
+
+const loadFromURL = async (url: string) => {
+  try {
+    const response = await fetch(url);
+    const jsonString = await response.text();
+    loadTemplateFromJSON(jsonString);
+  } catch (error) {
+    console.error('Failed to load template from URL:', error);
+  }
+};
+```
+
+### **Load from Local Storage**
+```tsx
+const { loadTemplateFromStorage } = useEmailTemplateManager();
+
+// Load automatically on component mount
+useEffect(() => {
+  loadTemplateFromStorage('myEmailTemplates');
+}, []);
+```
+
+## 🎨 **Customization Examples**
+
+### **Custom Styling**
+```tsx
+<EmailTemplateBuilder 
+  className="my-custom-builder"
+  style={{ 
+    backgroundColor: '#f8f9fa',
+    borderRadius: '12px'
+  }}
+/>
+```
+
+### **Custom Header Integration**
+```tsx
+function MyApp() {
+  const [showBuilder, setShowBuilder] = useState(false);
+  
+  return (
+    <div>
+      <header className="my-custom-header">
+        <h1>My Company Email Builder</h1>
+        <button onClick={() => setShowBuilder(!showBuilder)}>
+          {showBuilder ? 'Hide' : 'Show'} Builder
+        </button>
+      </header>
+      
+      {showBuilder && <EmailTemplateBuilder />}
+    </div>
+  );
+}
+```
+
+### **Conditional Rendering**
+```tsx
+function ConditionalBuilder() {
+  const { template } = useEmailTemplateBuilder();
+  const [isEditing, setIsEditing] = useState(false);
+  
+  return (
+    <div>
+      {isEditing ? (
+        <EmailTemplateBuilder />
+      ) : (
+        <div>
+          <h2>Template Preview</h2>
+          <p>Components: {template.components.length}</p>
+          <button onClick={() => setIsEditing(true)}>Edit Template</button>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+## 🚨 **Important Notes**
+
+### **JSON Loading**
+- **YES, it works directly!** ✅
+- Use `loadTemplateFromJSON(jsonString)` to load templates
+- Templates are immediately available in the builder
+- All component properties and settings are preserved
+
+### **State Management**
+- All hooks use the same Zustand store
+- State is shared between components
+- Changes are reflected in real-time across all hooks
+
+### **Error Handling**
+- Export functions include error handling
+- Template validation provides detailed error messages
+- Failed operations return appropriate error states
+
+## 🔧 **Advanced Usage**
+
+### **Available Component Types**
+Currently, the email template builder supports these **8 pre-built components**:
+
+```typescript
+export type ComponentType = 
+  | 'header'      // Logo, title, subtitle
+  | 'text'        // Rich text content
+  | 'image'       // Responsive images
+  | 'button'      // Call-to-action buttons
+  | 'divider'     // Horizontal lines
+  | 'footer'      // Company info, social links
+  | 'spacer'      // Vertical spacing
+  | 'socialMedia' // Social platform icons
+```
+
+**Note**: Custom component types are not currently supported. All components are pre-built with specific properties and rendering logic.
+
+### **Template Validation**
+```tsx
+const { validateTemplate } = useEmailTemplateManager();
+
+const validateCurrentTemplate = () => {
+  const result = validateTemplate(template);
+  
+  if (result.isValid) {
+    console.log('Template is valid!');
+  } else {
+    console.error('Template validation errors:', result.errors);
+  }
+};
+```
+
+## 🏗️ **Project Structure**
+
 ```
 src/
 ├── components/           # React components
@@ -71,134 +410,81 @@ src/
 │   ├── ComponentLibrary/ # Available components sidebar
 │   ├── Inspector/       # Component properties panel
 │   └── Toolbar/         # Save, export, undo/redo
+├── hooks/               # Custom React hooks
+│   ├── useEmailTemplateBuilder.ts
+│   ├── useEmailExport.ts
+│   └── useEmailTemplateManager.ts
 ├── store/               # State management (Zustand)
 ├── types/               # TypeScript interfaces
-└── index.css            # Tailwind CSS styles
+└── utils/               # MJML export utilities
 ```
 
-### Available Scripts
+## 🚀 **Development**
 
-- `npm start` - Start development server
-- `npm run build` - Build for production
-- `npm run build:package` - Build package for distribution
-- `npm test` - Run tests
-- `npm run eject` - Eject from Create React App
+### **Prerequisites**
+- Node.js 16+ 
+- npm or yarn
 
-### Technology Stack
-
-- **Frontend**: React 18 + TypeScript
-- **State Management**: Zustand
-- **Styling**: Tailwind CSS
-- **Drag & Drop**: React DnD
-- **Build Tool**: Create React App
-
-## 📱 Usage
-
-### Building a Template
-
-1. **Drag Components**: From the left sidebar to the canvas
-2. **Select Components**: Click on any component to select it
-3. **Edit Properties**: Use the right sidebar inspector
-4. **Reorder Components**: Use the up/down arrows
-5. **Save Template**: Click the Save button in the toolbar
-
-### Component Properties
-
-Each component type has specific properties:
-
-- **Header**: Logo URL, title, subtitle, colors
-- **Text**: Content, font size, alignment, color
-- **Image**: Source URL, alt text, dimensions, alignment
-- **Button**: Text, URL, colors, styling
-- **Footer**: Company info, social links, unsubscribe
-
-### Export Options
-
-- **JSON Export**: Raw template data structure
-- **MJML Export**: Email-ready markup (coming soon)
-
-## 🔧 Configuration
-
-### Tailwind CSS
-Custom colors and components are defined in `tailwind.config.js`:
-
-```javascript
-theme: {
-  extend: {
-    colors: {
-      primary: {
-        50: '#eff6ff',
-        500: '#3b82f6',
-        600: '#2563eb',
-        700: '#1d4ed8',
-      }
-    }
-  }
-}
-```
-
-### Component Types
-Add new component types in `src/types/index.ts`:
-
-```typescript
-export type ComponentType = 
-  | 'header'
-  | 'text'
-  | 'image'
-  | 'button'
-  | 'divider'
-  | 'columns'
-  | 'footer'
-  | 'spacer'
-  | 'your-new-component'; // Add here
-```
-
-## 📦 Building for Production
-
-### Create Package
+### **Installation**
 ```bash
-npm run build:package
+git clone <repository-url>
+cd email-template-builder
+npm install
 ```
 
-This creates a distributable package in the `dist/` folder.
+### **Start Development Server**
+```bash
+npm start
+```
 
-### Deploy
+### **Build for Production**
 ```bash
 npm run build
 ```
 
-The production build is created in the `build/` folder.
+### **Build Package**
+```bash
+npm run build:package
+```
 
-## 🤝 Contributing
+## 🎯 **Use Cases**
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+This builder is perfect for:
+- **Email Marketing**: Campaign templates
+- **Newsletters**: Corporate communications
+- **Marketing Automation**: Automated email sequences
+- **Design Teams**: Visual email creation
+- **Content Creators**: Professional email templates
 
-## 📄 License
+## 🎉 **Benefits**
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+1. **No Branding Conflicts** - Integrate seamlessly into your app
+2. **Flexible Layout** - Build your own UI around the components
+3. **Professional Look** - Looks like a proper component library
+4. **Easy Integration** - Simple hooks for all functionality
+5. **Customizable** - Adapt to your design system
+6. **Headerless Design** - Perfect for package distribution
 
-## 🆘 Support
+## 📦 **Package Exports**
 
-- **Issues**: Create an issue on GitHub
-- **Documentation**: Check the README and code comments
-- **Community**: Join our discussions
+```typescript
+// Main component (headerless)
+export { default as EmailTemplateBuilder } from './components/EmailTemplateBuilder';
 
-## 🔮 Roadmap
+// Custom hooks
+export { useEmailTemplateBuilder } from './hooks/useEmailTemplateBuilder';
+export { useEmailExport } from './hooks/useEmailExport';
+export { useEmailTemplateManager } from './hooks/useEmailTemplateManager';
 
-- [ ] MJML Integration
-- [ ] Template Gallery
-- [ ] Advanced Styling Options
-- [ ] Component Nesting
-- [ ] Real-time Collaboration
-- [ ] Email Preview Testing
-- [ ] Template Analytics
-- [ ] API Integration
+// Individual components
+export { Builder, ComponentLibrary, Inspector, Toolbar } from './components';
+
+// Utility functions
+export { exportEmailTemplate, generateMJML, convertMJMLToHTML } from './utils/mjmlExport';
+```
 
 ---
 
+**Ready to build professional email templates without the generic header!** 🚀
+
 Built with ❤️ using React, TypeScript, and Tailwind CSS
-# mailyon

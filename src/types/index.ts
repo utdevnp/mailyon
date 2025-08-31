@@ -14,7 +14,6 @@ export type ComponentType =
   | 'image'
   | 'button'
   | 'divider'
-  | 'columns'
   | 'footer'
   | 'spacer'
   | 'socialMedia';
@@ -76,12 +75,7 @@ export interface DividerProps {
   padding?: string;
 }
 
-export interface ColumnsProps {
-  columns: number;
-  gap?: string;
-  backgroundColor?: string;
-  padding?: string;
-}
+
 
 export interface FooterProps {
   companyName?: string;

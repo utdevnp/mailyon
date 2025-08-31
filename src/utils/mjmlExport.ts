@@ -124,24 +124,7 @@ export const generateMJML = (template: EmailTemplate): string => {
           </mj-section>
         `;
       
-      case 'columns':
-        return `
-          <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
-            ${Array.from({ length: props.columns || 2 }).map((_, index) => `
-              <mj-column width="${100 / (props.columns || 2)}%">
-                <mj-text 
-                  background-color="#f3f4f6"
-                  padding="20px"
-                  text-align="center"
-                  color="#6b7280"
-                  border-radius="8px"
-                >
-                  Column ${index + 1}
-                </mj-text>
-              </mj-column>
-            `).join('')}
-          </mj-section>
-        `;
+
       
       case 'spacer':
         return `

@@ -101,13 +101,7 @@ export const Builder: React.FC = () => {
           margin: '2px 2px',
           padding: '5px',
         };
-      case 'columns':
-        return {
-          columns: 2,
-          gap: '20px',
-          backgroundColor: 'transparent',
-          padding: '5px',
-        };
+
       case 'footer':
         return {
           companyName: 'Company Name',
@@ -294,28 +288,7 @@ export const Builder: React.FC = () => {
           </div>
         );
 
-      case 'columns':
-        return (
-          <div className="w-full py-4 px-6">
-            <div
-              className="grid gap-4"
-                          style={{
-              gridTemplateColumns: `repeat(${component.props.columns || 2}, 1fr)`,
-              gap: component.props.gap || '20px',
-              backgroundColor: component.props.backgroundColor || 'transparent',
-            }}
-            >
-              {Array.from({ length: component.props.columns || 2 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-100 rounded-lg p-4 text-center text-gray-500"
-                >
-                  Column {index + 1}
-                </div>
-              ))}
-            </div>
-          </div>
-        );
+
 
       case 'footer':
         return (

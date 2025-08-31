@@ -146,31 +146,7 @@ export const Preview: React.FC<PreviewProps> = ({
           </div>
         );
 
-      case 'columns':
-        return (
-          <div 
-            className="w-full"
-            style={{ padding: component.props.padding || '5px' }}
-          >
-            <div
-              className="grid gap-4"
-              style={{
-                gridTemplateColumns: `repeat(${component.props.columns || 2}, 1fr)`,
-                gap: component.props.gap || '20px',
-                backgroundColor: component.props.backgroundColor || '#ffffff',
-              }}
-            >
-              {Array.from({ length: component.props.columns || 2 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-100 rounded-lg p-4 text-center text-gray-500"
-                >
-                  Column {index + 1}
-                </div>
-              ))}
-            </div>
-          </div>
-        );
+
 
       case 'footer':
         return (

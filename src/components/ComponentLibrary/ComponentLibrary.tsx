@@ -1,11 +1,9 @@
 import React from 'react';
 import { ComponentsSection } from './ComponentsSection';
-import { ColumnsSection } from './ColumnsSection';
 
 export const ComponentLibrary: React.FC = () => {
   const [accordionState, setAccordionState] = React.useState({
     components: true,  // Open by default
-    columns: false     // Closed by default
   });
 
   const toggleAccordion = (key: keyof typeof accordionState) => {
@@ -21,11 +19,6 @@ export const ComponentLibrary: React.FC = () => {
         <ComponentsSection
           isExpanded={accordionState.components}
           onToggle={() => toggleAccordion('components')}
-        />
-        
-        <ColumnsSection
-          isExpanded={accordionState.columns}
-          onToggle={() => toggleAccordion('columns')}
         />
       </div>
     </div>
