@@ -191,7 +191,7 @@ export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
               padding: component.props.padding || '5px'
             }}
           >
-            <div className="text-center mb-4">
+            <div className={`mb-4 ${component.props.contentAlignment === 'left' ? 'text-left' : component.props.contentAlignment === 'right' ? 'text-right' : 'text-center'}`}>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 {component.props.companyName || 'Company Name'}
               </h3>
@@ -207,21 +207,33 @@ export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
             </div>
             
             {component.props.socialLinks && component.props.socialLinks.length > 0 && (
-              <div className="flex justify-center space-x-4 mb-4">
-                {component.props.socialLinks.map((link: { platform: string; url: string }, index: number) => (
+              <div className={`flex space-x-4 mb-4 ${component.props.contentAlignment === 'left' ? 'justify-start' : component.props.contentAlignment === 'right' ? 'justify-end' : 'justify-center'}`}>
+                {component.props.socialLinks.map((link: any, index: number) => (
                   <a
                     key={index}
                     href={link.url}
-                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    className="inline-flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    {link.platform}
+                    <img 
+                      src={link.imageUrl || '#'} 
+                      alt={link.title || link.platform || 'Social Link'} 
+                      className="w-5 h-5"
+                      style={{ 
+                        filter: (link.imageUrl && link.imageUrl.includes('simple-icons')) 
+                          ? `brightness(0) saturate(100%) invert(0.6) sepia(0) saturate(0) hue-rotate(0deg) brightness(0.8) contrast(1)` 
+                          : 'none'
+                      }}
+                    />
+                    <span className="text-sm font-medium">{link.title || link.platform || 'Social Link'}</span>
                   </a>
                 ))}
               </div>
             )}
             
             {component.props.unsubscribeText && (
-              <div className="text-center">
+              <div className={`${component.props.contentAlignment === 'left' ? 'text-left' : component.props.contentAlignment === 'right' ? 'text-right' : 'text-center'}`}>
                 <a
                   href="#"
                   className="text-sm text-gray-500 hover:text-gray-700 underline"
@@ -266,11 +278,13 @@ export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
                 const displayType = component.props.type || 'icon';
                 
                 return (
-                  <div
+                  <a
                     key={index}
+                    href={platform.url || '#'}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center transition-transform hover:scale-110"
                     style={{
-                      color: platform.color,
                       gap: displayType === 'iconText' ? '8px' : '0px'
                     }}
                   >
@@ -283,8 +297,8 @@ export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
                         }}
                       >
                         <img 
-                          src={platform.imageUrl} 
-                          alt={platform.title} 
+                          src={platform.imageUrl || '#'} 
+                          alt={platform.title || 'Social Platform'} 
                           className="w-full h-full"
                         />
                       </div>
@@ -296,10 +310,10 @@ export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
                         className="font-medium text-sm"
                         style={{ color: '#333333' }}
                       >
-                        {platform.title}
+                        {platform.title || 'Social Platform'}
                       </span>
                     )}
-                  </div>
+                  </a>
                 );
               })}
             </div>

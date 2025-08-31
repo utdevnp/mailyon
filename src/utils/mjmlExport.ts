@@ -153,6 +153,10 @@ export const generateMJML = (template: EmailTemplate): string => {
         `;
       
       case 'footer':
+        // Debug: Log footer alignment
+        console.log('🔍 Footer component alignment:', props.contentAlignment);
+        console.log('🔍 Footer props:', props);
+        
         return `
           <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
             <mj-column>
@@ -161,7 +165,7 @@ export const generateMJML = (template: EmailTemplate): string => {
                   font-size="18px" 
                   font-weight="bold" 
                   color="#333"
-                  text-align="center"
+                  align="${props.contentAlignment || 'center'}"
                   padding="0 0 15px 0"
                 >
                   ${props.companyName}
@@ -171,7 +175,7 @@ export const generateMJML = (template: EmailTemplate): string => {
                 <mj-text 
                   font-size="14px" 
                   color="#666"
-                  text-align="center"
+                  align="${props.contentAlignment || 'center'}"
                   padding="5px 0"
                 >
                   ${props.address}
@@ -181,7 +185,7 @@ export const generateMJML = (template: EmailTemplate): string => {
                 <mj-text 
                   font-size="14px" 
                   color="#666"
-                  text-align="center"
+                  align="${props.contentAlignment || 'center'}"
                   padding="5px 0"
                 >
                   ${props.phone}
@@ -191,7 +195,7 @@ export const generateMJML = (template: EmailTemplate): string => {
                 <mj-text 
                   font-size="14px" 
                   color="#666"
-                  text-align="center"
+                  align="${props.contentAlignment || 'center'}"
                   padding="5px 0"
                 >
                   ${props.email}
@@ -200,11 +204,14 @@ export const generateMJML = (template: EmailTemplate): string => {
               ${props.socialLinks && props.socialLinks.length > 0 ? `
                 <mj-text 
                   font-size="14px" 
-                  text-align="center"
+                  align="${props.contentAlignment || 'center'}"
                   padding="15px 0"
                 >
-                  ${props.socialLinks.map((link: { platform: string; url: string }) => 
-                    `<a href="${link.url}" style="margin: 0 10px; color: #3b82f6; text-decoration: none;">${link.platform}</a>`
+                  ${props.socialLinks.map((link: { title: string; imageUrl: string; url: string }) => 
+                    `<a href="${link.url}" style="margin: 0 10px; color: #3b82f6; text-decoration: none; display: inline-block; vertical-align: middle;">
+                      <img src="${link.imageUrl}" alt="${link.title}" width="16" height="16" style="display: inline-block; vertical-align: middle; margin-right: 5px;">
+                      ${link.title}
+                    </a>`
                   ).join('')}
                 </mj-text>
               ` : ''}
@@ -212,7 +219,7 @@ export const generateMJML = (template: EmailTemplate): string => {
                 <mj-text 
                   font-size="12px" 
                   color="#999"
-                  text-align="center"
+                  align="${props.contentAlignment || 'center'}"
                   padding="15px 0 0 0"
                 >
                   <a href="${props.unsubscribeUrl || '#'}" style="color: #999; text-decoration: none;">${props.unsubscribeText}</a>
@@ -231,14 +238,15 @@ export const generateMJML = (template: EmailTemplate): string => {
                 padding="0"
               >
                 ${props.platforms && props.platforms.map((platform: any) => `
-                  <div style="
+                  <a href="${platform.url || '#'}" style="
                     display: inline-block;
                     width: ${props.iconSize || '24px'}; 
                     height: ${props.iconSize || '24px'};
                     margin: 0 ${parseInt(props.spacing || '16px') / 2}px;
+                    text-decoration: none;
                   ">
-                    <img src="${platform.imageUrl}" alt="${platform.title}" width="${props.iconSize || '24px'}" height="${props.iconSize || '24px'}" style="display: inline-block; vertical-align: middle;">
-                  </div>
+                    <img src="${platform.imageUrl || '#'}" alt="${platform.title || 'Social Platform'}" width="${props.iconSize || '24px'}" height="${props.iconSize || '24px'}" style="display: inline-block; vertical-align: middle;">
+                  </a>
                 `).join('')}
               </mj-text>
             </mj-column>

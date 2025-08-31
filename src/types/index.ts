@@ -88,11 +88,12 @@ export interface FooterProps {
   address?: string;
   phone?: string;
   email?: string;
-  socialLinks?: Array<{ platform: string; url: string }>;
+  socialLinks?: Array<{ title: string; imageUrl: string; url: string }>;
   unsubscribeText?: string;
   unsubscribeUrl?: string;
   backgroundColor?: string;
   padding?: string;
+  contentAlignment?: 'left' | 'center' | 'right';
 }
 
 export interface SpacerProps {
@@ -102,8 +103,10 @@ export interface SpacerProps {
 
 export interface SocialMediaProps {
   platforms: Array<{
+    platform: string;
     title: string;
     imageUrl: string;
+    url: string;
   }>;
   alignment: 'horizontal' | 'vertical';
   type: 'icon' | 'text' | 'iconText';

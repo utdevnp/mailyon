@@ -115,14 +115,15 @@ export const Builder: React.FC = () => {
           phone: '+1 (555) 123-4567',
           email: 'info@company.com',
           socialLinks: [
-            { platform: 'Facebook', url: '#' },
-            { platform: 'Twitter', url: '#' },
-            { platform: 'LinkedIn', url: '#' },
+            { title: 'Facebook', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg', url: '#' },
+            { title: 'Twitter', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg', url: '#' },
+            { title: 'LinkedIn', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/linkedin.svg', url: '#' },
           ],
           unsubscribeText: 'Click here to unsubscribe',
           unsubscribeUrl: 'https://company.com/unsubscribe',
           backgroundColor: 'transparent',
           padding: '5px',
+          contentAlignment: 'center',
         };
       case 'spacer':
         return {
@@ -133,16 +134,22 @@ export const Builder: React.FC = () => {
         return {
           platforms: [
             { 
+              platform: 'Facebook',
               title: 'Facebook', 
-              imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg'
+              imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg',
+              url: '#'
             },
             { 
+              platform: 'Twitter',
               title: 'Twitter', 
-              imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg'
+              imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg',
+              url: '#'
             },
             { 
+              platform: 'Instagram',
               title: 'Instagram', 
-              imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/instagram.svg'
+              imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/instagram.svg',
+              url: '#'
             }
           ],
           alignment: 'horizontal',
@@ -316,7 +323,7 @@ export const Builder: React.FC = () => {
             className="w-full py-6 px-6"
             style={{ backgroundColor: component.props.backgroundColor || 'transparent' }}
           >
-            <div className="text-center mb-4">
+            <div className={`mb-4 ${component.props.contentAlignment === 'left' ? 'text-left' : component.props.contentAlignment === 'right' ? 'text-right' : 'text-center'}`}>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
                 {component.props.companyName || 'Company Name'}
               </h3>
@@ -332,21 +339,33 @@ export const Builder: React.FC = () => {
             </div>
             
             {component.props.socialLinks && component.props.socialLinks.length > 0 && (
-              <div className="flex justify-center space-x-4 mb-4">
+              <div className={`flex space-x-4 mb-4 ${component.props.contentAlignment === 'left' ? 'justify-start' : component.props.contentAlignment === 'right' ? 'justify-end' : 'justify-center'}`}>
                 {component.props.socialLinks.map((link: any, index: number) => (
                   <a
                     key={index}
                     href={link.url}
-                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    className="inline-flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    {link.platform}
+                    <img 
+                      src={link.imageUrl || '#'} 
+                      alt={link.title || link.platform || 'Social Link'} 
+                      className="w-5 h-5"
+                      style={{ 
+                        filter: (link.imageUrl && link.imageUrl.includes('simple-icons')) 
+                          ? `brightness(0) saturate(100%) invert(0.6) sepia(0) saturate(0) hue-rotate(0deg) brightness(0.8) contrast(1)` 
+                          : 'none'
+                      }}
+                    />
+                    <span className="text-sm font-medium">{link.title || link.platform || 'Social Link'}</span>
                   </a>
                 ))}
               </div>
             )}
             
             {component.props.unsubscribeText && (
-              <div className="text-center">
+              <div className={`${component.props.contentAlignment === 'left' ? 'text-left' : component.props.contentAlignment === 'right' ? 'text-right' : 'text-center'}`}>
                 <a
                   href="#"
                   className="text-sm text-gray-500 hover:text-gray-700 underline"

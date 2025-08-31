@@ -1171,6 +1171,20 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     />
                   </div>
                   <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Content Alignment
+                    </label>
+                    <select
+                      value={selectedComponent.props.contentAlignment || 'center'}
+                      onChange={(e) => handlePropertyChange('contentAlignment', e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    >
+                      <option value="left">Left</option>
+                      <option value="center">Center</option>
+                      <option value="right">Right</option>
+                    </select>
+                  </div>
+                  <div>
                     <ColorPicker
                       value={selectedComponent.props.backgroundColor || 'transparent'}
                       onChange={(color) => handlePropertyChange('backgroundColor', color)}
@@ -1262,7 +1276,47 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 <div className="p-3 border-t border-gray-200 space-y-3">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Facebook URL
+                      Facebook Title
+                    </label>
+                    <input
+                      type="text"
+                      value={selectedComponent.props.socialLinks?.[0]?.title || ''}
+                      onChange={(e) => {
+                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                        if (newSocialLinks[0]) {
+                          newSocialLinks[0] = { ...newSocialLinks[0], title: e.target.value };
+                        } else {
+                          newSocialLinks.push({ title: 'Facebook', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg', url: '#' });
+                        }
+                        handlePropertyChange('socialLinks', newSocialLinks);
+                      }}
+                      className="input-field"
+                      placeholder="Facebook"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Facebook Icon URL
+                    </label>
+                    <input
+                      type="text"
+                      value={selectedComponent.props.socialLinks?.[0]?.imageUrl || ''}
+                      onChange={(e) => {
+                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                        if (newSocialLinks[0]) {
+                          newSocialLinks[0] = { ...newSocialLinks[0], imageUrl: e.target.value };
+                        } else {
+                          newSocialLinks.push({ title: 'Facebook', imageUrl: e.target.value, url: '#' });
+                        }
+                        handlePropertyChange('socialLinks', newSocialLinks);
+                      }}
+                      className="input-field"
+                      placeholder="https://example.com/facebook-icon.svg"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Facebook Profile URL
                     </label>
                     <input
                       type="text"
@@ -1270,9 +1324,9 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                       onChange={(e) => {
                         const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
                         if (newSocialLinks[0]) {
-                          newSocialLinks[0] = { platform: 'Facebook', url: e.target.value };
+                          newSocialLinks[0] = { ...newSocialLinks[0], url: e.target.value };
                         } else {
-                          newSocialLinks.push({ platform: 'Facebook', url: e.target.value });
+                          newSocialLinks.push({ title: 'Facebook', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg', url: e.target.value });
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
@@ -1280,9 +1334,50 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                       placeholder="https://facebook.com/company"
                     />
                   </div>
+                  
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Twitter URL
+                      Twitter Title
+                    </label>
+                    <input
+                      type="text"
+                      value={selectedComponent.props.socialLinks?.[1]?.title || ''}
+                      onChange={(e) => {
+                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                        if (newSocialLinks[1]) {
+                          newSocialLinks[1] = { ...newSocialLinks[1], title: e.target.value };
+                        } else {
+                          newSocialLinks.push({ title: 'Twitter', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg', url: '#' });
+                        }
+                        handlePropertyChange('socialLinks', newSocialLinks);
+                      }}
+                      className="input-field"
+                      placeholder="Twitter"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Twitter Icon URL
+                    </label>
+                    <input
+                      type="text"
+                      value={selectedComponent.props.socialLinks?.[1]?.imageUrl || ''}
+                      onChange={(e) => {
+                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                        if (newSocialLinks[1]) {
+                          newSocialLinks[1] = { ...newSocialLinks[1], imageUrl: e.target.value };
+                        } else {
+                          newSocialLinks.push({ title: 'Twitter', imageUrl: e.target.value, url: '#' });
+                        }
+                        handlePropertyChange('socialLinks', newSocialLinks);
+                      }}
+                      className="input-field"
+                      placeholder="https://example.com/twitter-icon.svg"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Twitter Profile URL
                     </label>
                     <input
                       type="text"
@@ -1290,9 +1385,9 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                       onChange={(e) => {
                         const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
                         if (newSocialLinks[1]) {
-                          newSocialLinks[1] = { platform: 'Twitter', url: e.target.value };
+                          newSocialLinks[1] = { ...newSocialLinks[1], url: e.target.value };
                         } else {
-                          newSocialLinks.push({ platform: 'Twitter', url: e.target.value });
+                          newSocialLinks.push({ title: 'Twitter', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg', url: e.target.value });
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
@@ -1300,19 +1395,60 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                       placeholder="https://twitter.com/company"
                     />
                   </div>
+                  
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      LinkedIn URL
+                      LinkedIn Title
+                    </label>
+                    <input
+                      type="text"
+                      value={selectedComponent.props.socialLinks?.[2]?.title || ''}
+                      onChange={(e) => {
+                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                        if (newSocialLinks[2]) {
+                          newSocialLinks[2] = { ...newSocialLinks[2], title: e.target.value };
+                        } else {
+                          newSocialLinks.push({ title: 'LinkedIn', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/linkedin.svg', url: '#' });
+                        }
+                        handlePropertyChange('socialLinks', newSocialLinks);
+                      }}
+                      className="input-field"
+                      placeholder="LinkedIn"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      LinkedIn Icon URL
+                    </label>
+                    <input
+                      type="text"
+                      value={selectedComponent.props.socialLinks?.[2]?.imageUrl || ''}
+                      onChange={(e) => {
+                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                        if (newSocialLinks[2]) {
+                          newSocialLinks[2] = { ...newSocialLinks[2], imageUrl: e.target.value };
+                        } else {
+                          newSocialLinks.push({ title: 'LinkedIn', imageUrl: e.target.value, url: '#' });
+                        }
+                        handlePropertyChange('socialLinks', newSocialLinks);
+                      }}
+                      className="input-field"
+                      placeholder="https://example.com/linkedin-icon.svg"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      LinkedIn Profile URL
                     </label>
                     <input
                       type="text"
                       value={selectedComponent.props.socialLinks?.[2]?.url || ''}
                       onChange={(e) => {
                         const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[1]) {
-                          newSocialLinks[2] = { platform: 'LinkedIn', url: e.target.value };
+                        if (newSocialLinks[2]) {
+                          newSocialLinks[2] = { ...newSocialLinks[2], url: e.target.value };
                         } else {
-                          newSocialLinks.push({ platform: 'LinkedIn', url: e.target.value });
+                          newSocialLinks.push({ title: 'LinkedIn', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/linkedin.svg', url: e.target.value });
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
@@ -1493,8 +1629,10 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 <button
                   onClick={() => {
                     const newPlatform = {
+                      platform: 'Facebook',
                       title: 'Facebook',
-                      imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg'
+                      imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg',
+                      url: '#'
                     };
                     const currentPlatforms = selectedComponent.props.platforms || [];
                     handlePropertyChange('platforms', [...currentPlatforms, newPlatform]);
@@ -1558,6 +1696,23 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                           placeholder="https://example.com/icon.svg"
                         />
                       </div>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">
+                        Profile URL
+                      </label>
+                      <input
+                        type="text"
+                        value={platform.url || ''}
+                        onChange={(e) => {
+                          const currentPlatforms = [...(selectedComponent.props.platforms || [])];
+                          currentPlatforms[index] = { ...platform, url: e.target.value };
+                          handlePropertyChange('platforms', currentPlatforms);
+                        }}
+                        className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
+                        placeholder="https://facebook.com/company"
+                      />
                     </div>
                   </div>
                 ))}
