@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>MJML Header Test</title>
+    <style>
+        body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
+        .test-container { max-width: 600px; margin: 0 auto; }
+        .mjml-output { background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .html-output { background: #e8f5e8; padding: 20px; margin: 20px 0; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>MJML Header Component Test</h1>
+        
+        <h2>Expected Preview (Center Aligned):</h2>
+        <div style="background-color: #1f2937; padding: 30px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">
+                Company Newsletter
+            </h1>
+            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 16px;">
+                Stay updated with our latest news
+            </p>
+        </div>
+        
+        <h2>MJML Source:</h2>
+        <div class="mjml-output">
+            <pre><code>&lt;mj-section padding="30px" background-color="#1f2937"&gt;
+  &lt;mj-column&gt;
+    &lt;mj-text 
+      font-size="24px" 
+      font-weight="bold" 
+      color="#ffffff"
+      text-align="center"
+      padding="0"
+      line-height="1.2"
+    &gt;
+      Company Newsletter
+    &lt;/mj-text&gt;
+    &lt;mj-text 
+      font-size="16px" 
+      color="#ffffff"
+      text-align="center"
+      padding="10px 0 0 0"
+      line-height="1.4"
+    &gt;
+      Stay updated with our latest news
+    &lt;/mj-text&gt;
+  &lt;/mj-column&gt;
+&lt;/mj-section&gt;</code></pre>
+        </div>
+        
+        <h2>Generated HTML (Check if center aligned):</h2>
+        <div class="html-output">
+            <p><strong>Paste the generated HTML here to test alignment:</strong></p>
+            <textarea id="htmlInput" rows="10" cols="80" placeholder="Paste the exported HTML here..."></textarea>
+            <br><br>
+            <button onclick="testHTML()">Test HTML Alignment</button>
+        </div>
+        
+        <div id="htmlPreview"></div>
+    </div>
+
+    <script>
+        function testHTML() {
+            const htmlInput = document.getElementById('htmlInput').value;
+            const preview = document.getElementById('htmlPreview');
+            
+            if (htmlInput.trim()) {
+                preview.innerHTML = '<h3>HTML Preview:</h3>' + htmlInput;
+                
+                // Check for alignment issues
+                const hasCenterAlign = htmlInput.includes('text-align: center') || 
+                                     htmlInput.includes('text-align:center') ||
+                                     htmlInput.includes('align="center"');
+                
+                const hasLeftAlign = htmlInput.includes('text-align: left') || 
+                                   htmlInput.includes('text-align:left') ||
+                                   htmlInput.includes('align="left"');
+                
+                let analysis = '<h4>Alignment Analysis:</h4><ul>';
+                analysis += hasCenterAlign ? '<li>✅ Center alignment found</li>' : '<li>❌ Center alignment NOT found</li>';
+                analysis += hasLeftAlign ? '<li>⚠️ Left alignment found (may override center)</li>' : '<li>✅ No left alignment found</li>';
+                analysis += '</ul>';
+                
+                preview.innerHTML += analysis;
+            }
+        }
+    </script>
+</body>
+</html>

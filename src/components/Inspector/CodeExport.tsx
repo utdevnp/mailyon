@@ -35,6 +35,7 @@ export const CodeExport: React.FC<CodeExportProps> = ({
         isExpanded={codeAccordions.json}
         onToggle={() => toggleAccordion('json')}
         onCopy={() => copyToClipboard(exportJSON(), 'JSON')}
+        description="Raw template data structure for developers and API integration"
       />
 
       <ExportSection
@@ -43,6 +44,7 @@ export const CodeExport: React.FC<CodeExportProps> = ({
         isExpanded={codeAccordions.mjml}
         onToggle={() => toggleAccordion('mjml')}
         onCopy={() => copyToClipboard(exportMJML(), 'MJML')}
+        description="MJML markup for customization and advanced editing"
       />
 
       <ExportSection
@@ -51,6 +53,7 @@ export const CodeExport: React.FC<CodeExportProps> = ({
         isExpanded={codeAccordions.html}
         onToggle={() => toggleAccordion('html')}
         onCopy={() => copyToClipboard(generateHTML(), 'HTML')}
+        description="Ready-to-use HTML that matches the preview exactly"
       />
     </div>
   );

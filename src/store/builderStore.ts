@@ -268,9 +268,14 @@ export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) 
   },
 
   exportMJML: () => {
-    // This will be implemented later with MJML integration
     const { template } = get();
-    return `<!-- MJML export for template: ${template.name} -->`;
+    try {
+      const { generateMJML } = require('../utils/mjmlExport');
+      return generateMJML(template);
+    } catch (error) {
+      console.error('MJML export error:', error);
+      return `<!-- MJML export for template: ${template.name} -->`;
+    }
   },
 
   updateTemplateSettings: (settings: Partial<EmailTemplate['settings']>) => {

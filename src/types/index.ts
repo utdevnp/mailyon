@@ -102,9 +102,8 @@ export interface SpacerProps {
 
 export interface SocialMediaProps {
   platforms: Array<{
-    platform: string;
-    url: string;
-    color: string;
+    title: string;
+    imageUrl: string;
   }>;
   alignment: 'horizontal' | 'vertical';
   type: 'icon' | 'text' | 'iconText';

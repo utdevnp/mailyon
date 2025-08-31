@@ -6,6 +6,7 @@ interface ExportSectionProps {
   isExpanded: boolean;
   onToggle: () => void;
   onCopy: () => void;
+  description?: string;
 }
 
 export const ExportSection: React.FC<ExportSectionProps> = ({
@@ -13,7 +14,8 @@ export const ExportSection: React.FC<ExportSectionProps> = ({
   content,
   isExpanded,
   onToggle,
-  onCopy
+  onCopy,
+  description
 }) => {
   return (
     <div className="card p-4">
@@ -21,7 +23,12 @@ export const ExportSection: React.FC<ExportSectionProps> = ({
         onClick={onToggle}
         className="flex items-center justify-between w-full text-left mb-3"
       >
-        <h3 className="text-sm font-medium text-gray-700">{title}</h3>
+        <div>
+          <h3 className="text-sm font-medium text-gray-700">{title}</h3>
+          {description && (
+            <p className="text-xs text-gray-500 mt-1">{description}</p>
+          )}
+        </div>
         <svg
           className={`w-4 h-4 text-gray-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
           fill="none"

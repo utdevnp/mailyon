@@ -75,8 +75,8 @@ export const Builder: React.FC = () => {
         return {
           src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=300&fit=crop&crop=center',
           alt: 'Professional business image - perfect for your email content',
-          width: '100%',
-          height: 'auto',
+          width: '600px',
+          height: '300px',
           align: 'center',
           borderRadius: '0px',
           imageVisible: true,
@@ -132,9 +132,18 @@ export const Builder: React.FC = () => {
       case 'socialMedia':
         return {
           platforms: [
-            { platform: 'Facebook', url: '#', color: '#1877f2' },
-            { platform: 'Twitter', url: '#', color: '#1da1f2' },
-            { platform: 'Instagram', url: '#', color: '#e4405f' }
+            { 
+              title: 'Facebook', 
+              imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg'
+            },
+            { 
+              title: 'Twitter', 
+              imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg'
+            },
+            { 
+              title: 'Instagram', 
+              imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/instagram.svg'
+            }
           ],
           alignment: 'horizontal',
           type: 'icon',

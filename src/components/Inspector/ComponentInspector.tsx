@@ -1493,9 +1493,8 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 <button
                   onClick={() => {
                     const newPlatform = {
-                      platform: 'Facebook',
-                      url: '#',
-                      color: '#6b7280'
+                      title: 'Facebook',
+                      imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg'
                     };
                     const currentPlatforms = selectedComponent.props.platforms || [];
                     handlePropertyChange('platforms', [...currentPlatforms, newPlatform]);
@@ -1529,59 +1528,36 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     <div className="grid grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-600 mb-1">
-                          Platform Name
+                          Title
                         </label>
-                        <select
-                          value={platform.platform}
+                        <input
+                          type="text"
+                          value={platform.title}
                           onChange={(e) => {
                             const currentPlatforms = [...(selectedComponent.props.platforms || [])];
-                            currentPlatforms[index] = { ...platform, platform: e.target.value };
+                            currentPlatforms[index] = { ...platform, title: e.target.value };
                             handlePropertyChange('platforms', currentPlatforms);
                           }}
                           className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                        >
-                          <option value="Facebook">Facebook</option>
-                          <option value="Twitter">Twitter</option>
-                          <option value="Instagram">Instagram</option>
-                          <option value="LinkedIn">LinkedIn</option>
-                          <option value="YouTube">YouTube</option>
-                          <option value="TikTok">TikTok</option>
-                          <option value="Pinterest">Pinterest</option>
-                          <option value="Snapchat">Snapchat</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-xs font-medium text-gray-700 mb-1">
-                          Color
-                        </label>
-                        <ColorPicker
-                          value={platform.color}
-                          onChange={(color) => {
-                            const currentPlatforms = [...(selectedComponent.props.platforms || [])];
-                            currentPlatforms[index] = { ...platform, color };
-                            handlePropertyChange('platforms', currentPlatforms);
-                          }}
-                          label=""
-                          placeholder=""
+                          placeholder="Facebook, Twitter, etc."
                         />
                       </div>
-                    </div>
-                    
-                    <div>
-                      <label className="block text-xs font-medium text-gray-600 mb-1">
-                        URL
-                      </label>
-                      <input
-                        type="text"
-                        value={platform.url}
-                        onChange={(e) => {
-                          const currentPlatforms = [...(selectedComponent.props.platforms || [])];
-                          currentPlatforms[index] = { ...platform, url: e.target.value };
-                          handlePropertyChange('platforms', currentPlatforms);
-                        }}
-                        className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                        placeholder="https://example.com"
-                      />
+                      <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">
+                          Icon Image URL
+                        </label>
+                        <input
+                          type="text"
+                          value={platform.imageUrl}
+                          onChange={(e) => {
+                            const currentPlatforms = [...(selectedComponent.props.platforms || [])];
+                            currentPlatforms[index] = { ...platform, imageUrl: e.target.value };
+                            handlePropertyChange('platforms', currentPlatforms);
+                          }}
+                          className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
+                          placeholder="https://example.com/icon.svg"
+                        />
+                      </div>
                     </div>
                   </div>
                 ))}
