@@ -1,7 +1,7 @@
 {
-  "name": "email-template-builder",
+  "name": "mailyon",
   "version": "1.0.0",
-  "description": "A complete email template builder with drag & drop interface, JSON structure, and MJML integration",
+  "description": "A professional, headerless email template builder built with React, TypeScript, and modern web technologies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -20,18 +20,20 @@
     "react",
     "typescript",
     "drag-and-drop",
-    "email-marketing"
+    "email-marketing",
+    "headerless",
+    "mailyon"
   ],
-  "author": "",
+  "author": "utdevnp",
   "license": "MIT",
   "peerDependencies": {
     "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react-dom": ">=16.8.0",
+    "react-dnd": ">=14.0.0",
+    "react-dnd-html5-backend": ">=14.0.0"
   },
   "dependencies": {
-    "zustand": "^4.4.0",
-    "react-dnd": "^14.0.5",
-    "react-dnd-html5-backend": "^14.1.0"
+    "zustand": "^4.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
@@ -40,10 +42,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/email-template-builder.git"
+    "url": "https://github.com/utdevnp/mailyon.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/email-template-builder/issues"
+    "url": "https://github.com/utdevnp/mailyon/issues"
   },
-  "homepage": "https://github.com/yourusername/email-template-builder#readme"
+  "homepage": "https://github.com/utdevnp/mailyon#readme"
 }

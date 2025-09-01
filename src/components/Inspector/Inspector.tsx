@@ -39,17 +39,16 @@ export const Inspector: React.FC = () => {
 
   // Tab content for Template & Inspector
   const renderTemplateAndInspector = () => (
-    <div className="space-y-4">
+    <div className="space-y-2">
       <TemplateSettings 
         template={template}
         updateTemplateSettings={updateTemplateSettings}
       />
       
-      <div className="card p-4">
-        <h3 className="text-sm font-medium text-gray-700 mb-3">Inspector</h3>
-        <div className="mt-4">
+      <div className="card p-2">
+        <div>
           {!selectedComponent ? (
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-xs">
               Select a component to edit its properties
             </p>
           ) : (
@@ -67,28 +66,28 @@ export const Inspector: React.FC = () => {
 
   // Main render function with tabs
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {/* Tab Navigation */}
       <div className="flex border-b border-gray-200">
         <button
           onClick={() => setActiveTab('template')}
-          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+          className={`px-3 py-1.5 text-sm font-medium border-b-2 transition-colors bg-white ${
             activeTab === 'template'
               ? 'border-blue-500 text-blue-600'
               : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
           }`}
         >
-          Template & Inspector
+          Inspector
         </button>
         <button
           onClick={() => setActiveTab('code')}
-          className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
+          className={`px-3 py-1.5 text-sm font-medium border-b-2 transition-colors bg-white ${
             activeTab === 'code'
               ? 'border-blue-500 text-blue-600'
               : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
           }`}
         >
-          Code Export
+          Export
         </button>
       </div>
 

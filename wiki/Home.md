@@ -1,64 +1,60 @@
-# 🎯 Email Template Builder - Wiki
+# Mailyon - Email Template Builder
 
-Welcome to the **Email Template Builder** documentation! This is a complete, professional email template builder built with React, TypeScript, and modern web technologies.
+Build professional email templates with a powerful, headerless React component. Perfect for email marketing, newsletters, and automated campaigns.
 
-## 🚀 **Quick Start**
+## Quick Start
 
-### **Installation**
+### Installation
 ```bash
-npm install email-template-builder
+npm install mailyon
 ```
 
-### **Basic Usage**
+### Basic Usage
 ```tsx
-import { EmailTemplateBuilder } from 'email-template-builder';
+import { EmailTemplateBuilder } from 'mailyon';
 
 function MyApp() {
   return (
     <div>
-      <h1>My Email App</h1>
+      <h1>My Email Marketing Platform</h1>
       <EmailTemplateBuilder />
     </div>
   );
 }
 ```
 
-## 📚 **Documentation Sections**
+## What You Can Build
 
-- **[Getting Started](Getting-Started)** - Installation and basic setup
+- **Email Marketing Campaigns** - Professional promotional emails
+- **Newsletters** - Corporate and personal newsletters  
+- **Transactional Emails** - Order confirmations, receipts, notifications
+- **Welcome Series** - Onboarding email sequences
+- **Event Invitations** - Beautiful event and meeting invites
+
+## Key Benefits
+
+- **No Generic Headers** - Seamlessly integrates into your app
+- **Drag & Drop Interface** - Visual email building
+- **Real-time Preview** - See changes instantly
+- **Export Ready** - Get HTML, JSON, or MJML output
+- **Mobile Responsive** - Works on all devices
+- **Email Client Compatible** - Tested across major email clients
+
+## Documentation
+
+- **[Getting Started](Getting-Started)** - Setup and installation
 - **[Components](Components)** - Available email components
-- **[Hooks](Hooks)** - Custom React hooks for functionality
-- **[Integration](Integration)** - How to integrate into your app
-- **[Export](Export)** - Template export options
-- **[Examples](Examples)** - Code examples and use cases
-- **[API Reference](API-Reference)** - Complete API documentation
+- **[Hooks](Hooks)** - Programmatic control
+- **[Examples](Examples)** - Real-world implementations
+- **[Integration Guide](Integration)** - Custom layouts and styling
 
-## ✨ **Key Features**
+## Resources
 
-- **Headerless Design** - Seamless integration into your app
-- **8 Pre-built Components** - All fully functional and customizable
-- **Custom React Hooks** - Easy access to all functionality
-- **Real-time Preview** - See changes as you build
-- **Export Options** - HTML, JSON, and MJML formats
-- **Template Management** - Save, load, and validate templates
-
-## 🎯 **Perfect For**
-
-- **Email Marketing** campaigns
-- **Newsletters** and corporate communications
-- **Marketing Automation** sequences
-- **Design Teams** creating email templates
-- **Content Creators** building professional emails
-
-## 🔗 **Quick Links**
-
-- **[GitHub Repository](https://github.com/utdevnp/mailyon)**
-- **[NPM Package](https://www.npmjs.com/package/mailyon)**
-- **[Live Demo](https://utdevnp.github.io/mailyon/)**
-- **[Issues & Support](https://github.com/utdevnp/mailyon/issues)**
+- **[Live Demo](https://utdevnp.github.io/mailyon/)** - Try it out
+- **[GitHub Repository](https://github.com/utdevnp/mailyon)** - Source code
+- **[NPM Package](https://www.npmjs.com/package/mailyon)** - Install
+- **[Issues & Support](https://github.com/utdevnp/mailyon/issues)** - Get help
 
 ---
 
-**Ready to build professional email templates without the generic header!** 🚀
-
-Built with ❤️ using React, TypeScript, and Tailwind CSS
+**Start building professional emails in minutes, not hours.**

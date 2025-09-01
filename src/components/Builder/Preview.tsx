@@ -155,16 +155,28 @@ export const Preview: React.FC<PreviewProps> = ({
             style={{ padding: component.props.padding || '5px' }}
           >
             <div className="text-center mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 
+                className="text-lg font-semibold mb-2"
+                style={{ color: component.props.companyNameColor || '#111827' }}
+              >
                 {component.props.companyName || 'Company Name'}
               </h3>
-              <p className="text-gray-600 text-sm mb-2">
+              <p 
+                className="text-sm mb-2"
+                style={{ color: component.props.contactTextColor || '#6b7280' }}
+              >
                 {component.props.address || '123 Main St, City, State 12345'}
               </p>
-              <p className="text-gray-600 text-sm mb-2">
+              <p 
+                className="text-sm mb-2"
+                style={{ color: component.props.contactTextColor || '#6b7280' }}
+              >
                 {component.props.phone || '+1 (555) 123-4567'}
               </p>
-              <p className="text-gray-600 text-sm mb-4">
+              <p 
+                className="text-sm mb-4"
+                style={{ color: component.props.contactTextColor || '#6b7280' }}
+              >
                 {component.props.email || 'info@company.com'}
               </p>
             </div>
@@ -175,7 +187,8 @@ export const Preview: React.FC<PreviewProps> = ({
                   <a
                     key={index}
                     href={link.url}
-                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    className="hover:opacity-80 transition-colors"
+                    style={{ color: component.props.socialTextColor || '#6b7280' }}
                   >
                     {link.platform}
                   </a>
@@ -187,7 +200,8 @@ export const Preview: React.FC<PreviewProps> = ({
               <div className="text-center">
                 <a
                   href="#"
-                  className="text-sm text-gray-500 hover:text-gray-700 underline"
+                  className="text-sm underline hover:opacity-80"
+                  style={{ color: component.props.unsubscribeTextColor || '#9ca3af' }}
                 >
                   {component.props.unsubscribeText}
                 </a>

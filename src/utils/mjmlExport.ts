@@ -147,7 +147,7 @@ export const generateMJML = (template: EmailTemplate): string => {
                 <mj-text 
                   font-size="18px" 
                   font-weight="bold" 
-                  color="#333"
+                  color="${props.companyNameColor || '#111827'}"
                   align="${props.contentAlignment || 'center'}"
                   padding="0 0 15px 0"
                 >
@@ -157,7 +157,7 @@ export const generateMJML = (template: EmailTemplate): string => {
               ${props.address ? `
                 <mj-text 
                   font-size="14px" 
-                  color="#666"
+                  color="${props.contactTextColor || '#6b7280'}"
                   align="${props.contentAlignment || 'center'}"
                   padding="5px 0"
                 >
@@ -167,7 +167,7 @@ export const generateMJML = (template: EmailTemplate): string => {
               ${props.phone ? `
                 <mj-text 
                   font-size="14px" 
-                  color="#666"
+                  color="${props.contactTextColor || '#6b7280'}"
                   align="${props.contentAlignment || 'center'}"
                   padding="5px 0"
                 >
@@ -177,7 +177,7 @@ export const generateMJML = (template: EmailTemplate): string => {
               ${props.email ? `
                 <mj-text 
                   font-size="14px" 
-                  color="#666"
+                  color="${props.contactTextColor || '#6b7280'}"
                   align="${props.contentAlignment || 'center'}"
                   padding="5px 0"
                 >
@@ -191,7 +191,7 @@ export const generateMJML = (template: EmailTemplate): string => {
                   padding="15px 0"
                 >
                   ${props.socialLinks.map((link: { title: string; imageUrl: string; url: string }) => 
-                    `<a href="${link.url}" style="margin: 0 10px; color: #3b82f6; text-decoration: none; display: inline-block; vertical-align: middle;">
+                    `<a href="${link.url}" style="margin: 0 10px; color: ${props.socialTextColor || '#6b7280'}; text-decoration: none; display: inline-block; vertical-align: middle;">
                       <img src="${link.imageUrl}" alt="${link.title}" width="16" height="16" style="display: inline-block; vertical-align: middle; margin-right: 5px;">
                       ${link.title}
                     </a>`
@@ -201,11 +201,11 @@ export const generateMJML = (template: EmailTemplate): string => {
               ${props.unsubscribeText ? `
                 <mj-text 
                   font-size="12px" 
-                  color="#999"
+                  color="${props.unsubscribeTextColor || '#9ca3af'}"
                   align="${props.contentAlignment || 'center'}"
                   padding="15px 0 0 0"
                 >
-                  <a href="${props.unsubscribeUrl || '#'}" style="color: #999; text-decoration: none;">${props.unsubscribeText}</a>
+                  <a href="${props.unsubscribeUrl || '#'}" style="color: ${props.unsubscribeTextColor || '#9ca3af'}; text-decoration: none;">${props.unsubscribeText}</a>
                 </mj-text>
               ` : ''}
             </mj-column>

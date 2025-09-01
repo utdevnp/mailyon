@@ -1,115 +1,212 @@
-# 🚀 Getting Started
+# Getting Started
 
-## 📋 Prerequisites
+Get up and running with Mailyon in minutes. This guide will help you integrate the email template builder into your React application.
 
-Before you begin, make sure you have:
+## Prerequisites
 
-- **Node.js** 16+ installed
-- **npm** or **yarn** package manager
-- **React** 16.8+ in your project (for hooks support)
+- **React 16.8+** (for hooks support)
+- **Node.js 16+**
+- **Tailwind CSS** (for styling)
 
-## 📦 Installation
+## Installation
 
-### **Install the Package**
+### 1. Install Mailyon
 ```bash
-npm install email-template-builder
+npm install mailyon
 ```
 
-### **Install Peer Dependencies**
-The package requires these peer dependencies:
+### 2. Install Peer Dependencies
 ```bash
-npm install react react-dom react-dnd react-dnd-html5-backend
+npm install react-dnd react-dnd-html5-backend
 ```
 
-## 🎯 Quick Start
+### 3. Setup Tailwind CSS
+```bash
+npm install tailwindcss
+```
 
-### **1. Basic Integration**
+Add to your CSS file:
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## Basic Integration
+
+### Simple Integration
 ```tsx
-import { EmailTemplateBuilder } from 'email-template-builder';
+import { EmailTemplateBuilder } from 'mailyon';
 
-function MyApp() {
+function MyEmailApp() {
   return (
-    <div>
-      <h1>My Email App</h1>
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <h1 className="text-2xl font-bold">My Email Platform</h1>
+        </div>
+      </header>
+      
       <EmailTemplateBuilder />
     </div>
   );
 }
 ```
 
-### **2. Using Custom Hooks**
+### With Custom Controls
 ```tsx
-import { useEmailTemplateBuilder, useEmailExport } from 'email-template-builder';
+import { EmailTemplateBuilder, useEmailExport } from 'mailyon';
 
-function MyComponent() {
-  const { template, addComponent } = useEmailTemplateBuilder();
-  const { exportAsHTML } = useEmailExport();
-  
+function EmailBuilderWithControls() {
+  const { exportAsHTML, downloadHTML } = useEmailExport();
+
   const handleExport = () => {
     const html = exportAsHTML();
     console.log('Generated HTML:', html);
   };
-  
+
+  const handleDownload = () => {
+    downloadHTML('my-email-template.html');
+  };
+
   return (
     <div>
-      <p>Components: {template.components.length}</p>
-      <button onClick={handleExport}>Export HTML</button>
+      <div className="bg-white shadow-sm border-b p-4">
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-semibold">Email Builder</h1>
+          <div className="space-x-3">
+            <button 
+              onClick={handleExport}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Export HTML
+            </button>
+            <button 
+              onClick={handleDownload}
+              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+            >
+              Download
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <EmailTemplateBuilder />
     </div>
   );
 }
 ```
 
-## 🔧 Setup Requirements
+## Common Use Cases
 
-### **Tailwind CSS**
-The package uses Tailwind CSS for styling. Make sure you have Tailwind configured in your project:
+### Email Marketing Platform
+```tsx
+function MarketingPlatform() {
+  const [campaigns, setCampaigns] = useState([]);
+  const { exportAsHTML } = useEmailExport();
 
-```bash
-npm install tailwindcss
+  const saveCampaign = async () => {
+    const html = exportAsHTML();
+    // Save to your backend
+    await fetch('/api/campaigns', {
+      method: 'POST',
+      body: JSON.stringify({ html, name: 'New Campaign' })
+    });
+  };
+
+  return (
+    <div>
+      <EmailTemplateBuilder />
+      <button onClick={saveCampaign}>Save Campaign</button>
+    </div>
+  );
+}
 ```
 
-```css
-/* In your CSS file */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+### Newsletter Builder
+```tsx
+function NewsletterBuilder() {
+  const { template, createNewTemplate } = useEmailTemplateManager();
+
+  const startNewsletter = () => {
+    createNewTemplate('Weekly Newsletter');
+  };
+
+  return (
+    <div>
+      <div className="p-4 bg-white border-b">
+        <button 
+          onClick={startNewsletter}
+          className="px-4 py-2 bg-purple-600 text-white rounded"
+        >
+          New Newsletter
+        </button>
+      </div>
+      <EmailTemplateBuilder />
+    </div>
+  );
+}
 ```
 
-### **TypeScript (Recommended)**
-For the best development experience, use TypeScript:
+## Styling & Customization
 
-```bash
-npm install --save-dev typescript @types/react @types/react-dom
+### Custom Styling
+```tsx
+<EmailTemplateBuilder 
+  className="my-custom-builder"
+  style={{ 
+    backgroundColor: '#f8f9fa',
+    borderRadius: '12px'
+  }}
+/>
 ```
 
-## 📱 Browser Support
+### Conditional Rendering
+```tsx
+function ConditionalBuilder() {
+  const [isEditing, setIsEditing] = useState(false);
 
-- **Chrome** 90+
-- **Firefox** 88+
-- **Safari** 14+
-- **Edge** 90+
+  return (
+    <div>
+      {isEditing ? (
+        <EmailTemplateBuilder />
+      ) : (
+        <div className="p-8 text-center">
+          <h2 className="text-2xl font-bold mb-4">Email Templates</h2>
+          <button 
+            onClick={() => setIsEditing(true)}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg"
+          >
+            Create New Template
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+```
 
-## 🚨 Common Issues
+## Next Steps
 
-### **Drag & Drop Not Working**
+- **[Components](Components)** - Learn about available email components
+- **[Hooks](Hooks)** - Understand programmatic control
+- **[Examples](Examples)** - See real-world implementations
+
+## Troubleshooting
+
+### Drag & Drop Not Working
 Make sure you have the required dependencies:
 ```bash
 npm install react-dnd react-dnd-html5-backend
 ```
 
-### **Styling Issues**
-Ensure Tailwind CSS is properly configured and imported.
+### Styling Issues
+Ensure Tailwind CSS is properly configured and imported in your project.
 
-### **TypeScript Errors**
+### TypeScript Errors
 Make sure you're using compatible versions of React and TypeScript.
 
-## 🔗 Next Steps
+## Need Help?
 
-- **[Components](Components)** - Learn about available email components
-- **[Hooks](Hooks)** - Understand custom React hooks
-- **[Integration](Integration)** - See integration examples
-- **[Examples](Examples)** - View real-world usage examples
-
----
-
-**Need help?** Check the [Issues](https://github.com/utdevnp/mailyon/issues) page or create a new one.
+- **[GitHub Issues](https://github.com/utdevnp/mailyon/issues)** - Report bugs or ask questions
+- **[Live Demo](https://utdevnp.github.io/mailyon/)** - See it in action

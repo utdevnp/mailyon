@@ -5,4 +5,9 @@ export { ComponentLibrary } from './components/ComponentLibrary/ComponentLibrary
 export { Inspector } from './components/Inspector/Inspector';
 export { Toolbar } from './components/Toolbar/Toolbar';
 export { ComponentRenderer } from './components/Builder/ComponentRenderer';
-export { default as EmailTemplateBuilder } from './App';
+export { DraggableComponent } from './components/Builder/DraggableComponent';
+export { useEmailTemplateBuilder } from './hooks/useEmailTemplateBuilder';
+export { useEmailExport } from './hooks/useEmailExport';
+export { useEmailTemplateManager } from './hooks/useEmailTemplateManager';
+export { exportEmailTemplate, generateMJML, convertMJMLToHTML } from './utils/mjmlExport';
+export { default as EmailTemplateBuilder } from './components/EmailTemplateBuilder';

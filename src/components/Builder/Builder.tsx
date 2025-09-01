@@ -116,6 +116,10 @@ export const Builder: React.FC = () => {
           unsubscribeText: 'Click here to unsubscribe',
           unsubscribeUrl: 'https://company.com/unsubscribe',
           backgroundColor: 'transparent',
+          companyNameColor: '#111827',
+          contactTextColor: '#6b7280',
+          socialTextColor: '#6b7280',
+          unsubscribeTextColor: '#9ca3af',
           padding: '5px',
           contentAlignment: 'center',
         };
@@ -297,16 +301,28 @@ export const Builder: React.FC = () => {
             style={{ backgroundColor: component.props.backgroundColor || 'transparent' }}
           >
             <div className={`mb-4 ${component.props.contentAlignment === 'left' ? 'text-left' : component.props.contentAlignment === 'right' ? 'text-right' : 'text-center'}`}>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 
+                className="text-lg font-semibold mb-2"
+                style={{ color: component.props.companyNameColor || '#111827' }}
+              >
                 {component.props.companyName || 'Company Name'}
               </h3>
-              <p className="text-gray-600 text-sm mb-2">
+              <p 
+                className="text-sm mb-2"
+                style={{ color: component.props.contactTextColor || '#6b7280' }}
+              >
                 {component.props.address || '123 Main St, City, State 12345'}
               </p>
-              <p className="text-gray-600 text-sm mb-2">
+              <p 
+                className="text-sm mb-2"
+                style={{ color: component.props.contactTextColor || '#6b7280' }}
+              >
                 {component.props.phone || '+1 (555) 123-4567'}
               </p>
-              <p className="text-gray-600 text-sm mb-4">
+              <p 
+                className="text-sm mb-4"
+                style={{ color: component.props.contactTextColor || '#6b7280' }}
+              >
                 {component.props.email || 'info@company.com'}
               </p>
             </div>
@@ -331,7 +347,12 @@ export const Builder: React.FC = () => {
                           : 'none'
                       }}
                     />
-                    <span className="text-sm font-medium">{link.title || link.platform || 'Social Link'}</span>
+                    <span 
+                      className="text-sm font-medium"
+                      style={{ color: component.props.socialTextColor || '#6b7280' }}
+                    >
+                      {link.title || link.platform || 'Social Link'}
+                    </span>
                   </a>
                 ))}
               </div>
@@ -341,7 +362,8 @@ export const Builder: React.FC = () => {
               <div className={`${component.props.contentAlignment === 'left' ? 'text-left' : component.props.contentAlignment === 'right' ? 'text-right' : 'text-center'}`}>
                 <a
                   href="#"
-                  className="text-sm text-gray-500 hover:text-gray-700 underline"
+                  className="text-sm underline hover:opacity-80"
+                  style={{ color: component.props.unsubscribeTextColor || '#9ca3af' }}
                 >
                   {component.props.unsubscribeText}
                 </a>
@@ -459,27 +481,27 @@ export const Builder: React.FC = () => {
               {/* Tab Navigation */}
         <div className="mb-4">
           <div className="border-b border-gray-200">
-            <nav className="-mb-px flex space-x-8">
+            <nav className="-mb-px flex">
               <button
                 onClick={() => setActiveTab('editor')}
-                className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`py-2 px-3 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === 'editor'
-                    ? 'border-primary-500 text-primary-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-primary-500 text-primary-600 bg-primary-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 hover:bg-gray-50 bg-white'
                 }`}
               >
                 <svg className="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
                 </svg>
                 Editor
               </button>
               <button
                 onClick={() => setActiveTab('pc')}
                 disabled={template.components.length === 0}
-                className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`py-2 px-3 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === 'pc'
-                    ? 'border-primary-500 text-primary-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed'
+                    ? 'border-primary-500 text-primary-600 bg-primary-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 hover:bg-gray-50 bg-white disabled:opacity-50 disabled:cursor-not-allowed'
                 }`}
               >
                 <svg className="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -490,10 +512,10 @@ export const Builder: React.FC = () => {
               <button
                 onClick={() => setActiveTab('mobile')}
                 disabled={template.components.length === 0}
-                className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`py-2 px-3 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === 'mobile'
-                    ? 'border-primary-500 text-primary-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed'
+                    ? 'border-primary-500 text-primary-600 bg-primary-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 hover:bg-gray-50 bg-white disabled:opacity-50 disabled:cursor-not-allowed'
                 }`}
               >
                 <svg className="w-4 h-4 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">

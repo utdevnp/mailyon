@@ -5,13 +5,19 @@ export interface EmailComponent {
     children?: EmailComponent[];
     style?: Record<string, any>;
 }
-export type ComponentType = 'header' | 'text' | 'image' | 'button' | 'divider' | 'columns' | 'footer' | 'spacer';
+export type ComponentType = 'header' | 'text' | 'image' | 'button' | 'divider' | 'footer' | 'spacer' | 'socialMedia';
 export interface HeaderProps {
     logo?: string;
+    logoWidth?: string;
+    logoHeight?: string;
     title?: string;
     subtitle?: string;
     backgroundColor?: string;
     textColor?: string;
+    logoVisible?: boolean;
+    titleVisible?: boolean;
+    subtitleVisible?: boolean;
+    padding?: string;
 }
 export interface TextProps {
     content: string;
@@ -20,6 +26,9 @@ export interface TextProps {
     textAlign?: 'left' | 'center' | 'right';
     color?: string;
     lineHeight?: string;
+    backgroundColor?: string;
+    textVisible?: boolean;
+    padding?: string;
 }
 export interface ImageProps {
     src: string;
@@ -28,6 +37,8 @@ export interface ImageProps {
     height?: string;
     align?: 'left' | 'center' | 'right';
     borderRadius?: string;
+    imageVisible?: boolean;
+    padding?: string;
 }
 export interface ButtonProps {
     text: string;
@@ -36,17 +47,15 @@ export interface ButtonProps {
     textColor?: string;
     borderRadius?: string;
     padding?: string;
+    canvasPadding?: string;
     fontSize?: string;
+    buttonVisible?: boolean;
 }
 export interface DividerProps {
     color?: string;
     height?: string;
     margin?: string;
-}
-export interface ColumnsProps {
-    columns: number;
-    gap?: string;
-    backgroundColor?: string;
+    padding?: string;
 }
 export interface FooterProps {
     companyName?: string;
@@ -54,13 +63,33 @@ export interface FooterProps {
     phone?: string;
     email?: string;
     socialLinks?: Array<{
-        platform: string;
+        title: string;
+        imageUrl: string;
         url: string;
     }>;
     unsubscribeText?: string;
+    unsubscribeUrl?: string;
+    backgroundColor?: string;
+    padding?: string;
+    contentAlignment?: 'left' | 'center' | 'right';
 }
 export interface SpacerProps {
     height: string;
+    padding?: string;
+}
+export interface SocialMediaProps {
+    platforms: Array<{
+        platform: string;
+        title: string;
+        imageUrl: string;
+        url: string;
+    }>;
+    alignment: 'horizontal' | 'vertical';
+    type: 'icon' | 'text' | 'iconText';
+    spacing: string;
+    iconSize: string;
+    backgroundColor?: string;
+    padding?: string;
 }
 export interface EmailTemplate {
     id: string;
@@ -95,6 +124,7 @@ export interface BuilderActions {
     deleteComponent: (id: string) => void;
     selectComponent: (component: EmailComponent | null) => void;
     moveComponent: (id: string, newIndex: number) => void;
+    insertComponentAt: (type: ComponentType, index: number, defaultProps?: Record<string, any>) => void;
     duplicateComponent: (id: string) => void;
     undo: () => void;
     redo: () => void;
@@ -102,4 +132,5 @@ export interface BuilderActions {
     loadTemplate: (template: EmailTemplate) => void;
     exportJSON: () => string;
     exportMJML: () => string;
+    updateTemplateSettings: (settings: Partial<EmailTemplate['settings']>) => void;
 }

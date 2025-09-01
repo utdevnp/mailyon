@@ -166,16 +166,28 @@ export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
             }}
           >
             <div className={`mb-4 ${component.props.contentAlignment === 'left' ? 'text-left' : component.props.contentAlignment === 'right' ? 'text-right' : 'text-center'}`}>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 
+                className="text-lg font-semibold mb-2"
+                style={{ color: component.props.companyNameColor || '#111827' }}
+              >
                 {component.props.companyName || 'Company Name'}
               </h3>
-              <p className="text-gray-600 text-sm mb-2">
+              <p 
+                className="text-sm mb-2"
+                style={{ color: component.props.contactTextColor || '#6b7280' }}
+              >
                 {component.props.address || '123 Main St, City, State 12345'}
               </p>
-              <p className="text-gray-600 text-sm mb-2">
+              <p 
+                className="text-sm mb-2"
+                style={{ color: component.props.contactTextColor || '#6b7280' }}
+              >
                 {component.props.phone || '+1 (555) 123-4567'}
               </p>
-              <p className="text-gray-600 text-sm mb-4">
+              <p 
+                className="text-sm mb-4"
+                style={{ color: component.props.contactTextColor || '#6b7280' }}
+              >
                 {component.props.email || 'info@company.com'}
               </p>
             </div>
@@ -200,7 +212,12 @@ export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
                           : 'none'
                       }}
                     />
-                    <span className="text-sm font-medium">{link.title || link.platform || 'Social Link'}</span>
+                    <span 
+                      className="text-sm font-medium"
+                      style={{ color: component.props.socialTextColor || '#6b7280' }}
+                    >
+                      {link.title || link.platform || 'Social Link'}
+                    </span>
                   </a>
                 ))}
               </div>
@@ -210,7 +227,8 @@ export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
               <div className={`${component.props.contentAlignment === 'left' ? 'text-left' : component.props.contentAlignment === 'right' ? 'text-right' : 'text-center'}`}>
                 <a
                   href="#"
-                  className="text-sm text-gray-500 hover:text-gray-700 underline"
+                  className="text-sm underline hover:opacity-80"
+                  style={{ color: component.props.unsubscribeTextColor || '#9ca3af' }}
                 >
                   {component.props.unsubscribeText}
                 </a>

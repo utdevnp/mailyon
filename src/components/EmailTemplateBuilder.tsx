@@ -19,7 +19,7 @@ export const EmailTemplateBuilder: React.FC<EmailTemplateBuilderProps> = ({
     <DndProvider backend={HTML5Backend}>
       <div className={`bg-gray-50 ${className}`} style={style}>
         {/* Main Content - No Header */}
-        <main className="w-full px-4 sm:px-6 lg:px-8 py-6">
+        <main className="w-full px-2 py-2">
           <div className="grid grid-cols-12 gap-6 h-full">
             {/* Left Sidebar - Component Library */}
             <div className="col-span-3">

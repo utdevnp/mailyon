@@ -10,16 +10,14 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var jsx_runtime_1 = require("react/jsx-runtime");
-var react_dnd_1 = require("react-dnd");
-var react_dnd_html5_backend_1 = require("react-dnd-html5-backend");
-var Builder_1 = require("./components/Builder/Builder");
-var ComponentLibrary_1 = require("./components/ComponentLibrary/ComponentLibrary");
-var Inspector_1 = require("./components/Inspector/Inspector");
-var Toolbar_1 = require("./components/Toolbar/Toolbar");
+var EmailTemplateBuilder_1 = __importDefault(require("./components/EmailTemplateBuilder"));
 require("./index.css");
 function App() {
-    return ((0, jsx_runtime_1.jsx)(react_dnd_1.DndProvider, __assign({ backend: react_dnd_html5_backend_1.HTML5Backend }, { children: (0, jsx_runtime_1.jsxs)("div", __assign({ className: "min-h-screen bg-gray-50" }, { children: [(0, jsx_runtime_1.jsx)("header", __assign({ className: "bg-white shadow-sm border-b border-gray-200" }, { children: (0, jsx_runtime_1.jsx)("div", __assign({ className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" }, { children: (0, jsx_runtime_1.jsxs)("div", __assign({ className: "flex justify-between items-center h-16" }, { children: [(0, jsx_runtime_1.jsx)("div", __assign({ className: "flex items-center" }, { children: (0, jsx_runtime_1.jsx)("h1", __assign({ className: "text-xl font-semibold text-gray-900" }, { children: "Email Template Builder" })) })), (0, jsx_runtime_1.jsx)(Toolbar_1.Toolbar, {})] })) })) })), (0, jsx_runtime_1.jsx)("main", __assign({ className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6" }, { children: (0, jsx_runtime_1.jsxs)("div", __assign({ className: "grid grid-cols-12 gap-6" }, { children: [(0, jsx_runtime_1.jsx)("div", __assign({ className: "col-span-3" }, { children: (0, jsx_runtime_1.jsx)(ComponentLibrary_1.ComponentLibrary, {}) })), (0, jsx_runtime_1.jsx)("div", __assign({ className: "col-span-6" }, { children: (0, jsx_runtime_1.jsx)(Builder_1.Builder, {}) })), (0, jsx_runtime_1.jsx)("div", __assign({ className: "col-span-3" }, { children: (0, jsx_runtime_1.jsx)(Inspector_1.Inspector, {}) }))] })) }))] })) })));
+    return ((0, jsx_runtime_1.jsxs)("div", __assign({ className: "min-h-screen bg-gray-50" }, { children: [(0, jsx_runtime_1.jsx)("header", __assign({ className: "bg-white shadow-sm border-b border-gray-200" }, { children: (0, jsx_runtime_1.jsx)("div", __assign({ className: "w-full px-4 sm:px-6 lg:px-8" }, { children: (0, jsx_runtime_1.jsxs)("div", __assign({ className: "flex justify-between items-center h-16" }, { children: [(0, jsx_runtime_1.jsx)("div", __assign({ className: "flex items-center" }, { children: (0, jsx_runtime_1.jsx)("h1", __assign({ className: "text-xl font-semibold text-gray-900" }, { children: "\uD83E\uDDEA Development Mode - Headerless Email Template Builder" })) })), (0, jsx_runtime_1.jsx)("div", __assign({ className: "text-sm text-gray-500" }, { children: "This header is for development only. Package users get headerless component." }))] })) })) })), (0, jsx_runtime_1.jsx)(EmailTemplateBuilder_1.default, {})] })));
 }
 exports.default = App;

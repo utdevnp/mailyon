@@ -66,7 +66,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <label className="block text-xs font-medium text-gray-500 mb-1">
+      <label className="block text-xs font-medium text-gray-600 mb-0.5">
         {label}
       </label>
       
@@ -74,10 +74,10 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center space-x-2 p-2 border border-gray-300 rounded-lg bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
+        className="w-full flex items-center justify-between p-1.5 border border-gray-300 rounded bg-white hover:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-transparent transition-colors"
       >
         <div 
-          className={`w-6 h-6 rounded relative ${
+          className={`w-5 h-5 rounded relative ${
             value === '#ffffff' || value === 'transparent' 
               ? 'border border-gray-300' 
               : 'border border-gray-300'
@@ -93,7 +93,6 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
             </div>
           )}
         </div>
-        <div className="flex-1"></div>
         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
@@ -101,18 +100,18 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
 
       {/* Color Grid Dropdown */}
       {isOpen && (
-        <div className="absolute z-50 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg p-2">
+        <div className="absolute z-50 mt-1 w-44 bg-white border border-gray-200 rounded-lg shadow-lg p-1.5">
           {/* Primary Colors Grid */}
-          <div className="grid grid-cols-4 mb-3" style={{ gap: '6px' }}>
+          <div className="grid grid-cols-4 mb-2 gap-1">
             {primaryColors.map((color) => (
               <button
                 key={color.value}
                 onClick={() => handleColorSelect(color.value)}
-                className={`p-0 rounded transition-all hover:scale-110`}
+                className={`p-0 rounded transition-all hover:scale-110 flex items-center justify-center`}
                 title={color.label}
               >
                 <div 
-                  className={`w-9 h-9 rounded relative ${
+                  className={`w-6 h-6 rounded relative ${
                     color.value === '#ffffff' || color.value === 'transparent' 
                       ? 'border border-gray-300' 
                       : ''
@@ -133,17 +132,17 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
           </div>
 
           {/* Custom Color Section */}
-          <div className="border-t border-gray-200 pt-4">
+          <div className="border-t border-gray-200 pt-2">
             <div className="flex items-center space-x-2">
               <input
                 type="color"
                 value={customColor}
                 onChange={(e) => handleCustomColorChange(e.target.value)}
-                className="w-8 h-8 rounded border border-gray-300 cursor-pointer"
+                className="w-6 h-6 rounded border border-gray-300 cursor-pointer"
               />
-              <span className="text-sm text-gray-700">Custom Color</span>
+              <span className="text-xs text-gray-700">Custom Color</span>
             </div>
-            <div className="mt-2 text-xs text-gray-500">
+            <div className="mt-1 text-xs text-gray-500">
               Click the color box above to pick any custom color
             </div>
           </div>

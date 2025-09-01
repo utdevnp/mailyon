@@ -11,13 +11,13 @@ export const TemplateSettings: React.FC<TemplateSettingsProps> = ({
   template,
   updateTemplateSettings
 }) => {
-  const [isOpen, setIsOpen] = React.useState(true);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className="card p-4">
+    <div className="card p-2">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full text-left"
+        className="flex items-center justify-between w-full text-left p-0 py-1"
       >
         <h3 className="text-sm font-medium text-gray-700">Template Settings</h3>
         <svg
@@ -31,16 +31,16 @@ export const TemplateSettings: React.FC<TemplateSettingsProps> = ({
       </button>
       
       {isOpen && (
-        <div className="mt-4 grid grid-cols-3 gap-4">
+        <div className="mt-2 grid grid-cols-3 gap-2">
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-gray-600 mb-0.5">
               Width
             </label>
             <input
               type="text"
               value={template.settings.width}
               onChange={(e) => updateTemplateSettings({ width: e.target.value })}
-              className="input-field text-sm"
+              className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
               placeholder="600px"
             />
           </div>
@@ -53,11 +53,11 @@ export const TemplateSettings: React.FC<TemplateSettingsProps> = ({
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">
+            <label className="block text-xs font-medium text-gray-600 mb-0.5">
               Font Family
             </label>
             <select 
-              className="input-field text-sm"
+              className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
               value={template.settings.fontFamily}
               onChange={(e) => updateTemplateSettings({ fontFamily: e.target.value })}
             >

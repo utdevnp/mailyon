@@ -1,409 +1,31 @@
-# 🪝 Hooks
+# React Hooks
 
-The Email Template Builder provides **3 custom React hooks** that give you complete programmatic control over the email template building process.
+Mailyon provides three powerful React hooks that give you complete programmatic control over the email template builder. Use these hooks to integrate the builder into your application and control it from your own code.
 
-## 📋 Hooks Overview
+## useEmailTemplateBuilder
 
-| Hook | Purpose | Key Functions |
-|------|---------|---------------|
-| **useEmailTemplateBuilder** | Main template building functionality | Add, update, delete, select components |
-| **useEmailExport** | Template export and download | HTML, JSON, MJML export |
-| **useEmailTemplateManager** | Template management operations | Load, save, validate templates |
+The main hook for controlling the template builder.
 
-## 🏗️ useEmailTemplateBuilder
+### What You Get
+- **Template state** - Current template and selected component
+- **Component actions** - Add, update, delete, and reorder components
+- **History management** - Undo and redo functionality
 
-**Purpose**: Main hook for template building functionality
-
-**Import**:
+### Basic Usage
 ```tsx
-import { useEmailTemplateBuilder } from 'email-template-builder';
-```
+import { useEmailTemplateBuilder } from 'mailyon';
 
-**Usage**:
-```tsx
 function MyComponent() {
   const { 
     template, 
     selectedComponent, 
     addComponent, 
     updateComponent,
-    deleteComponent,
-    selectComponent,
-    undo,
-    redo 
+    deleteComponent 
   } = useEmailTemplateBuilder();
-  
-  // Use the functions...
-}
-```
 
-### **State Properties**
-
-| Property | Type | Description |
-|----------|------|-------------|
-| `template` | `EmailTemplate` | Current template object |
-| `selectedComponent` | `EmailComponent \| null` | Currently selected component |
-| `isDragging` | `boolean` | Whether a component is being dragged |
-| `history` | `EmailTemplate[]` | Template history for undo/redo |
-| `historyIndex` | `number` | Current position in history |
-
-### **Template Actions**
-
-#### **addComponent(component, parentId?)**
-Add a new component to the template.
-
-```tsx
-const { addComponent } = useEmailTemplateBuilder();
-
-const handleAddHeader = () => {
-  addComponent({
-    id: Math.random().toString(36).substr(2, 9),
-    type: 'header',
-    props: {
-      title: 'My Company',
-      subtitle: 'Professional Solutions',
-      backgroundColor: '#3b82f6',
-      textColor: '#ffffff',
-    },
-    children: [],
-    style: {},
-  });
-};
-```
-
-#### **updateComponent(id, updates)**
-Update component properties.
-
-```tsx
-const { updateComponent } = useEmailTemplateBuilder();
-
-const handleUpdateTitle = (newTitle: string) => {
-  updateComponent(selectedComponent.id, {
-    props: { ...selectedComponent.props, title: newTitle }
-  });
-};
-```
-
-#### **deleteComponent(id)**
-Remove a component from the template.
-
-```tsx
-const { deleteComponent } = useEmailTemplateBuilder();
-
-const handleDelete = () => {
-  if (selectedComponent) {
-    deleteComponent(selectedComponent.id);
-  }
-};
-```
-
-#### **selectComponent(component)**
-Select a component for editing.
-
-```tsx
-const { selectComponent } = useEmailTemplateBuilder();
-
-const handleSelect = (component) => {
-  selectComponent(component);
-};
-```
-
-#### **moveComponent(id, newIndex)**
-Reorder components in the template.
-
-```tsx
-const { moveComponent } = useEmailTemplateBuilder();
-
-const handleMoveUp = () => {
-  if (selectedComponent) {
-    const currentIndex = template.components.findIndex(c => c.id === selectedComponent.id);
-    if (currentIndex > 0) {
-      moveComponent(selectedComponent.id, currentIndex - 1);
-    }
-  }
-};
-```
-
-#### **duplicateComponent(id)**
-Create a copy of an existing component.
-
-```tsx
-const { duplicateComponent } = useEmailTemplateBuilder();
-
-const handleDuplicate = () => {
-  if (selectedComponent) {
-    duplicateComponent(selectedComponent.id);
-  }
-};
-```
-
-### **History Management**
-
-#### **undo()**
-Revert to the previous template state.
-
-```tsx
-const { undo, historyIndex } = useEmailTemplateBuilder();
-
-const handleUndo = () => {
-  if (historyIndex > 0) {
-    undo();
-  }
-};
-```
-
-#### **redo()**
-Restore a previously undone template state.
-
-```tsx
-const { redo, historyIndex, history } = useEmailTemplateBuilder();
-
-const handleRedo = () => {
-  if (historyIndex < history.length - 1) {
-    redo();
-  }
-};
-```
-
-## 📤 useEmailExport
-
-**Purpose**: Export templates in various formats and download files
-
-**Import**:
-```tsx
-import { useEmailExport } from 'email-template-builder';
-```
-
-**Usage**:
-```tsx
-function ExportControls() {
-  const { 
-    exportAsJSON, 
-    exportAsHTML, 
-    exportAsMJML,
-    downloadJSON,
-    downloadHTML,
-    downloadMJML 
-  } = useEmailExport();
-  
-  // Use the functions...
-}
-```
-
-### **Export Functions**
-
-#### **exportAsJSON()**
-Get template as JSON string.
-
-```tsx
-const { exportAsJSON } = useEmailExport();
-
-const handleExport = () => {
-  const json = exportAsJSON();
-  console.log('Template JSON:', json);
-  // Send to API, save to database, etc.
-};
-```
-
-#### **exportAsHTML()**
-Get template as HTML string.
-
-```tsx
-const { exportAsHTML } = useEmailExport();
-
-const handleExport = () => {
-  const html = exportAsHTML();
-  console.log('Generated HTML:', html);
-  // Preview in modal, send to email service, etc.
-};
-```
-
-#### **exportAsMJML()**
-Get template as MJML string.
-
-```tsx
-const { exportAsMJML } = useEmailExport();
-
-const handleExport = () => {
-  const mjml = exportAsMJML();
-  console.log('Generated MJML:', mjml);
-  // Send to MJML service, convert to HTML, etc.
-};
-```
-
-### **Download Functions**
-
-#### **downloadJSON(filename)**
-Download template as JSON file.
-
-```tsx
-const { downloadJSON } = useEmailExport();
-
-const handleDownload = () => {
-  downloadJSON('my-template.json');
-};
-```
-
-#### **downloadHTML(filename)**
-Download template as HTML file.
-
-```tsx
-const { downloadHTML } = useEmailExport();
-
-const handleDownload = () => {
-  downloadHTML('my-template.html');
-};
-```
-
-#### **downloadMJML(filename)**
-Download template as MJML file.
-
-```tsx
-const { downloadMJML } = useEmailExport();
-
-const handleDownload = () => {
-  downloadMJML('my-template.mjml');
-};
-```
-
-## 🗂️ useEmailTemplateManager
-
-**Purpose**: Manage template loading, saving, and validation
-
-**Import**:
-```tsx
-import { useEmailTemplateManager } from 'email-template-builder';
-```
-
-**Usage**:
-```tsx
-function TemplateManager() {
-  const { 
-    loadTemplateFromJSON, 
-    createNewTemplate, 
-    cloneTemplate,
-    resetTemplate,
-    validateTemplate 
-  } = useEmailTemplateManager();
-  
-  // Use the functions...
-}
-```
-
-### **Template Management Functions**
-
-#### **loadTemplateFromJSON(jsonString)**
-Load template from JSON string.
-
-```tsx
-const { loadTemplateFromJSON } = useEmailTemplateManager();
-
-const handleLoad = (jsonString: string) => {
-  const success = loadTemplateFromJSON(jsonString);
-  if (success) {
-    console.log('Template loaded successfully!');
-  } else {
-    console.error('Failed to load template');
-  }
-};
-```
-
-#### **loadTemplateFromObject(template)**
-Load template from template object.
-
-```tsx
-const { loadTemplateFromObject } = useEmailTemplateManager();
-
-const handleLoad = (templateObject: EmailTemplate) => {
-  loadTemplateFromObject(templateObject);
-};
-```
-
-#### **createNewTemplate(name?)**
-Create a new empty template.
-
-```tsx
-const { createNewTemplate } = useEmailTemplateManager();
-
-const handleNew = () => {
-  createNewTemplate('My New Template');
-};
-```
-
-#### **cloneTemplate(newName?)**
-Clone the current template.
-
-```tsx
-const { cloneTemplate } = useEmailTemplateManager();
-
-const handleClone = () => {
-  cloneTemplate('Template Copy');
-};
-```
-
-#### **resetTemplate()**
-Reset template to default state.
-
-```tsx
-const { resetTemplate } = useEmailTemplateManager();
-
-const handleReset = () => {
-  if (confirm('Are you sure you want to reset the template?')) {
-    resetTemplate();
-  }
-};
-```
-
-### **Utility Functions**
-
-#### **validateTemplate(template)**
-Validate template structure.
-
-```tsx
-const { validateTemplate } = useEmailTemplateManager();
-
-const handleValidate = () => {
-  const result = validateTemplate(template);
-  
-  if (result.isValid) {
-    console.log('Template is valid!');
-  } else {
-    console.error('Validation errors:', result.errors);
-  }
-};
-```
-
-## 🔄 Hook Integration
-
-### **Using Multiple Hooks Together**
-```tsx
-function EmailBuilder() {
-  const { template, addComponent, selectedComponent } = useEmailTemplateBuilder();
-  const { exportAsHTML, downloadHTML } = useEmailExport();
-  const { loadTemplateFromJSON, createNewTemplate } = useEmailTemplateManager();
-  
-  const handleExportAndDownload = () => {
-    const html = exportAsHTML();
-    downloadHTML('email-template.html');
-  };
-  
-  const handleLoadFromFile = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        loadTemplateFromJSON(e.target.result);
-      };
-      reader.readAsText(file);
-    }
-  };
-  
   return (
     <div>
-      <input type="file" accept=".json" onChange={handleLoadFromFile} />
-      <button onClick={handleExportAndDownload}>Export & Download</button>
-      <button onClick={() => createNewTemplate()}>New Template</button>
-      
       <p>Components: {template.components.length}</p>
       <p>Selected: {selectedComponent?.type || 'None'}</p>
     </div>
@@ -411,25 +33,310 @@ function EmailBuilder() {
 }
 ```
 
-### **Hook Dependencies**
-All hooks use the same Zustand store, so:
-- **State is shared** between all hooks
-- **Changes are reflected** in real-time across all hooks
-- **No need for context providers** or prop drilling
+### Adding Components Programmatically
+```tsx
+function AddComponentButton() {
+  const { addComponent } = useEmailTemplateBuilder();
 
-## 🚨 Important Notes
+  const addHeader = () => {
+    addComponent({
+      id: Math.random().toString(36).substr(2, 9),
+      type: 'header',
+      props: {
+        title: 'My Company',
+        subtitle: 'Professional Solutions',
+        backgroundColor: '#3b82f6',
+        textColor: '#ffffff'
+      },
+      children: [],
+      style: {}
+    });
+  };
 
-- **Hook Order**: Hooks can be used in any order
-- **Component Scope**: Hooks work in any React component
-- **State Persistence**: State persists across component re-renders
-- **Performance**: Hooks are optimized for performance
+  return (
+    <button onClick={addHeader}>
+      Add Header
+    </button>
+  );
+}
+```
 
-## 🔗 Next Steps
+### Updating Component Properties
+```tsx
+function ComponentEditor() {
+  const { selectedComponent, updateComponent } = useEmailTemplateBuilder();
 
-- **[Integration](Integration)** - See how to integrate hooks into your app
-- **[Examples](Examples)** - View real-world hook usage examples
-- **[API Reference](API-Reference)** - Complete hook function documentation
+  const updateTitle = (newTitle) => {
+    if (selectedComponent) {
+      updateComponent(selectedComponent.id, {
+        props: { ...selectedComponent.props, title: newTitle }
+      });
+    }
+  };
 
----
+  return (
+    <div>
+      {selectedComponent && (
+        <input
+          type="text"
+          value={selectedComponent.props.title || ''}
+          onChange={(e) => updateTitle(e.target.value)}
+          placeholder="Component title"
+        />
+      )}
+    </div>
+  );
+}
+```
 
-**Need help with hooks?** Check the [Issues](https://github.com/utdevnp/mailyon/issues) page.
+## useEmailExport
+
+Export your templates in various formats.
+
+### What You Get
+- **Export functions** - Get HTML, JSON, or MJML
+- **Download functions** - Download files directly
+- **Template data** - Access to current template
+
+### Basic Usage
+```tsx
+import { useEmailExport } from 'mailyon';
+
+function ExportControls() {
+  const { exportAsHTML, exportAsJSON, downloadHTML } = useEmailExport();
+
+  const handleExport = () => {
+    const html = exportAsHTML();
+    console.log('Generated HTML:', html);
+  };
+
+  const handleDownload = () => {
+    downloadHTML('my-template.html');
+  };
+
+  return (
+    <div>
+      <button onClick={handleExport}>Export HTML</button>
+      <button onClick={handleDownload}>Download HTML</button>
+    </div>
+  );
+}
+```
+
+### Sending to API
+```tsx
+function SaveToAPI() {
+  const { exportAsHTML, template } = useEmailExport();
+
+  const saveTemplate = async () => {
+    const html = exportAsHTML();
+    
+    try {
+      await fetch('/api/email-templates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          html, 
+          name: template.name,
+          components: template.components 
+        })
+      });
+      alert('Template saved successfully!');
+    } catch (error) {
+      console.error('Failed to save template:', error);
+    }
+  };
+
+  return (
+    <button onClick={saveTemplate}>
+      Save Template
+    </button>
+  );
+}
+```
+
+### Preview in Modal
+```tsx
+function PreviewModal() {
+  const { exportAsHTML } = useEmailExport();
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewHTML, setPreviewHTML] = useState('');
+
+  const showPreview = () => {
+    const html = exportAsHTML();
+    setPreviewHTML(html);
+    setShowPreview(true);
+  };
+
+  return (
+    <div>
+      <button onClick={showPreview}>Preview Email</button>
+      
+      {showPreview && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-4xl max-h-96 overflow-auto">
+            <div dangerouslySetInnerHTML={{ __html: previewHTML }} />
+            <button 
+              onClick={() => setShowPreview(false)}
+              className="mt-4 px-4 py-2 bg-gray-600 text-white rounded"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+## useEmailTemplateManager
+
+Manage template loading, saving, and validation.
+
+### What You Get
+- **Loading functions** - Load templates from JSON or objects
+- **Creation functions** - Create new templates or clone existing ones
+- **Validation** - Check template structure
+- **Storage** - Save to localStorage
+
+### Basic Usage
+```tsx
+import { useEmailTemplateManager } from 'mailyon';
+
+function TemplateManager() {
+  const { 
+    loadTemplateFromJSON, 
+    createNewTemplate, 
+    validateTemplate,
+    template 
+  } = useEmailTemplateManager();
+
+  return (
+    <div>
+      <p>Current Template: {template.name}</p>
+      <button onClick={() => createNewTemplate('My New Template')}>
+        New Template
+      </button>
+    </div>
+  );
+}
+```
+
+### Loading from File Upload
+```tsx
+function FileUploader() {
+  const { loadTemplateFromJSON } = useEmailTemplateManager();
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const jsonString = e.target.result;
+        const success = loadTemplateFromJSON(jsonString);
+        if (success) {
+          alert('Template loaded successfully!');
+        } else {
+          alert('Failed to load template. Please check the file format.');
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  return (
+    <input 
+      type="file" 
+      accept=".json" 
+      onChange={handleFileUpload}
+      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+    />
+  );
+}
+```
+
+### Template Validation
+```tsx
+function TemplateValidator() {
+  const { validateTemplate, template } = useEmailTemplateManager();
+
+  const validateCurrent = () => {
+    const result = validateTemplate(template);
+    
+    if (result.isValid) {
+      alert('Template is valid! ✅');
+    } else {
+      alert(`Template has errors:\n${result.errors.join('\n')}`);
+    }
+  };
+
+  return (
+    <button 
+      onClick={validateCurrent}
+      className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700"
+    >
+      Validate Template
+    </button>
+  );
+}
+```
+
+## Combining Hooks
+
+### Complete Email Builder
+```tsx
+function CompleteEmailBuilder() {
+  const { template, addComponent, selectedComponent } = useEmailTemplateBuilder();
+  const { exportAsHTML, downloadHTML } = useEmailExport();
+  const { createNewTemplate, loadTemplateFromJSON } = useEmailTemplateManager();
+
+  const handleSave = async () => {
+    const html = exportAsHTML();
+    // Save to your backend
+    await fetch('/api/templates', {
+      method: 'POST',
+      body: JSON.stringify({ html, template })
+    });
+  };
+
+  const handleExport = () => {
+    downloadHTML(`${template.name || 'template'}.html`);
+  };
+
+  return (
+    <div>
+      <div className="bg-white shadow-sm border-b p-4">
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-semibold">Email Builder</h1>
+          <div className="space-x-3">
+            <button onClick={() => createNewTemplate()}>New</button>
+            <button onClick={handleSave}>Save</button>
+            <button onClick={handleExport}>Export</button>
+          </div>
+        </div>
+        <div className="text-sm text-gray-600 mt-2">
+          Components: {template.components.length} | 
+          Selected: {selectedComponent?.type || 'None'}
+        </div>
+      </div>
+      
+      <EmailTemplateBuilder />
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+1. **Use hooks in components** - Hooks only work inside React components
+2. **Handle errors** - Always wrap async operations in try-catch
+3. **Validate templates** - Use validation before saving or exporting
+4. **Provide feedback** - Show users when operations succeed or fail
+5. **Test thoroughly** - Test all hook functions with different scenarios
+
+## Next Steps
+
+- **[Examples](Examples)** - See real-world hook implementations
+- **[Integration](Integration)** - Learn advanced integration patterns
+- **[Components](Components)** - Understand available email components

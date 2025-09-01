@@ -206,10 +206,10 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
     switch (selectedComponent.type) {
       case 'header':
         return (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {/* 1. Title */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Title
               </label>
               <div className="relative">
@@ -217,7 +217,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.title || ''}
                   onChange={(e) => handlePropertyChange('title', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   placeholder="Company Name"
                 />
                 <button
@@ -241,7 +241,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 2. Subtitle */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Subtitle
               </label>
               <div className="relative">
@@ -250,7 +250,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   value={selectedComponent.props.subtitle || ''}
                   placeholder="Tagline or description"
                   onChange={(e) => handlePropertyChange('subtitle', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                 />
                 <button
                   onClick={() => toggleFieldVisibility('subtitle')}
@@ -272,7 +272,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
             </div>
 
             {/* 3. Colors in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
                 <ColorPicker
                   value={selectedComponent.props.backgroundColor || '#ffffff'}
@@ -293,7 +293,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 4. Logo URL */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Logo URL
               </label>
               <div className="relative">
@@ -301,7 +301,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.logo || ''}
                   onChange={(e) => handlePropertyChange('logo', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   placeholder="https://example.com/logo.png"
                 />
                 <button
@@ -324,9 +324,9 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
             </div>
 
             {/* 5. Logo Dimensions in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Logo Width
                 </label>
                 <div className="relative">
@@ -334,7 +334,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={selectedComponent.props.logoWidth || '200px'}
                     onChange={(e) => handlePropertyChange('logoWidth', e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="200px, 100%, auto"
                   />
                   <button
@@ -349,7 +349,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Logo Height
                 </label>
                 <div className="relative">
@@ -357,7 +357,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={selectedComponent.props.logoHeight || '60px'}
                     onChange={(e) => handlePropertyChange('logoHeight', e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="60px, 80px, auto"
                   />
                   <button
@@ -375,7 +375,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 6. Padding Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Padding
               </label>
               <div className="relative">
@@ -383,7 +383,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.padding || '5px'}
                   onChange={(e) => handlePropertyChange('padding', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   placeholder="5px, 10px, 20px"
                 />
                 <button
@@ -403,17 +403,17 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
       case 'text':
         return (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {/* 1. Content with Show/Hide Toggle */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Content
               </label>
               <div className="relative">
                 <textarea
                   value={selectedComponent.props.content || ''}
                   onChange={(e) => handlePropertyChange('content', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   rows={4}
                   placeholder="Enter your text content here..."
                 />
@@ -437,15 +437,15 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
             </div>
 
             {/* 2. Typography Controls in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Font Size
                 </label>
                 <select
                   value={selectedComponent.props.fontSize || '16px'}
                   onChange={(e) => handlePropertyChange('fontSize', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="12px">12px</option>
                   <option value="14px">14px</option>
@@ -456,13 +456,13 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Font Weight
                 </label>
                 <select
                   value={selectedComponent.props.fontWeight || 'normal'}
                   onChange={(e) => handlePropertyChange('fontWeight', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="normal">Normal</option>
                   <option value="medium">Medium</option>
@@ -473,15 +473,15 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
             </div>
 
             {/* 3. Layout Controls in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Text Align
                 </label>
                 <select
                   value={selectedComponent.props.textAlign || 'left'}
                   onChange={(e) => handlePropertyChange('textAlign', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="left">Left</option>
                   <option value="center">Center</option>
@@ -489,13 +489,13 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Line Height
                 </label>
                 <select
                   value={selectedComponent.props.lineHeight || '1.5'}
                   onChange={(e) => handlePropertyChange('lineHeight', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="1.2">1.2 (Tight)</option>
                   <option value="1.4">1.4 (Compact)</option>
@@ -507,7 +507,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
             </div>
 
             {/* 4. Colors in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
                 <ColorPicker
                   value={selectedComponent.props.color || '#000000'}
@@ -528,7 +528,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 5. Padding Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Padding
               </label>
               <div className="relative">
@@ -536,7 +536,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.padding || '5px'}
                   onChange={(e) => handlePropertyChange('padding', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   placeholder="5px, 10px, 20px"
                 />
                 <button
@@ -555,10 +555,10 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
       case 'image':
         return (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {/* 1. Image URL with Show/Hide Toggle */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Image URL
               </label>
               <div className="relative">
@@ -566,7 +566,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.src || ''}
                   onChange={(e) => handlePropertyChange('src', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   placeholder="https://example.com/image.jpg"
                 />
                 <button
@@ -590,22 +590,22 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 2. Alt Text */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Alt Text
               </label>
               <input
                 type="text"
                 value={selectedComponent.props.alt || ''}
                 onChange={(e) => handlePropertyChange('alt', e.target.value)}
-                className="input-field"
+                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Description of the image"
               />
             </div>
 
             {/* 3. Dimensions in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Width
                 </label>
                 <div className="relative">
@@ -613,7 +613,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={selectedComponent.props.width || '100%'}
                     onChange={(e) => handlePropertyChange('width', e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="100% or 300px"
                   />
                   <button
@@ -628,7 +628,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Height
                 </label>
                 <div className="relative">
@@ -636,7 +636,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={selectedComponent.props.height || 'auto'}
                     onChange={(e) => handlePropertyChange('height', e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="auto or 200px"
                   />
                   <button
@@ -653,15 +653,15 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
             </div>
 
             {/* 4. Layout Controls in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Alignment
                 </label>
                 <select
                   value={selectedComponent.props.align || 'center'}
                   onChange={(e) => handlePropertyChange('align', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="left">Left</option>
                   <option value="center">Center</option>
@@ -669,7 +669,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Border Radius
                 </label>
                 <div className="relative">
@@ -677,7 +677,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={selectedComponent.props.borderRadius || '0px'}
                     onChange={(e) => handlePropertyChange('borderRadius', e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="0px, 8px, 50%"
                   />
                   <button
@@ -695,7 +695,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 5. Padding Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Padding
               </label>
               <div className="relative">
@@ -703,7 +703,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.padding || '5px'}
                   onChange={(e) => handlePropertyChange('padding', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   placeholder="5px, 10px, 20px"
                 />
                 <button
@@ -722,10 +722,10 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
       case 'button':
         return (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {/* 1. Button Text with Show/Hide Toggle */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Button Text
               </label>
               <div className="relative">
@@ -733,7 +733,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.text || 'Click Here'}
                   onChange={(e) => handlePropertyChange('text', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   placeholder="Click Here"
                 />
                 <button
@@ -757,20 +757,20 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 2. URL */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 URL
               </label>
               <input
                 type="text"
                 value={selectedComponent.props.url || ''}
                 onChange={(e) => handlePropertyChange('url', e.target.value)}
-                className="input-field"
+                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="https://example.com"
               />
             </div>
 
             {/* 3. Colors in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
                 <ColorPicker
                   value={selectedComponent.props.backgroundColor || '#3b82f6'}
@@ -790,9 +790,9 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
             </div>
 
             {/* 4. Styling Controls in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Border Radius
                 </label>
                 <div className="relative">
@@ -800,7 +800,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={selectedComponent.props.borderRadius || '6px'}
                     onChange={(e) => handlePropertyChange('borderRadius', e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="6px, 12px, 50%"
                   />
                   <button
@@ -815,7 +815,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Font Size
                 </label>
                 <div className="relative">
@@ -823,7 +823,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={selectedComponent.props.fontSize || '16px'}
                     onChange={(e) => handlePropertyChange('fontSize', e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="14px, 16px, 18px"
                   />
                   <button
@@ -841,7 +841,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 5. Button Padding Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Button Padding
               </label>
               <div className="space-y-2">
@@ -849,7 +849,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 <select
                   value={getPaddingPreset(selectedComponent.props.padding || '12px 24px')}
                   onChange={(e) => handlePaddingPresetChange(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="small">Small</option>
                   <option value="medium">Medium (Default)</option>
@@ -870,7 +870,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                           type="text"
                           value={getPaddingValue(selectedComponent.props.padding || '12px 24px', 0) || '12px'}
                           onChange={(e) => updatePaddingSide(0, e.target.value)}
-                          className="input-field text-sm"
+                          className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="12px"
                         />
                       </div>
@@ -884,7 +884,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                           type="text"
                           value={getPaddingValue(selectedComponent.props.padding || '12px 24px', 1) || '16px'}
                           onChange={(e) => updatePaddingSide(1, e.target.value)}
-                          className="input-field text-sm"
+                          className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="16px"
                         />
                       </div>
@@ -900,7 +900,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                           type="text"
                           value={getPaddingValue(selectedComponent.props.padding || '12px 24px', 2) || '12px'}
                           onChange={(e) => updatePaddingSide(2, e.target.value)}
-                          className="input-field text-sm"
+                          className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="12px"
                         />
                       </div>
@@ -914,7 +914,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                           type="text"
                           value={getPaddingValue(selectedComponent.props.padding || '12px 24px', 3) || '16px'}
                           onChange={(e) => updatePaddingSide(3, e.target.value)}
-                          className="input-field text-sm"
+                          className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                           placeholder="16px"
                         />
                       </div>
@@ -940,7 +940,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 6. Padding Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Padding
               </label>
               <div className="relative">
@@ -948,7 +948,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.canvasPadding || '5px'}
                   onChange={(e) => handlePropertyChange('canvasPadding', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   placeholder="5px, 10px, 20px (Container spacing)"
                 />
                 <button
@@ -967,15 +967,15 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
       case 'divider':
         return (
-          <div className="space-y-4">
+          <div className="space-y-2">
 
 
 
 
             {/* 1. Line Color and Thickness Controls in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Line Color
                 </label>
                 <ColorPicker
@@ -986,7 +986,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Thickness
                 </label>
                 <div className="relative">
@@ -994,7 +994,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={selectedComponent.props.height || '1px'}
                     onChange={(e) => handlePropertyChange('height', e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="1px, 2px, 3px"
                   />
                   <button
@@ -1011,9 +1011,9 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
             </div>
 
             {/* 2. Margin Top and Bottom Controls in Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Margin Top
                 </label>
                 <div className="relative">
@@ -1021,7 +1021,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={getMarginValue(selectedComponent.props.margin || '2px 2px', 0) || '2px'}
                     onChange={(e) => updateMarginSide(0, e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="2px, 5px"
                   />
                   <button
@@ -1036,7 +1036,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Margin Bottom
                 </label>
                 <div className="relative">
@@ -1044,7 +1044,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                     type="text"
                     value={getMarginValue(selectedComponent.props.margin || '2px 2px', 1) || '2px'}
                     onChange={(e) => updateMarginSide(1, e.target.value)}
-                    className="input-field pr-8"
+                    className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                     placeholder="2px, 5px"
                   />
                   <button
@@ -1064,10 +1064,10 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
       case 'spacer':
         return (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {/* Height Control with Presets */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Height
               </label>
               <div className="space-y-2">
@@ -1075,7 +1075,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 <select
                   value={spacerHeightMode}
                   onChange={(e) => handleHeightPresetChange(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="small">Small (10px)</option>
                   <option value="medium">Medium (20px)</option>
@@ -1090,7 +1090,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                       type="text"
                       value={selectedComponent.props.height || '20px'}
                       onChange={(e) => handlePropertyChange('height', e.target.value)}
-                      className="input-field pr-8"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                       placeholder="20px, 50px, 100px"
                     />
                     <button
@@ -1111,7 +1111,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* 3. Padding Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Padding
               </label>
               <div className="relative">
@@ -1119,7 +1119,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.padding || '5px'}
                   onChange={(e) => handlePropertyChange('padding', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500 pr-8"
                   placeholder="5px, 10px, 20px"
                 />
                 <button
@@ -1138,7 +1138,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
       case 'footer':
         return (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {/* Header Panel */}
             <div className="border border-gray-200 rounded-lg">
               <button
@@ -1157,39 +1157,45 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
               </button>
               
               {footerPanels.header && (
-                <div className="p-3 border-t border-gray-200 space-y-3">
+                <div className="p-2 border-t border-gray-200 space-y-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Title
                     </label>
                     <input
                       type="text"
                       value={selectedComponent.props.companyName || ''}
                       onChange={(e) => handlePropertyChange('companyName', e.target.value)}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="Company Name"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Content Alignment
                     </label>
                     <select
                       value={selectedComponent.props.contentAlignment || 'center'}
                       onChange={(e) => handlePropertyChange('contentAlignment', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                     >
                       <option value="left">Left</option>
                       <option value="center">Center</option>
                       <option value="right">Right</option>
                     </select>
                   </div>
-                  <div>
+                  <div className="grid grid-cols-2 gap-2">
                     <ColorPicker
                       value={selectedComponent.props.backgroundColor || 'transparent'}
                       onChange={(color) => handlePropertyChange('backgroundColor', color)}
                       label="Background Color"
                       placeholder="Select background color"
+                    />
+                    <ColorPicker
+                      value={selectedComponent.props.companyNameColor || '#111827'}
+                      onChange={(color) => handlePropertyChange('companyNameColor', color)}
+                      label="Company Name Color"
+                      placeholder="Select company name color"
                     />
                   </div>
                 </div>
@@ -1214,41 +1220,49 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
               </button>
               
               {footerPanels.address && (
-                <div className="p-3 border-t border-gray-200 space-y-3">
+                <div className="p-2 border-t border-gray-200 space-y-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Address
                     </label>
                     <input
                       type="text"
                       value={selectedComponent.props.address || ''}
                       onChange={(e) => handlePropertyChange('address', e.target.value)}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="123 Main St, City, State 12345"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Phone
                     </label>
                     <input
                       type="text"
                       value={selectedComponent.props.phone || ''}
                       onChange={(e) => handlePropertyChange('phone', e.target.value)}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="+1 (555) 123-4567"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Email
                     </label>
                     <input
                       type="text"
                       value={selectedComponent.props.email || ''}
                       onChange={(e) => handlePropertyChange('email', e.target.value)}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="info@company.com"
+                    />
+                  </div>
+                  <div className="mt-2">
+                    <ColorPicker
+                      value={selectedComponent.props.contactTextColor || '#6b7280'}
+                      onChange={(color) => handlePropertyChange('contactTextColor', color)}
+                      label="Contact Info Color"
+                      placeholder="Select contact info color"
                     />
                   </div>
                 </div>
@@ -1273,9 +1287,9 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
               </button>
               
               {footerPanels.social && (
-                <div className="p-3 border-t border-gray-200 space-y-3">
+                <div className="p-2 border-t border-gray-200 space-y-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Facebook Title
                     </label>
                     <input
@@ -1290,12 +1304,12 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="Facebook"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Facebook Icon URL
                     </label>
                     <input
@@ -1310,12 +1324,12 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="https://example.com/facebook-icon.svg"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Facebook Profile URL
                     </label>
                     <input
@@ -1330,13 +1344,13 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="https://facebook.com/company"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Twitter Title
                     </label>
                     <input
@@ -1351,12 +1365,12 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="Twitter"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Twitter Icon URL
                     </label>
                     <input
@@ -1371,12 +1385,12 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="https://example.com/twitter-icon.svg"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Twitter Profile URL
                     </label>
                     <input
@@ -1391,13 +1405,13 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="https://twitter.com/company"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       LinkedIn Title
                     </label>
                     <input
@@ -1412,12 +1426,12 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="LinkedIn"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       LinkedIn Icon URL
                     </label>
                     <input
@@ -1432,12 +1446,12 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="https://example.com/linkedin-icon.svg"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       LinkedIn Profile URL
                     </label>
                     <input
@@ -1452,8 +1466,16 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                         }
                         handlePropertyChange('socialLinks', newSocialLinks);
                       }}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="https://linkedin.com/company/company"
+                    />
+                  </div>
+                  <div className="mt-2">
+                    <ColorPicker
+                      value={selectedComponent.props.socialTextColor || '#6b7280'}
+                      onChange={(color) => handlePropertyChange('socialTextColor', color)}
+                      label="Social Links Text Color"
+                      placeholder="Select social links text color"
                     />
                   </div>
                 </div>
@@ -1478,29 +1500,37 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
               </button>
               
               {footerPanels.unsubscribe && (
-                <div className="p-3 border-t border-gray-200 space-y-3">
+                <div className="p-2 border-t border-gray-200 space-y-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Unsubscribe Text
                     </label>
                     <input
                       type="text"
                       value={selectedComponent.props.unsubscribeText || ''}
                       onChange={(e) => handlePropertyChange('unsubscribeText', e.target.value)}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="Click here to unsubscribe"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
                       Unsubscribe URL
                     </label>
                     <input
                       type="text"
                       value={selectedComponent.props.unsubscribeUrl || ''}
                       onChange={(e) => handlePropertyChange('unsubscribeUrl', e.target.value)}
-                      className="input-field"
+                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
                       placeholder="https://company.com/unsubscribe"
+                    />
+                  </div>
+                  <div className="mt-2">
+                    <ColorPicker
+                      value={selectedComponent.props.unsubscribeTextColor || '#9ca3af'}
+                      onChange={(color) => handlePropertyChange('unsubscribeTextColor', color)}
+                      label="Unsubscribe Text Color"
+                      placeholder="Select unsubscribe text color"
                     />
                   </div>
                 </div>
@@ -1509,7 +1539,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
             {/* Padding Control */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-xs font-medium text-gray-600 mb-0.5">
                 Padding
               </label>
               <div className="relative">
@@ -1517,7 +1547,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                   type="text"
                   value={selectedComponent.props.padding || '5px'}
                   onChange={(e) => handlePropertyChange('padding', e.target.value)}
-                  className="input-field pr-8"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent pr-8"
                   placeholder="5px, 10px, 20px"
                 />
                 <button
@@ -1536,30 +1566,30 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
       case 'socialMedia':
         return (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {/* Layout Controls - 2x2 Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Alignment
                 </label>
                 <select
                   value={selectedComponent.props.alignment || 'horizontal'}
                   onChange={(e) => handlePropertyChange('alignment', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="horizontal">Horizontal</option>
                   <option value="vertical">Vertical</option>
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Type
                 </label>
                 <select
                   value={selectedComponent.props.type || 'icon'}
                   onChange={(e) => handlePropertyChange('type', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="icon">Icon Only</option>
                   <option value="text">Text Only</option>
@@ -1569,35 +1599,35 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
             </div>
 
             {/* Size and Spacing - 2x2 Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Icon Size
                 </label>
                 <input
                   type="text"
                   value={selectedComponent.props.iconSize || '24px'}
                   onChange={(e) => handlePropertyChange('iconSize', e.target.value)}
-                  className="input-field"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="24px, 32px, 48px"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Spacing
                 </label>
                 <input
                   type="text"
                   value={selectedComponent.props.spacing || '16px'}
                   onChange={(e) => handlePropertyChange('spacing', e.target.value)}
-                  className="input-field"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="16px, 24px, 32px"
                 />
               </div>
             </div>
 
             {/* Background and Padding - 2x2 Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-2">
               <div>
                 <ColorPicker
                   value={selectedComponent.props.backgroundColor || 'transparent'}
@@ -1607,14 +1637,14 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-xs font-medium text-gray-600 mb-0.5">
                   Padding
                 </label>
                 <input
                   type="text"
                   value={selectedComponent.props.padding || '5px'}
                   onChange={(e) => handlePropertyChange('padding', e.target.value)}
-                  className="input-field"
+                  className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                   placeholder="5px, 10px, 20px"
                 />
               </div>
@@ -1760,32 +1790,31 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex space-x-2">
-          <button
-            onClick={handleDuplicate}
-            className="p-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
-            title="Duplicate"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>
-          </button>
-          <button
-            onClick={handleDelete}
-            className="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors"
-            title="Delete"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
       <div className="mb-4">
-        <div className="text-sm text-gray-500 mb-1">Component Type</div>
-        <div className="text-sm font-medium text-gray-900 capitalize">
+        <div className="flex items-center justify-between">
+          <div className="text-sm text-gray-500">Component Type</div>
+          <div className="flex space-x-1">
+            <button
+              onClick={handleDuplicate}
+              className="p-1.5 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded transition-colors"
+              title="Duplicate"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </button>
+            <button
+              onClick={handleDelete}
+              className="p-1.5 text-red-600 hover:text-red-800 hover:bg-red-50 rounded transition-colors"
+              title="Delete"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div className="text-sm font-medium text-gray-900 capitalize mt-1">
           {selectedComponent.type}
         </div>
       </div>

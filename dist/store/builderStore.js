@@ -34,8 +34,8 @@ var defaultTemplate = {
         version: '1.0.0',
     },
     settings: {
-        width: '600px',
-        backgroundColor: '#ffffff',
+        width: '700px',
+        backgroundColor: 'transparent',
         fontFamily: 'Arial, sans-serif',
     },
 };
@@ -194,6 +194,22 @@ exports.useBuilderStore = (0, zustand_1.create)(function (set, get) { return ({
             return state;
         });
     },
+    insertComponentAt: function (type, index, defaultProps) {
+        set(function (state) {
+            var newTemplate = __assign({}, state.template);
+            var newComponent = createComponent(type, defaultProps || {});
+            // Insert at specific position
+            newTemplate.components.splice(index, 0, newComponent);
+            newTemplate.metadata.updatedAt = new Date().toISOString();
+            // Add to history
+            var newHistory = __spreadArray(__spreadArray([], state.history.slice(0, state.historyIndex + 1), true), [newTemplate], false);
+            return {
+                template: newTemplate,
+                history: newHistory,
+                historyIndex: state.historyIndex + 1,
+            };
+        });
+    },
     undo: function () {
         set(function (state) {
             if (state.historyIndex > 0) {
@@ -236,8 +252,28 @@ exports.useBuilderStore = (0, zustand_1.create)(function (set, get) { return ({
         return JSON.stringify(template, null, 2);
     },
     exportMJML: function () {
-        // This will be implemented later with MJML integration
         var template = get().template;
-        return "<!-- MJML export for template: ".concat(template.name, " -->");
+        try {
+            var generateMJML = require('../utils/mjmlExport').generateMJML;
+            return generateMJML(template);
+        }
+        catch (error) {
+            console.error('MJML export error:', error);
+            return "<!-- MJML export for template: ".concat(template.name, " -->");
+        }
+    },
+    updateTemplateSettings: function (settings) {
+        set(function (state) {
+            var newTemplate = __assign({}, state.template);
+            newTemplate.settings = __assign(__assign({}, newTemplate.settings), settings);
+            newTemplate.metadata.updatedAt = new Date().toISOString();
+            // Add to history
+            var newHistory = __spreadArray(__spreadArray([], state.history.slice(0, state.historyIndex + 1), true), [newTemplate], false);
+            return {
+                template: newTemplate,
+                history: newHistory,
+                historyIndex: state.historyIndex + 1,
+            };
+        });
     },
 }); });
