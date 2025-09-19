@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.83f49461.css",
-    "main.js": "/static/js/main.5b2da502.js",
-    "index.html": "/index.html",
-    "main.83f49461.css.map": "/static/css/main.83f49461.css.map",
-    "main.5b2da502.js.map": "/static/js/main.5b2da502.js.map"
+    "main.css": "/mailyon/static/css/main.83f49461.css",
+    "main.js": "/mailyon/static/js/main.5b2da502.js",
+    "index.html": "/mailyon/index.html",
+    "main.83f49461.css.map": "/mailyon/static/css/main.83f49461.css.map",
+    "main.5b2da502.js.map": "/mailyon/static/js/main.5b2da502.js.map"
   },
   "entrypoints": [
     "static/css/main.83f49461.css",
