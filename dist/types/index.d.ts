@@ -70,6 +70,10 @@ export interface FooterProps {
     unsubscribeText?: string;
     unsubscribeUrl?: string;
     backgroundColor?: string;
+    companyNameColor?: string;
+    contactTextColor?: string;
+    socialTextColor?: string;
+    unsubscribeTextColor?: string;
     padding?: string;
     contentAlignment?: 'left' | 'center' | 'right';
 }

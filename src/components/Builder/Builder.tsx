@@ -305,25 +305,25 @@ export const Builder: React.FC = () => {
                 className="text-lg font-semibold mb-2"
                 style={{ color: component.props.companyNameColor || '#111827' }}
               >
-                {component.props.companyName || 'Company Name'}
+                {component.props.companyName ? component.props.companyName : ''}
               </h3>
               <p 
                 className="text-sm mb-2"
                 style={{ color: component.props.contactTextColor || '#6b7280' }}
               >
-                {component.props.address || '123 Main St, City, State 12345'}
+                {component.props.address ? component.props.address : ''}
               </p>
               <p 
                 className="text-sm mb-2"
                 style={{ color: component.props.contactTextColor || '#6b7280' }}
               >
-                {component.props.phone || '+1 (555) 123-4567'}
+                {component.props.phone ? component.props.phone : ''}
               </p>
               <p 
                 className="text-sm mb-4"
                 style={{ color: component.props.contactTextColor || '#6b7280' }}
               >
-                {component.props.email || 'info@company.com'}
+                {component.props.email ? component.props.email : ''}
               </p>
             </div>
             
@@ -337,21 +337,23 @@ export const Builder: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img 
-                      src={link.imageUrl || '#'} 
-                      alt={link.title || link.platform || 'Social Link'} 
-                      className="w-5 h-5"
-                      style={{ 
-                        filter: (link.imageUrl && link.imageUrl.includes('simple-icons')) 
-                          ? `brightness(0) saturate(100%) invert(0.6) sepia(0) saturate(0) hue-rotate(0deg) brightness(0.8) contrast(1)` 
-                          : 'none'
-                      }}
-                    />
+                    {link.imageUrl && (
+                      <img 
+                        src={link.imageUrl}
+                        alt={link.title || 'Social Icon'}
+                        className="w-5 h-5"
+                        style={{ 
+                          filter: (link.imageUrl && link.imageUrl.includes('simple-icons')) 
+                            ? `brightness(0) saturate(100%) invert(0.6) sepia(0) saturate(0) hue-rotate(0deg) brightness(0.8) contrast(1)` 
+                            : 'none'
+                        }}
+                      />
+                    )}
                     <span 
                       className="text-sm font-medium"
                       style={{ color: component.props.socialTextColor || '#6b7280' }}
                     >
-                      {link.title || link.platform || 'Social Link'}
+                      {link.title || ''}
                     </span>
                   </a>
                 ))}

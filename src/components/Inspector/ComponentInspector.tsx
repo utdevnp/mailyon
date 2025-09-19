@@ -23,6 +23,8 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
     unsubscribe: true
   });
   
+  const [expandedSocialLinks, setExpandedSocialLinks] = React.useState<number[]>([]);
+  
   // Track visibility states for header, text, image, and button fields
   const [fieldVisibility, setFieldVisibility] = React.useState({
     title: true,
@@ -1288,187 +1290,122 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
               
               {footerPanels.social && (
                 <div className="p-2 border-t border-gray-200 space-y-2">
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
-                      Facebook Title
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedComponent.props.socialLinks?.[0]?.title || ''}
-                      onChange={(e) => {
-                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[0]) {
-                          newSocialLinks[0] = { ...newSocialLinks[0], title: e.target.value };
-                        } else {
-                          newSocialLinks.push({ title: 'Facebook', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg', url: '#' });
-                        }
-                        handlePropertyChange('socialLinks', newSocialLinks);
-                      }}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="Facebook"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
-                      Facebook Icon URL
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedComponent.props.socialLinks?.[0]?.imageUrl || ''}
-                      onChange={(e) => {
-                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[0]) {
-                          newSocialLinks[0] = { ...newSocialLinks[0], imageUrl: e.target.value };
-                        } else {
-                          newSocialLinks.push({ title: 'Facebook', imageUrl: e.target.value, url: '#' });
-                        }
-                        handlePropertyChange('socialLinks', newSocialLinks);
-                      }}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="https://example.com/facebook-icon.svg"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
-                      Facebook Profile URL
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedComponent.props.socialLinks?.[0]?.url || ''}
-                      onChange={(e) => {
-                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[0]) {
-                          newSocialLinks[0] = { ...newSocialLinks[0], url: e.target.value };
-                        } else {
-                          newSocialLinks.push({ title: 'Facebook', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg', url: e.target.value });
-                        }
-                        handlePropertyChange('socialLinks', newSocialLinks);
-                      }}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="https://facebook.com/company"
-                    />
-                  </div>
                   
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
-                      Twitter Title
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedComponent.props.socialLinks?.[1]?.title || ''}
-                      onChange={(e) => {
-                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[1]) {
-                          newSocialLinks[1] = { ...newSocialLinks[1], title: e.target.value };
-                        } else {
-                          newSocialLinks.push({ title: 'Twitter', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg', url: '#' });
-                        }
-                        handlePropertyChange('socialLinks', newSocialLinks);
-                      }}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="Twitter"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
-                      Twitter Icon URL
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedComponent.props.socialLinks?.[1]?.imageUrl || ''}
-                      onChange={(e) => {
-                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[1]) {
-                          newSocialLinks[1] = { ...newSocialLinks[1], imageUrl: e.target.value };
-                        } else {
-                          newSocialLinks.push({ title: 'Twitter', imageUrl: e.target.value, url: '#' });
-                        }
-                        handlePropertyChange('socialLinks', newSocialLinks);
-                      }}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="https://example.com/twitter-icon.svg"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
-                      Twitter Profile URL
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedComponent.props.socialLinks?.[1]?.url || ''}
-                      onChange={(e) => {
-                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[1]) {
-                          newSocialLinks[1] = { ...newSocialLinks[1], url: e.target.value };
-                        } else {
-                          newSocialLinks.push({ title: 'Twitter', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg', url: e.target.value });
-                        }
-                        handlePropertyChange('socialLinks', newSocialLinks);
-                      }}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="https://twitter.com/company"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
-                      LinkedIn Title
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedComponent.props.socialLinks?.[2]?.title || ''}
-                      onChange={(e) => {
-                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[2]) {
-                          newSocialLinks[2] = { ...newSocialLinks[2], title: e.target.value };
-                        } else {
-                          newSocialLinks.push({ title: 'LinkedIn', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/linkedin.svg', url: '#' });
-                        }
-                        handlePropertyChange('socialLinks', newSocialLinks);
-                      }}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="LinkedIn"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
-                      LinkedIn Icon URL
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedComponent.props.socialLinks?.[2]?.imageUrl || ''}
-                      onChange={(e) => {
-                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[2]) {
-                          newSocialLinks[2] = { ...newSocialLinks[2], imageUrl: e.target.value };
-                        } else {
-                          newSocialLinks.push({ title: 'LinkedIn', imageUrl: e.target.value, url: '#' });
-                        }
-                        handlePropertyChange('socialLinks', newSocialLinks);
-                      }}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="https://example.com/linkedin-icon.svg"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-0.5">
-                      LinkedIn Profile URL
-                    </label>
-                    <input
-                      type="text"
-                      value={selectedComponent.props.socialLinks?.[2]?.url || ''}
-                      onChange={(e) => {
-                        const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
-                        if (newSocialLinks[2]) {
-                          newSocialLinks[2] = { ...newSocialLinks[2], url: e.target.value };
-                        } else {
-                          newSocialLinks.push({ title: 'LinkedIn', imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/linkedin.svg', url: e.target.value });
-                        }
-                        handlePropertyChange('socialLinks', newSocialLinks);
-                      }}
-                      className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
-                      placeholder="https://linkedin.com/company/company"
-                    />
+                  <div className="space-y-4">
+                    <div className="flex justify-end items-center">
+                      <button
+                        onClick={() => {
+                          const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                          newSocialLinks.push({
+                            title: 'Facebook',
+                            imageUrl: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg',
+                            url: '#'
+                          });
+                          handlePropertyChange('socialLinks', newSocialLinks);
+                        }}
+                        className="px-2 py-1 text-sm text-primary-600 hover:text-primary-700 bg-primary-50 hover:bg-primary-100 rounded transition-colors"
+                      >
+                        Add Social Link
+                      </button>
+                    </div>
+                    
+                    {(selectedComponent.props.socialLinks || []).map((link: { title: string; imageUrl: string; url: string }, index: number) => (
+                      <div key={index} className="border border-gray-200 rounded-lg">
+                        <button
+                          onClick={() => {
+                            setExpandedSocialLinks(prev => 
+                              prev.includes(index) 
+                                ? prev.filter(i => i !== index)
+                                : [...prev, index]
+                            );
+                          }}
+                          className="flex items-center justify-between w-full px-2 py-1.5 text-left hover:bg-gray-50 transition-colors"
+                        >
+                          <div className="flex items-center">
+                            <span className="text-sm font-medium text-gray-700">{link.title || `Link ${index + 1}`}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                                newSocialLinks.splice(index, 1);
+                                handlePropertyChange('socialLinks', newSocialLinks);
+                              }}
+                              className="p-1 text-gray-400 hover:text-red-500 transition-colors"
+                              title="Remove social link"
+                            >
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                            <svg
+                              className={`w-4 h-4 text-gray-500 transition-transform ${expandedSocialLinks.includes(index) ? 'rotate-180' : ''}`}
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </div>
+                        </button>
+                        
+                        {expandedSocialLinks.includes(index) && (
+                          <div className="p-2 border-t border-gray-200 space-y-2">
+                            <div>
+                              <label className="block text-xs font-medium text-gray-600 mb-0.5">
+                                Title
+                              </label>
+                              <input
+                                type="text"
+                                value={link.title || ''}
+                                onChange={(e) => {
+                                  const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                                  newSocialLinks[index] = { ...link, title: e.target.value };
+                                  handlePropertyChange('socialLinks', newSocialLinks);
+                                }}
+                                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
+                                placeholder="Social Platform Name"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label className="block text-xs font-medium text-gray-600 mb-0.5">
+                                Icon URL
+                              </label>
+                              <input
+                                type="text"
+                                value={link.imageUrl || ''}
+                                onChange={(e) => {
+                                  const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                                  newSocialLinks[index] = { ...link, imageUrl: e.target.value };
+                                  handlePropertyChange('socialLinks', newSocialLinks);
+                                }}
+                                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
+                                placeholder="https://example.com/icon.svg"
+                              />
+                            </div>
+                            
+                            <div>
+                              <label className="block text-xs font-medium text-gray-600 mb-0.5">
+                                Profile URL
+                              </label>
+                              <input
+                                type="text"
+                                value={link.url || ''}
+                                onChange={(e) => {
+                                  const newSocialLinks = [...(selectedComponent.props.socialLinks || [])];
+                                  newSocialLinks[index] = { ...link, url: e.target.value };
+                                  handlePropertyChange('socialLinks', newSocialLinks);
+                                }}
+                                className="w-full px-2 py-1.5 text-sm border border-gray-300 rounded focus:ring-1 focus:ring-primary-500 focus:border-transparent"
+                                placeholder="https://platform.com/profile"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
                   <div className="mt-2">
                     <ColorPicker
