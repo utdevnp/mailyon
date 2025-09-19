@@ -76,6 +76,29 @@ export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) 
   historyIndex: 0,
 
   // Actions
+  setFullTemplate: (newTemplate: EmailTemplate) => {
+    set(state => {
+      const updatedTemplate = {
+        ...newTemplate,
+        metadata: {
+          ...newTemplate.metadata,
+          updatedAt: new Date().toISOString()
+        }
+      };
+
+      // Add to history
+      const newHistory = [...state.history.slice(0, state.historyIndex + 1), updatedTemplate];
+
+      return {
+        template: updatedTemplate,
+        selectedComponent: null, // Reset selection when template is replaced
+        history: newHistory,
+        historyIndex: newHistory.length - 1
+      };
+    });
+  },
+
+  // Other Actions
   addComponent: (component: EmailComponent, parentId?: string) => {
     set((state) => {
       const newTemplate = { ...state.template };

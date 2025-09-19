@@ -163,4 +163,5 @@ export interface BuilderActions {
   exportJSON: () => string;
   exportMJML: () => string;
   updateTemplateSettings: (settings: Partial<EmailTemplate['settings']>) => void;
+  setFullTemplate: (template: EmailTemplate) => void;
 }

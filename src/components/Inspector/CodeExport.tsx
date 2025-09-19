@@ -8,6 +8,7 @@ interface CodeExportProps {
   exportMJML: () => string;
   generateHTML: () => string;
   copyToClipboard: (text: string, type: string) => void;
+  onJSONUpdate?: (json: string) => void;
 }
 
 export const CodeExport: React.FC<CodeExportProps> = ({
@@ -15,7 +16,8 @@ export const CodeExport: React.FC<CodeExportProps> = ({
   exportJSON,
   exportMJML,
   generateHTML,
-  copyToClipboard
+  copyToClipboard,
+  onJSONUpdate
 }) => {
   const [codeAccordions, setCodeAccordions] = React.useState({
     json: false,
@@ -31,11 +33,30 @@ export const CodeExport: React.FC<CodeExportProps> = ({
     <div className="space-y-4">
       <ExportSection
         title="JSON Export"
-        content={exportJSON()}
+        content={(() => {
+          try {
+            // Pretty print the JSON for better readability
+            return JSON.stringify(JSON.parse(exportJSON()), null, 2);
+          } catch {
+            return exportJSON();
+          }
+        })()}
         isExpanded={codeAccordions.json}
         onToggle={() => toggleAccordion('json')}
         onCopy={() => copyToClipboard(exportJSON(), 'JSON')}
         description="Raw template data structure for developers and API integration"
+        isEditable={true}
+        onChange={(value) => {
+          try {
+            const parsedJson = JSON.parse(value);
+            if (onJSONUpdate) {
+              onJSONUpdate(value);
+            }
+          } catch (error) {
+            // We still allow editing even if JSON is invalid
+            console.warn('Invalid JSON:', error);
+          }
+        }}
       />
 
       <ExportSection

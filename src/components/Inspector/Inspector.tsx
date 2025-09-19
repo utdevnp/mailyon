@@ -6,7 +6,7 @@ import { ComponentInspector } from './ComponentInspector';
 import { CodeExport } from './CodeExport';
 
 export const Inspector: React.FC = () => {
-  const { selectedComponent, updateComponent, deleteComponent, duplicateComponent, template, updateTemplateSettings, exportJSON, exportMJML } = useBuilderStore();
+  const { selectedComponent, updateComponent, deleteComponent, duplicateComponent, template, updateTemplateSettings, exportJSON, exportMJML, setFullTemplate } = useBuilderStore();
   const [activeTab, setActiveTab] = React.useState<'template' | 'code'>('template');
   
   // Debug logging
@@ -98,6 +98,14 @@ export const Inspector: React.FC = () => {
         <CodeExport
           template={template}
           exportJSON={exportJSON}
+          onJSONUpdate={(json) => {
+            try {
+              const parsedTemplate = JSON.parse(json);
+              setFullTemplate(parsedTemplate);
+            } catch (error) {
+              console.error('Error updating template from JSON:', error);
+            }
+          }}
           exportMJML={exportMJML}
           generateHTML={generateHTML}
           copyToClipboard={copyToClipboard}

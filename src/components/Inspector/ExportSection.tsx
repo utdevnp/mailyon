@@ -7,6 +7,8 @@ interface ExportSectionProps {
   onToggle: () => void;
   onCopy: () => void;
   description?: string;
+  isEditable?: boolean;
+  onChange?: (value: string) => void;
 }
 
 export const ExportSection: React.FC<ExportSectionProps> = ({
@@ -15,7 +17,9 @@ export const ExportSection: React.FC<ExportSectionProps> = ({
   isExpanded,
   onToggle,
   onCopy,
-  description
+  description,
+  isEditable = false,
+  onChange
 }) => {
   return (
     <div className="card p-4">
@@ -42,8 +46,16 @@ export const ExportSection: React.FC<ExportSectionProps> = ({
       {isExpanded && (
         <div className="relative">
           <textarea
-            value={content}
-            className="w-full h-32 p-3 text-xs font-mono bg-gray-50 border border-gray-200 rounded-lg resize-none pr-10"
+            defaultValue={content}
+            onChange={e => {
+              console.log('Textarea changed:', e.target.value);
+              onChange?.(e.target.value);
+            }}
+            readOnly={!isEditable}
+            spellCheck={false}
+            className={`w-full h-64 p-3 text-xs font-mono border border-gray-200 rounded-lg resize-vertical pr-10 ${
+              isEditable ? 'bg-white' : 'bg-gray-50'
+            }`}
             placeholder={`${title} content will appear here...`}
           />
           <button
