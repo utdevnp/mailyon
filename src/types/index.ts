@@ -34,7 +34,7 @@ export interface HeaderProps {
 }
 
 export interface TextProps {
-  content: string;
+  content: string; // HTML content from Quill editor
   fontSize?: string;
   fontWeight?: string;
   textAlign?: 'left' | 'center' | 'right';

@@ -2,16 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Quill Editor Styles */
+@import 'react-quill/dist/quill.snow.css';
+
+/* Custom Quill Styles Overrides */
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+  border: none !important;
+}
+
+.ql-editor {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-size: 0.875rem;
+}
+
 @layer base {
   html {
     font-family: 'Inter', system-ui, sans-serif;
   }
-  
-  html, body, #root {
+
+  html,
+  body,
+  #root {
     height: 100%;
     width: 100%;
   }
-  
+
   body {
     @apply bg-gray-50 text-gray-900;
   }
@@ -21,19 +37,19 @@
   .btn-primary {
     @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
   }
-  
+
   .btn-secondary {
     @apply bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
   }
-  
+
   .card {
     @apply bg-white rounded-lg shadow-sm border border-gray-200;
   }
-  
+
   .input-field {
     @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent;
   }
-  
+
   .logo-custom-size {
     width: var(--logo-width, 200px) !important;
     height: var(--logo-height, 60px) !important;
@@ -42,5 +58,9 @@
     max-width: none !important;
     max-height: none !important;
     object-fit: contain !important;
+  }
+
+  .prose a {
+    @apply text-blue-600 hover:text-blue-800 underline;
   }
 }

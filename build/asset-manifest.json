@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/mailyon/static/css/main.c6f0835d.css",
+    "main.js": "/mailyon/static/js/main.be1efc17.js",
+    "index.html": "/mailyon/index.html",
+    "main.c6f0835d.css.map": "/mailyon/static/css/main.c6f0835d.css.map",
+    "main.be1efc17.js.map": "/mailyon/static/js/main.be1efc17.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c6f0835d.css",
+    "static/js/main.be1efc17.js"
+  ]
+}

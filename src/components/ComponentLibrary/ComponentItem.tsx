@@ -1,6 +1,6 @@
-import React from 'react';
-import { useDrag } from 'react-dnd';
-import { ComponentType } from '../../types';
+import React from "react";
+import { useDrag } from "react-dnd";
+import { ComponentType } from "../../types";
 
 interface ComponentItemProps {
   type: ComponentType;
@@ -13,10 +13,10 @@ export const ComponentItem: React.FC<ComponentItemProps> = ({
   type,
   label,
   icon,
-  description
+  description,
 }) => {
   const [{ isDragging }, drag] = useDrag({
-    type: 'COMPONENT',
+    type: "COMPONENT",
     item: { type },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
@@ -25,9 +25,9 @@ export const ComponentItem: React.FC<ComponentItemProps> = ({
 
   return (
     <div
-      ref={drag}
+      ref={drag as unknown as React.Ref<HTMLDivElement>}
       className={`flex items-start p-3 bg-white border border-gray-200 rounded-lg cursor-move hover:bg-gray-50 hover:border-gray-300 transition-colors ${
-        isDragging ? 'opacity-50' : ''
+        isDragging ? "opacity-50" : ""
       }`}
     >
       {icon && <span className="mr-2 text-gray-500 mt-0.5">{icon}</span>}

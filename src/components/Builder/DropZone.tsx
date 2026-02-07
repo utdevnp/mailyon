@@ -1,6 +1,6 @@
-import React from 'react';
-import { useDrop } from 'react-dnd';
-import { ComponentType } from '../../types';
+import React from "react";
+import { useDrop } from "react-dnd";
+import { ComponentType } from "../../types";
 
 interface DropZoneProps {
   index: number;
@@ -9,7 +9,7 @@ interface DropZoneProps {
 
 export const DropZone: React.FC<DropZoneProps> = ({ index, onDrop }) => {
   const [{ isOver }, drop] = useDrop({
-    accept: 'COMPONENT',
+    accept: "COMPONENT",
     drop: (item: { type: ComponentType }, monitor) => {
       if (!monitor.didDrop()) {
         onDrop(item.type, index);
@@ -22,11 +22,11 @@ export const DropZone: React.FC<DropZoneProps> = ({ index, onDrop }) => {
 
   return (
     <div
-      ref={drop}
+      ref={drop as unknown as React.Ref<HTMLDivElement>}
       className={`transition-all duration-200 ${
-        isOver 
-          ? 'h-8 border-2 border-dashed border-blue-400' 
-          : 'h-3 bg-transparent'
+        isOver
+          ? "h-8 border-2 border-dashed border-blue-400"
+          : "h-3 bg-transparent"
       }`}
     />
   );
