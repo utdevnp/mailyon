@@ -8,15 +8,17 @@ export interface EmailComponent {
 }
 
 // Component types
-export type ComponentType = 
+export type ComponentType =
   | 'header'
   | 'text'
   | 'image'
   | 'button'
   | 'divider'
+  | 'socialMedia'
   | 'footer'
   | 'spacer'
-  | 'socialMedia';
+  | 'columns'
+  | 'column';
 
 // Specific component props
 export interface HeaderProps {
@@ -142,6 +144,7 @@ export interface DragItem {
 export interface BuilderState {
   template: EmailTemplate;
   selectedComponent: EmailComponent | null;
+  hoveredComponentId: string | null;
   isDragging: boolean;
   history: EmailTemplate[];
   historyIndex: number;
@@ -153,8 +156,9 @@ export interface BuilderActions {
   updateComponent: (id: string, updates: Partial<EmailComponent>) => void;
   deleteComponent: (id: string) => void;
   selectComponent: (component: EmailComponent | null) => void;
-  moveComponent: (id: string, newIndex: number) => void;
-  insertComponentAt: (type: ComponentType, index: number, defaultProps?: Record<string, any>) => void;
+  setHoveredComponentId: (id: string | null) => void;
+  moveComponent: (id: string, newIndex: number, newParentId?: string) => void;
+  insertComponentAt: (type: ComponentType, index: number, defaultProps?: Record<string, any>, parentId?: string) => void;
   duplicateComponent: (id: string) => void;
   undo: () => void;
   redo: () => void;

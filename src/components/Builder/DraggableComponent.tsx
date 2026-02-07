@@ -1,12 +1,13 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { useBuilderStore } from "../../store/builderStore";
 import { EmailComponent } from "../../types";
 import { ComponentRenderer } from "./ComponentRenderer";
 
 interface DraggableComponentProps {
   component: EmailComponent;
   index: number;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
   isSelected: boolean;
   onMove: (id: string, newIndex: number) => void;
   onDelete: (id: string) => void;
@@ -31,7 +32,7 @@ export const DraggableComponent: React.FC<DraggableComponentProps> = ({
   const [{ isOver }, drop] = useDrop({
     accept: "EXISTING_COMPONENT",
     hover: (item: { id: string; index: number }, monitor) => {
-      if (!monitor.isOver()) {
+      if (!monitor.isOver({ shallow: true })) {
         return;
       }
 
@@ -43,17 +44,40 @@ export const DraggableComponent: React.FC<DraggableComponentProps> = ({
       item.index = index;
     },
     collect: (monitor) => ({
-      isOver: monitor.isOver(),
+      isOver: monitor.isOver({ shallow: true }),
     }),
   });
+
+  const { hoveredComponentId, setHoveredComponentId } = useBuilderStore();
+  const isHovered = hoveredComponentId === component.id;
+
+  const handleMouseOver = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setHoveredComponentId(component.id);
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Only clear if we are the one currently hovered
+    // This prevents clearing if a child already took over (though stopPropagation in child prevents us seeing that, verify?)
+    // Actually simpler: if I leave, I shouldn't be hovered anymore.
+    // If I move to child, child will set itself.
+    // Use a check to be safe
+    // if (hoveredComponentId === component.id) {
+      setHoveredComponentId(null);
+    // }
+  };
 
   return (
     <div
       ref={(node) => drag(drop(node)) as any}
+      onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
       className={`relative group transition-all duration-200 ${
         isDragging ? "opacity-50 scale-95" : ""
-      } ${isOver ? "border-l-4 border-primary-500" : ""}`}
+      } ${isOver ? "border-t-4 border-primary-500" : ""}`}
     >
+      {/* ... rest of component ... */}
       <ComponentRenderer
         component={component}
         onClick={onClick}
@@ -61,7 +85,11 @@ export const DraggableComponent: React.FC<DraggableComponentProps> = ({
       />
 
       {/* Top Overlay Controls - Floating above the border */}
-      <div className="absolute -top-3 left-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+      <div 
+        className={`absolute -top-3 left-1 transition-opacity z-10 ${
+          isHovered ? "opacity-100" : "opacity-0"
+        }`}
+      >
         <div className="flex items-center space-x-1">
           {/* Component Type Badge */}
           <div className="bg-gray-800 text-white px-1.5 py-0.5 rounded text-xs font-medium whitespace-nowrap shadow-md">

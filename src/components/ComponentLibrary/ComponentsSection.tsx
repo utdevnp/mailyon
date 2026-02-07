@@ -91,6 +91,36 @@ export const ComponentsSection: React.FC<ComponentsSectionProps> = ({
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-10 0a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2M9 4v2h6V4M9 4h6" />
         </svg>
       )
+    },
+    { 
+      type: 'columns' as ComponentType, 
+      label: '2 Columns', 
+      description: 'Two equal columns',
+      defaultProps: {
+        columns: 2,
+        padding: '5px',
+        backgroundColor: 'transparent'
+      },
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+        </svg>
+      )
+    },
+    { 
+      type: 'columns' as ComponentType, 
+      label: '3 Columns', 
+      description: 'Three equal columns',
+      defaultProps: {
+        columns: 3,
+        padding: '5px',
+        backgroundColor: 'transparent'
+      },
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+        </svg>
+      )
     }
   ];
 
@@ -115,11 +145,12 @@ export const ComponentsSection: React.FC<ComponentsSectionProps> = ({
         <div className="p-3 border-t border-gray-200 space-y-2">
           {components.map((component) => (
             <ComponentItem
-              key={component.type}
+              key={component.label}
               type={component.type}
               label={component.label}
               icon={component.icon}
               description={component.description}
+              defaultProps={component.defaultProps}
             />
           ))}
         </div>

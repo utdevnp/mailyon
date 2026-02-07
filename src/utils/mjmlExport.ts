@@ -5,8 +5,22 @@ import { EmailComponent, EmailTemplate } from '../types';
 export const generateMJML = (template: EmailTemplate): string => {
   const generateComponentMJML = (component: EmailComponent): string => {
     const props = component.props;
-    
+
     switch (component.type) {
+      case 'columns':
+        return `
+          <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
+            ${component.children?.map(column => generateComponentMJML(column)).join('') || ''}
+          </mj-section>
+        `;
+
+      case 'column':
+        return `
+          <mj-column width="${props.width || '50%'}" padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}" vertical-align="${props.verticalAlign || 'top'}">
+            ${component.children?.map(child => generateComponentMJML(child)).join('') || ''}
+          </mj-column>
+        `;
+
       case 'header':
         return `
           <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
@@ -47,7 +61,7 @@ export const generateMJML = (template: EmailTemplate): string => {
             </mj-column>
           </mj-section>
         `;
-      
+
       case 'text':
         return `
           <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
@@ -67,7 +81,7 @@ export const generateMJML = (template: EmailTemplate): string => {
             </mj-column>
           </mj-section>
         `;
-      
+
       case 'image':
         return `
           <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
@@ -88,7 +102,7 @@ export const generateMJML = (template: EmailTemplate): string => {
             </mj-column>
           </mj-section>
         `;
-      
+
       case 'button':
         return `
           <mj-section padding="${props.canvasPadding || '0px'}">
@@ -110,7 +124,7 @@ export const generateMJML = (template: EmailTemplate): string => {
             </mj-column>
           </mj-section>
         `;
-      
+
       case 'divider':
         return `
           <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
@@ -123,9 +137,7 @@ export const generateMJML = (template: EmailTemplate): string => {
             </mj-column>
           </mj-section>
         `;
-      
 
-      
       case 'spacer':
         return `
           <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
@@ -134,12 +146,12 @@ export const generateMJML = (template: EmailTemplate): string => {
             </mj-column>
           </mj-section>
         `;
-      
+
       case 'footer':
         // Debug: Log footer alignment
         console.log('🔍 Footer component alignment:', props.contentAlignment);
         console.log('🔍 Footer props:', props);
-        
+
         return `
           <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
             <mj-column>
@@ -190,12 +202,12 @@ export const generateMJML = (template: EmailTemplate): string => {
                   align="${props.contentAlignment || 'center'}"
                   padding="15px 0"
                 >
-                  ${props.socialLinks.map((link: { title: string; imageUrl: string; url: string }) => 
-                    `<a href="${link.url}" style="margin: 0 10px; color: ${props.socialTextColor || '#6b7280'}; text-decoration: none; display: inline-block; vertical-align: middle;">
+                  ${props.socialLinks.map((link: { title: string; imageUrl: string; url: string }) =>
+          `<a href="${link.url}" style="margin: 0 10px; color: ${props.socialTextColor || '#6b7280'}; text-decoration: none; display: inline-block; vertical-align: middle;">
                       <img src="${link.imageUrl}" alt="${link.title}" width="16" height="16" style="display: inline-block; vertical-align: middle; margin-right: 5px;">
                       ${link.title}
                     </a>`
-                  ).join('')}
+        ).join('')}
                 </mj-text>
               ` : ''}
               ${props.unsubscribeText ? `
@@ -211,7 +223,7 @@ export const generateMJML = (template: EmailTemplate): string => {
             </mj-column>
           </mj-section>
         `;
-      
+
       case 'socialMedia':
         return `
           <mj-section padding="${props.padding || '0px'}" background-color="${props.backgroundColor || 'transparent'}">
@@ -235,7 +247,7 @@ export const generateMJML = (template: EmailTemplate): string => {
             </mj-column>
           </mj-section>
         `;
-      
+
       default:
         return `
           <mj-section padding="${props.padding || '0px'}">
@@ -270,7 +282,7 @@ export const generateMJML = (template: EmailTemplate): string => {
       </mj-body>
     </mjml>
   `;
-  
+
   return mjmlTemplate.trim();
 };
 
@@ -278,34 +290,34 @@ export const generateMJML = (template: EmailTemplate): string => {
 export const convertMJMLToHTML = (mjmlContent: string): string => {
   try {
     console.log('Converting MJML to HTML:', mjmlContent);
-    
+
     const result = mjml2html(mjmlContent, {
       keepComments: false,
       beautify: true,
       minify: false,
       validationLevel: 'soft'
     });
-    
+
     if (result.errors && result.errors.length > 0) {
       console.warn('MJML conversion warnings:', result.errors);
     }
-    
+
     console.log('Generated HTML:', result.html);
-    
+
     // Check if center alignment is preserved
-    const hasCenterAlign = result.html.includes('text-align: center') || 
-                          result.html.includes('text-align:center') ||
-                          result.html.includes('align="center"');
-    
+    const hasCenterAlign = result.html.includes('text-align: center') ||
+      result.html.includes('text-align:center') ||
+      result.html.includes('align="center"');
+
     if (!hasCenterAlign) {
       console.warn('⚠️ Center alignment NOT found in generated HTML!');
     } else {
       console.log('✅ Center alignment found in generated HTML');
     }
-    
+
     // Ensure center alignment is preserved for header components
     let finalHtml = result.html;
-    
+
     // If center alignment is missing, add it manually
     if (!hasCenterAlign) {
       console.warn('⚠️ Adding center alignment manually to HTML');
@@ -320,7 +332,7 @@ export const convertMJMLToHTML = (mjmlContent: string): string => {
         }
       );
     }
-    
+
     return finalHtml;
   } catch (error) {
     console.error('MJML conversion error:', error);
@@ -333,7 +345,7 @@ export const convertMJMLToHTML = (mjmlContent: string): string => {
 export const exportEmailTemplate = (template: EmailTemplate) => {
   const mjml = generateMJML(template);
   const html = convertMJMLToHTML(mjml);
-  
+
   return {
     mjml,
     html,

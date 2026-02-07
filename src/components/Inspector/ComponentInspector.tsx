@@ -2325,6 +2325,87 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
           </div>
         );
 
+      case "columns":
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Background Color
+              </label>
+              <ColorPicker
+                value={selectedComponent.props.backgroundColor || "transparent"}
+                onChange={(color) =>
+                  handlePropertyChange("backgroundColor", color)
+                }
+                label="Background Color"
+                placeholder="Select background color"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Padding
+              </label>
+              <input
+                type="text"
+                value={selectedComponent.props.padding || "0px"}
+                onChange={(e) => handlePropertyChange("padding", e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="e.g. 10px 20px"
+              />
+            </div>
+          </div>
+        );
+
+      case "column":
+        return (
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Background Color
+              </label>
+              <ColorPicker
+                value={selectedComponent.props.backgroundColor || "transparent"}
+                onChange={(color) =>
+                  handlePropertyChange("backgroundColor", color)
+                }
+                label="Column Background"
+                placeholder="Select background color"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Padding
+              </label>
+              <input
+                type="text"
+                value={selectedComponent.props.padding || "0px"}
+                onChange={(e) => handlePropertyChange("padding", e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                placeholder="e.g. 10px"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Vertical Alignment
+              </label>
+              <select
+                value={selectedComponent.props.verticalAlign || "top"}
+                onChange={(e) =>
+                  handlePropertyChange("verticalAlign", e.target.value)
+                }
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              >
+                <option value="top">Top</option>
+                <option value="middle">Middle</option>
+                <option value="bottom">Bottom</option>
+              </select>
+            </div>
+          </div>
+        );
+
       default:
         return (
           <div className="text-gray-500 text-sm">

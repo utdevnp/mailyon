@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDrop } from "react-dnd";
-import { useBuilderStore } from "../../store/builderStore";
+import { useBuilderStore, createComponent } from "../../store/builderStore";
 import { EmailComponent, ComponentType } from "../../types";
 import { DraggableComponent } from "./DraggableComponent";
 import { DropZone } from "./DropZone";
+import { ComponentList } from "./ComponentList";
+import { getDefaultProps } from "../../utils/componentUtils";
 
 export const Builder: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"editor" | "pc" | "mobile">(
@@ -23,16 +25,13 @@ export const Builder: React.FC = () => {
   // Main Builder drop zone for dropping anywhere in the canvas
   const [{ isOver }, drop] = useDrop({
     accept: "COMPONENT",
-    drop: (item: { type: ComponentType }, monitor) => {
+    drop: (item: { type: ComponentType; defaultProps?: Record<string, any> }, monitor) => {
       // Only handle drops when not over individual drop zones
       if (!monitor.didDrop()) {
-        const newComponent: EmailComponent = {
-          id: Math.random().toString(36).substr(2, 9),
-          type: item.type,
-          props: getDefaultProps(item.type),
-          children: [],
-          style: {},
-        };
+        const newComponent = createComponent(
+          item.type,
+          { ...getDefaultProps(item.type), ...item.defaultProps }
+        );
         addComponent(newComponent);
       }
     },
@@ -40,144 +39,6 @@ export const Builder: React.FC = () => {
       isOver: monitor.isOver({ shallow: true }),
     }),
   });
-
-  const getDefaultProps = (type: ComponentType): Record<string, any> => {
-    switch (type) {
-      case "header":
-        return {
-          logo: "",
-          logoWidth: "200px",
-          logoHeight: "60px",
-          title: "Company Name",
-          subtitle: "Your tagline here",
-          backgroundColor: "transparent",
-          textColor: "#000000",
-          logoVisible: true,
-          titleVisible: true,
-          subtitleVisible: true,
-          padding: "5px",
-        };
-      case "text":
-        return {
-          content:
-            "Welcome to templify! This is a sample text block where you can add your content. You can customize the font size, weight, alignment, and colors to match your brand.",
-          fontSize: "16px",
-          fontWeight: "normal",
-          textAlign: "left",
-          color: "#000000",
-          lineHeight: "1.5",
-          backgroundColor: "transparent",
-          textVisible: true,
-          padding: "5px",
-        };
-      case "image":
-        return {
-          src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=300&fit=crop&crop=center",
-          alt: "Professional business image - perfect for your email content",
-          width: "600px",
-          height: "300px",
-          align: "center",
-          borderRadius: "0px",
-          imageVisible: true,
-          padding: "5px",
-        };
-      case "button":
-        return {
-          text: "Click Here",
-          url: "#",
-          backgroundColor: "#3b82f6",
-          textColor: "#ffffff",
-          borderRadius: "6px",
-          padding: "12px 24px",
-          canvasPadding: "5px",
-          fontSize: "16px",
-          buttonVisible: true,
-        };
-      case "divider":
-        return {
-          color: "#e5e7eb",
-          height: "1px",
-          margin: "2px 2px",
-          padding: "5px",
-        };
-
-      case "footer":
-        return {
-          companyName: "Company Name",
-          address: "123 Main St, City, State 12345",
-          phone: "+1 (555) 123-4567",
-          email: "info@company.com",
-          socialLinks: [
-            {
-              title: "Facebook",
-              imageUrl:
-                "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg",
-              url: "#",
-            },
-            {
-              title: "Twitter",
-              imageUrl:
-                "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg",
-              url: "#",
-            },
-            {
-              title: "LinkedIn",
-              imageUrl:
-                "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/linkedin.svg",
-              url: "#",
-            },
-          ],
-          unsubscribeText: "Click here to unsubscribe",
-          unsubscribeUrl: "https://company.com/unsubscribe",
-          backgroundColor: "transparent",
-          companyNameColor: "#111827",
-          contactTextColor: "#6b7280",
-          socialTextColor: "#6b7280",
-          unsubscribeTextColor: "#9ca3af",
-          padding: "5px",
-          contentAlignment: "center",
-        };
-      case "spacer":
-        return {
-          height: "20px",
-          padding: "5px",
-        };
-      case "socialMedia":
-        return {
-          platforms: [
-            {
-              platform: "Facebook",
-              title: "Facebook",
-              imageUrl:
-                "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/facebook.svg",
-              url: "#",
-            },
-            {
-              platform: "Twitter",
-              title: "Twitter",
-              imageUrl:
-                "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/twitter.svg",
-              url: "#",
-            },
-            {
-              platform: "Instagram",
-              title: "Instagram",
-              imageUrl:
-                "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@v9/icons/instagram.svg",
-              url: "#",
-            },
-          ],
-          alignment: "horizontal",
-          type: "icon",
-          spacing: "16px",
-          iconSize: "24px",
-          backgroundColor: "transparent",
-          padding: "5px",
-        };
-      default:
-        return {};
-    }
-  };
 
   const handleComponentClick = (component: EmailComponent) => {
     console.log("Component clicked:", component);
@@ -192,6 +53,42 @@ export const Builder: React.FC = () => {
 
   const renderPreviewComponent = (component: any) => {
     switch (component.type) {
+      case "columns":
+        return (
+          <div
+            className="w-full flex flex-wrap"
+            style={{
+              backgroundColor: component.props.backgroundColor || "transparent",
+              padding: component.props.padding || "5px",
+            }}
+          >
+            {component.children?.map((child: any, index: number) => (
+              <React.Fragment key={`${child.id}-${index}`}>
+                {renderPreviewComponent(child)}
+              </React.Fragment>
+            ))}
+          </div>
+        );
+
+      case "column":
+        return (
+          <div
+            className="flex flex-col min-w-0"
+            style={{
+              width: component.props.width || "100%",
+              backgroundColor: component.props.backgroundColor || "transparent",
+              padding: component.props.padding || "5px",
+              verticalAlign: component.props.verticalAlign || "top",
+            }}
+          >
+            {component.children?.map((child: any, index: number) => (
+              <React.Fragment key={`${child.id}-${index}`}>
+                {renderPreviewComponent(child)}
+              </React.Fragment>
+            ))}
+          </div>
+        );
+
       case "header":
         return (
           <div
@@ -666,87 +563,12 @@ export const Builder: React.FC = () => {
               backgroundColor:
                 template.settings.backgroundColor || "transparent",
             }}
+            onClick={handleCanvasClick}
           >
-            {template.components.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full py-20">
-                <svg
-                  className="w-16 h-16 text-gray-300 mb-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"
-                  />
-                </svg>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  Start building your email
-                </h3>
-                <p className="text-gray-500 text-center max-w-sm">
-                  Drag components from the left sidebar to start creating your
-                  email template
-                </p>
-
-                {/* Drop zone for the first component */}
-                <div className="mt-8">
-                  <DropZone
-                    index={0}
-                    onDrop={(type, index) => {
-                      const defaultProps = getDefaultProps(type);
-                      insertComponentAt(type, index, defaultProps);
-                    }}
-                  />
-                </div>
-              </div>
-            ) : (
-              <div className="p-4 space-y-1">
-                {template.components.map((component, index) => (
-                  <React.Fragment key={component.id}>
-                    {/* Drop zone above the first component */}
-                    {index === 0 && (
-                      <DropZone
-                        index={0}
-                        onDrop={(type, index) => {
-                          const defaultProps = getDefaultProps(type);
-                          insertComponentAt(type, index, defaultProps);
-                        }}
-                      />
-                    )}
-
-                    {/* The component itself */}
-                    <DraggableComponent
-                      component={component}
-                      index={index}
-                      onClick={() => handleComponentClick(component)}
-                      isSelected={selectedComponent?.id === component.id}
-                      onMove={moveComponent}
-                      onDelete={deleteComponent}
-                    />
-
-                    {/* Drop zone below the component */}
-                    <DropZone
-                      index={index + 1}
-                      onDrop={(type, index) => {
-                        const defaultProps = getDefaultProps(type);
-                        insertComponentAt(type, index, defaultProps);
-                      }}
-                    />
-                  </React.Fragment>
-                ))}
-
-                {/* Additional drop zone at the very end for appending */}
-                <DropZone
-                  index={template.components.length}
-                  onDrop={(type, index) => {
-                    const defaultProps = getDefaultProps(type);
-                    insertComponentAt(type, index, defaultProps);
-                  }}
-                />
-              </div>
-            )}
+            <ComponentList 
+              components={template.components}
+              emptyText="Drag components from the left sidebar to start creating your email template"
+            />
           </div>
         </div>
       )}

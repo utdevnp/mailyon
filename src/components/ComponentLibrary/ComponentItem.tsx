@@ -7,6 +7,7 @@ interface ComponentItemProps {
   label: string;
   icon?: React.ReactNode;
   description?: string;
+  defaultProps?: Record<string, any>;
 }
 
 export const ComponentItem: React.FC<ComponentItemProps> = ({
@@ -14,10 +15,11 @@ export const ComponentItem: React.FC<ComponentItemProps> = ({
   label,
   icon,
   description,
+  defaultProps,
 }) => {
   const [{ isDragging }, drag] = useDrag({
     type: "COMPONENT",
-    item: { type },
+    item: { type, defaultProps },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),

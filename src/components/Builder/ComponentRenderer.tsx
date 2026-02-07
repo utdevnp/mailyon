@@ -3,9 +3,11 @@ import { EmailComponent } from "../../types";
 
 interface ComponentRendererProps {
   component: EmailComponent;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
   isSelected: boolean;
 }
+
+import { Columns } from "./Components/Columns";
 
 export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
   component,
@@ -14,6 +16,8 @@ export const ComponentRenderer: React.FC<ComponentRendererProps> = ({
 }) => {
   const renderComponent = () => {
     switch (component.type) {
+      case "columns":
+        return <Columns component={component} />;
       case "header":
         return (
           <div
