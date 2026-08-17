@@ -48,7 +48,6 @@ export const ExportSection: React.FC<ExportSectionProps> = ({
           <textarea
             defaultValue={content}
             onChange={e => {
-              console.log('Textarea changed:', e.target.value);
               onChange?.(e.target.value);
             }}
             readOnly={!isEditable}

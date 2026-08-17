@@ -18,7 +18,7 @@ export const ComponentList: React.FC<ComponentListProps> = ({
 }) => {
   const {
     selectComponent,
-    selectedComponent,
+    selectedComponentId,
     moveComponent,
     deleteComponent,
     insertComponentAt,
@@ -26,7 +26,6 @@ export const ComponentList: React.FC<ComponentListProps> = ({
 
   const handleComponentClick = (e: React.MouseEvent, component: EmailComponent) => {
     e.stopPropagation();
-    console.log("Component clicked:", component);
     selectComponent(component);
   };
 
@@ -68,7 +67,7 @@ export const ComponentList: React.FC<ComponentListProps> = ({
             component={component}
             index={index}
             onClick={(e) => handleComponentClick(e, component)}
-            isSelected={selectedComponent?.id === component.id}
+            isSelected={selectedComponentId === component.id}
             onMove={handleMove}
             onDelete={deleteComponent}
           />

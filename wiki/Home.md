@@ -36,6 +36,7 @@ function MyApp() {
 - **No Generic Headers** - Seamlessly integrates into your app
 - **Drag & Drop Interface** - Visual email building
 - **Real-time Preview** - See changes instantly
+- **True-to-Export Preview** - Desktop/mobile views render the exact HTML your email export produces
 - **Export Ready** - Get HTML, JSON, or MJML output
 - **Mobile Responsive** - Works on all devices
 - **Email Client Compatible** - Tested across major email clients

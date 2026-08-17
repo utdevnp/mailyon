@@ -19,6 +19,9 @@ const defaultTemplate: EmailTemplate = {
   },
 };
 
+// Maximum number of undo/redo snapshots to retain
+const MAX_HISTORY = 100;
+
 // Helper function to generate unique ID
 const generateId = (): string => {
   return Math.random().toString(36).substr(2, 9);
@@ -71,6 +74,20 @@ const findComponent = (components: EmailComponent[], id: string): EmailComponent
   return null;
 };
 
+// Helper function to find the parent of a component (null means it's at root level)
+const findParentComponent = (components: EmailComponent[], childId: string): EmailComponent | null => {
+  for (const component of components) {
+    if (component.children?.some(child => child.id === childId)) {
+      return component;
+    }
+    if (component.children) {
+      const found = findParentComponent(component.children, childId);
+      if (found) return found;
+    }
+  }
+  return null;
+};
+
 // Helper function to remove component by ID
 const removeComponent = (components: EmailComponent[], id: string): EmailComponent[] => {
   return components.filter(component => {
@@ -91,10 +108,33 @@ const duplicateComponent = (component: EmailComponent): EmailComponent => {
   };
 };
 
+// Deep-clone the template so history snapshots and current state never share
+// nested references. The template is JSON-serializable by design (see exportJSON).
+const cloneTemplate = (template: EmailTemplate): EmailTemplate =>
+  JSON.parse(JSON.stringify(template));
+
+// Append a snapshot to history, capping its length and returning the new index.
+const pushHistory = (
+  history: EmailTemplate[],
+  historyIndex: number,
+  template: EmailTemplate
+): { history: EmailTemplate[]; historyIndex: number } => {
+  const next = [...history.slice(0, historyIndex + 1), template];
+  const trimmed = next.length > MAX_HISTORY ? next.slice(next.length - MAX_HISTORY) : next;
+  return { history: trimmed, historyIndex: trimmed.length - 1 };
+};
+
+// Resolve the currently selected component from store state by its id.
+// Selection is stored as an id so it survives undo/redo and template replacement.
+export const selectSelectedComponent = (state: BuilderState): EmailComponent | null =>
+  state.selectedComponentId
+    ? findComponent(state.template.components, state.selectedComponentId)
+    : null;
+
 export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) => ({
   // State
   template: defaultTemplate,
-  selectedComponent: null,
+  selectedComponentId: null,
   hoveredComponentId: null,
   isDragging: false,
   history: [defaultTemplate],
@@ -107,30 +147,23 @@ export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) 
 
   setFullTemplate: (newTemplate: EmailTemplate) => {
     set(state => {
-      const updatedTemplate = {
-        ...newTemplate,
-        metadata: {
-          ...newTemplate.metadata,
-          updatedAt: new Date().toISOString()
-        }
-      };
+      const updatedTemplate = cloneTemplate(newTemplate);
+      updatedTemplate.metadata.updatedAt = new Date().toISOString();
 
-      // Add to history
-      const newHistory = [...state.history.slice(0, state.historyIndex + 1), updatedTemplate];
+      const { history, historyIndex } = pushHistory(state.history, state.historyIndex, updatedTemplate);
 
       return {
         template: updatedTemplate,
-        selectedComponent: null, // Reset selection when template is replaced
-        history: newHistory,
-        historyIndex: newHistory.length - 1
+        selectedComponentId: null, // Reset selection when template is replaced
+        history,
+        historyIndex,
       };
     });
   },
 
-  // Other Actions
   addComponent: (component: EmailComponent, parentId?: string) => {
-    set((state) => {
-      const newTemplate = { ...state.template };
+    set(state => {
+      const newTemplate = cloneTemplate(state.template);
 
       if (parentId) {
         const parent = findComponent(newTemplate.components, parentId);
@@ -143,90 +176,55 @@ export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) 
       }
 
       newTemplate.metadata.updatedAt = new Date().toISOString();
+      const { history, historyIndex } = pushHistory(state.history, state.historyIndex, newTemplate);
 
-      // Add to history
-      const newHistory = [...state.history.slice(0, state.historyIndex + 1), newTemplate];
-
-      return {
-        template: newTemplate,
-        history: newHistory,
-        historyIndex: state.historyIndex + 1,
-      };
+      return { template: newTemplate, history, historyIndex };
     });
   },
 
   updateComponent: (id: string, updates: Partial<EmailComponent>) => {
-    set((state) => {
-      const newTemplate = { ...state.template };
+    set(state => {
+      const newTemplate = cloneTemplate(state.template);
       const component = findComponent(newTemplate.components, id);
 
-      if (component) {
-        Object.assign(component, updates);
-        newTemplate.metadata.updatedAt = new Date().toISOString();
+      if (!component) return state;
 
-        // Add to history
-        const newHistory = [...state.history.slice(0, state.historyIndex + 1), newTemplate];
+      Object.assign(component, updates);
+      newTemplate.metadata.updatedAt = new Date().toISOString();
+      const { history, historyIndex } = pushHistory(state.history, state.historyIndex, newTemplate);
 
-        return {
-          template: newTemplate,
-          history: newHistory,
-          historyIndex: state.historyIndex + 1,
-        };
-      }
-
-      return state;
+      return { template: newTemplate, history, historyIndex };
     });
   },
 
   deleteComponent: (id: string) => {
-    set((state) => {
-      const newTemplate = { ...state.template };
+    set(state => {
+      const newTemplate = cloneTemplate(state.template);
       newTemplate.components = removeComponent(newTemplate.components, id);
       newTemplate.metadata.updatedAt = new Date().toISOString();
 
-      // Clear selection if deleted component was selected
-      let newSelectedComponent = state.selectedComponent;
-      if (state.selectedComponent?.id === id) {
-        newSelectedComponent = null;
-      }
-
-      // Add to history
-      const newHistory = [...state.history.slice(0, state.historyIndex + 1), newTemplate];
+      const { history, historyIndex } = pushHistory(state.history, state.historyIndex, newTemplate);
 
       return {
         template: newTemplate,
-        selectedComponent: newSelectedComponent,
-        history: newHistory,
-        historyIndex: state.historyIndex + 1,
+        selectedComponentId: state.selectedComponentId === id ? null : state.selectedComponentId,
+        history,
+        historyIndex,
       };
     });
   },
 
   selectComponent: (component: EmailComponent | null) => {
-    set({ selectedComponent: component });
+    set({ selectedComponentId: component ? component.id : null });
   },
 
   moveComponent: (id: string, newIndex: number, newParentId?: string) => {
-    set((state) => {
-      const newTemplate = { ...state.template };
-
-      // Helper to find parent of a component
-      const findParent = (components: EmailComponent[], childId: string): EmailComponent | null => {
-        for (const component of components) {
-          if (component.children?.some(child => child.id === childId)) {
-            return component;
-          }
-          if (component.children) {
-            const found = findParent(component.children, childId);
-            if (found) return found;
-          }
-        }
-        return null;
-      };
+    set(state => {
+      const newTemplate = cloneTemplate(state.template);
 
       // 1. Remove from old parent
       let component: EmailComponent | undefined;
-      let oldParent = findParent(newTemplate.components, id);
+      const oldParent = findParentComponent(newTemplate.components, id);
 
       // If no parent found, check if it's in the root list
       if (!oldParent) {
@@ -259,46 +257,41 @@ export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) 
       }
 
       newTemplate.metadata.updatedAt = new Date().toISOString();
+      const { history, historyIndex } = pushHistory(state.history, state.historyIndex, newTemplate);
 
-      const newHistory = [...state.history.slice(0, state.historyIndex + 1), newTemplate];
-
-      return {
-        template: newTemplate,
-        history: newHistory,
-        historyIndex: state.historyIndex + 1,
-      };
+      return { template: newTemplate, history, historyIndex };
     });
   },
 
   duplicateComponent: (id: string) => {
-    set((state) => {
+    set(state => {
       const component = findComponent(state.template.components, id);
-      if (component) {
-        const duplicated = duplicateComponent(component);
-        const newTemplate = { ...state.template };
+      if (!component) return state;
 
-        // Find parent to insert duplicate next to original
-        // This is a simplified version, ideally we'd find the parent and insert there
-        newTemplate.components.push(duplicated);
+      const duplicated = duplicateComponent(component);
+      const newTemplate = cloneTemplate(state.template);
 
-        newTemplate.metadata.updatedAt = new Date().toISOString();
-
-        const newHistory = [...state.history.slice(0, state.historyIndex + 1), newTemplate];
-
-        return {
-          template: newTemplate,
-          history: newHistory,
-          historyIndex: state.historyIndex + 1,
-        };
+      // Insert the duplicate right after the original, at the same level
+      const parent = findParentComponent(newTemplate.components, id);
+      if (parent) {
+        parent.children = parent.children || [];
+        const index = parent.children.findIndex((c) => c.id === id);
+        parent.children.splice(index + 1, 0, duplicated);
+      } else {
+        const index = newTemplate.components.findIndex((c) => c.id === id);
+        newTemplate.components.splice(index + 1, 0, duplicated);
       }
 
-      return state;
+      newTemplate.metadata.updatedAt = new Date().toISOString();
+      const { history, historyIndex } = pushHistory(state.history, state.historyIndex, newTemplate);
+
+      return { template: newTemplate, history, historyIndex };
     });
   },
 
   insertComponentAt: (type: ComponentType, index: number, defaultProps?: Record<string, any>, parentId?: string) => {
-    set((state) => {
-      const newTemplate = { ...state.template };
+    set(state => {
+      const newTemplate = cloneTemplate(state.template);
       const newComponent = createComponent(type, defaultProps || {});
 
       if (parentId) {
@@ -316,19 +309,14 @@ export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) 
       }
 
       newTemplate.metadata.updatedAt = new Date().toISOString();
+      const { history, historyIndex } = pushHistory(state.history, state.historyIndex, newTemplate);
 
-      const newHistory = [...state.history.slice(0, state.historyIndex + 1), newTemplate];
-
-      return {
-        template: newTemplate,
-        history: newHistory,
-        historyIndex: state.historyIndex + 1,
-      };
+      return { template: newTemplate, history, historyIndex };
     });
   },
 
   undo: () => {
-    set((state) => {
+    set(state => {
       if (state.historyIndex > 0) {
         return {
           historyIndex: state.historyIndex - 1,
@@ -340,7 +328,7 @@ export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) 
   },
 
   redo: () => {
-    set((state) => {
+    set(state => {
       if (state.historyIndex < state.history.length - 1) {
         return {
           historyIndex: state.historyIndex + 1,
@@ -351,19 +339,20 @@ export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) 
     });
   },
 
-  saveTemplate: () => {
+  saveTemplate: (key = 'emailTemplate') => {
     const { template } = get();
-    localStorage.setItem('emailTemplate', JSON.stringify(template));
+    localStorage.setItem(key, JSON.stringify(template));
   },
 
   loadTemplate: (template: EmailTemplate) => {
-    set((state) => {
-      const newHistory = [...state.history.slice(0, state.historyIndex + 1), template];
+    set(state => {
+      const cloned = cloneTemplate(template);
+      const { history, historyIndex } = pushHistory(state.history, state.historyIndex, cloned);
       return {
-        template,
-        history: newHistory,
-        historyIndex: state.historyIndex + 1,
-        selectedComponent: null,
+        template: cloned,
+        history,
+        historyIndex,
+        selectedComponentId: null,
       };
     });
   },
@@ -385,19 +374,14 @@ export const useBuilderStore = create<BuilderState & BuilderActions>((set, get) 
   },
 
   updateTemplateSettings: (settings: Partial<EmailTemplate['settings']>) => {
-    set((state) => {
-      const newTemplate = { ...state.template };
+    set(state => {
+      const newTemplate = cloneTemplate(state.template);
       newTemplate.settings = { ...newTemplate.settings, ...settings };
       newTemplate.metadata.updatedAt = new Date().toISOString();
 
-      // Add to history
-      const newHistory = [...state.history.slice(0, state.historyIndex + 1), newTemplate];
+      const { history, historyIndex } = pushHistory(state.history, state.historyIndex, newTemplate);
 
-      return {
-        template: newTemplate,
-        history: newHistory,
-        historyIndex: state.historyIndex + 1,
-      };
+      return { template: newTemplate, history, historyIndex };
     });
   },
 }));

@@ -223,6 +223,34 @@ function TemplateManager() {
 }
 ```
 
+### Saving to localStorage
+```tsx
+function PersistTemplate() {
+  const { saveTemplateToStorage, loadTemplateFromStorage } = useEmailTemplateManager();
+
+  const save = () => {
+    // Saves under the given key (defaults to 'emailTemplate')
+    saveTemplateToStorage('myTemplate');
+  };
+
+  const load = () => {
+    const success = loadTemplateFromStorage('myTemplate');
+    if (success) {
+      alert('Template loaded from storage!');
+    } else {
+      alert('No template found under that key.');
+    }
+  };
+
+  return (
+    <div>
+      <button onClick={save}>Save to Storage</button>
+      <button onClick={load}>Load from Storage</button>
+    </div>
+  );
+}
+```
+
 ### Loading from File Upload
 ```tsx
 function FileUploader() {

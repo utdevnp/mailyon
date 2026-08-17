@@ -1,18 +1,13 @@
 import React from 'react';
-import { useBuilderStore } from '../../store/builderStore';
-import { EmailComponent, ComponentType } from '../../types';
+import { useBuilderStore, selectSelectedComponent } from '../../store/builderStore';
 import { TemplateSettings } from './TemplateSettings';
 import { ComponentInspector } from './ComponentInspector';
 import { CodeExport } from './CodeExport';
 
 export const Inspector: React.FC = () => {
-  const { selectedComponent, updateComponent, deleteComponent, duplicateComponent, template, updateTemplateSettings, exportJSON, exportMJML, setFullTemplate } = useBuilderStore();
+  const { updateComponent, deleteComponent, duplicateComponent, template, updateTemplateSettings, exportJSON, exportMJML, setFullTemplate } = useBuilderStore();
+  const selectedComponent = useBuilderStore(selectSelectedComponent);
   const [activeTab, setActiveTab] = React.useState<'template' | 'code'>('template');
-  
-  // Debug logging
-  React.useEffect(() => {
-    console.log('Inspector selectedComponent changed:', selectedComponent);
-  }, [selectedComponent]);
 
   // Generate HTML from MJML for perfect styling match
   const generateHTML = (): string => {
@@ -31,7 +26,6 @@ export const Inspector: React.FC = () => {
   const copyToClipboard = async (text: string, type: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      console.log(`${type} copied to clipboard!`);
     } catch (err) {
       console.error('Failed to copy: ', err);
     }

@@ -31,17 +31,12 @@ export const DraggableComponent: React.FC<DraggableComponentProps> = ({
 
   const [{ isOver }, drop] = useDrop({
     accept: "EXISTING_COMPONENT",
-    hover: (item: { id: string; index: number }, monitor) => {
-      if (!monitor.isOver({ shallow: true })) {
-        return;
+    drop: (item: { id: string; index: number }) => {
+      // Commit the reorder only on drop (not on hover) so dragging doesn't
+      // flood the undo history with intermediate positions or cause jumpiness.
+      if (item.index !== index) {
+        onMove(item.id, index);
       }
-
-      if (item.index === index) {
-        return;
-      }
-
-      onMove(item.id, index);
-      item.index = index;
     },
     collect: (monitor) => ({
       isOver: monitor.isOver({ shallow: true }),
@@ -58,14 +53,7 @@ export const DraggableComponent: React.FC<DraggableComponentProps> = ({
 
   const handleMouseLeave = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // Only clear if we are the one currently hovered
-    // This prevents clearing if a child already took over (though stopPropagation in child prevents us seeing that, verify?)
-    // Actually simpler: if I leave, I shouldn't be hovered anymore.
-    // If I move to child, child will set itself.
-    // Use a check to be safe
-    // if (hoveredComponentId === component.id) {
-      setHoveredComponentId(null);
-    // }
+    setHoveredComponentId(null);
   };
 
   return (
@@ -77,7 +65,6 @@ export const DraggableComponent: React.FC<DraggableComponentProps> = ({
         isDragging ? "opacity-50 scale-95" : ""
       } ${isOver ? "border-t-4 border-primary-500" : ""}`}
     >
-      {/* ... rest of component ... */}
       <ComponentRenderer
         component={component}
         onClick={onClick}

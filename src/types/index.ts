@@ -116,6 +116,23 @@ export interface SocialMediaProps {
   padding?: string;
 }
 
+export interface ColumnsProps {
+  columns?: number;
+  padding?: string;
+  backgroundColor?: string;
+  border?: string;
+  borderRadius?: string;
+}
+
+export interface ColumnProps {
+  width?: string;
+  padding?: string;
+  backgroundColor?: string;
+  verticalAlign?: 'top' | 'middle' | 'bottom';
+  border?: string;
+  borderRadius?: string;
+}
+
 // Template structure
 export interface EmailTemplate {
   id: string;
@@ -143,7 +160,7 @@ export interface DragItem {
 // Store state
 export interface BuilderState {
   template: EmailTemplate;
-  selectedComponent: EmailComponent | null;
+  selectedComponentId: string | null;
   hoveredComponentId: string | null;
   isDragging: boolean;
   history: EmailTemplate[];
@@ -162,7 +179,7 @@ export interface BuilderActions {
   duplicateComponent: (id: string) => void;
   undo: () => void;
   redo: () => void;
-  saveTemplate: () => void;
+  saveTemplate: (key?: string) => void;
   loadTemplate: (template: EmailTemplate) => void;
   exportJSON: () => string;
   exportMJML: () => string;

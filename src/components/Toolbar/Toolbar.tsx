@@ -78,7 +78,7 @@ export const Toolbar: React.FC = () => {
 
       {/* Save */}
       <button
-        onClick={saveTemplate}
+        onClick={() => saveTemplate()}
         className="btn-primary text-sm px-3 py-2"
         title="Save Template"
       >

@@ -1,5 +1,5 @@
 // Main package exports
-export { useBuilderStore } from './store/builderStore';
+export { useBuilderStore, selectSelectedComponent } from './store/builderStore';
 export * from './types';
 
 // Component exports (headerless)

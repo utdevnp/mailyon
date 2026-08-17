@@ -138,6 +138,8 @@ export const getDefaultProps = (type: ComponentType): Record<string, any> => {
         columns: 2,
         padding: "5px",
         backgroundColor: "transparent",
+        border: "",
+        borderRadius: "0px",
       };
     case "column":
       return {
@@ -145,6 +147,8 @@ export const getDefaultProps = (type: ComponentType): Record<string, any> => {
         padding: "5px",
         backgroundColor: "transparent",
         verticalAlign: "top",
+        border: "",
+        borderRadius: "0px",
       };
     default:
       return {};

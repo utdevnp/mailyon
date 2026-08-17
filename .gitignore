@@ -101,3 +101,6 @@ public
 tmp/
 temp/
 mailyon.wiki/
+
+# Reasonix local tooling metadata
+.reasonix/

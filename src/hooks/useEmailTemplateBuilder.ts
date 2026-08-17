@@ -1,4 +1,4 @@
-import { useBuilderStore } from '../store/builderStore';
+import { useBuilderStore, selectSelectedComponent } from '../store/builderStore';
 import { EmailTemplate, EmailComponent, ComponentType } from '../types';
 
 export const useEmailTemplateBuilder = () => {
@@ -7,7 +7,8 @@ export const useEmailTemplateBuilder = () => {
   return {
     // Template state
     template: store.template,
-    selectedComponent: store.selectedComponent,
+    selectedComponent: selectSelectedComponent(store),
+    selectedComponentId: store.selectedComponentId,
     isDragging: store.isDragging,
     
     // Template actions

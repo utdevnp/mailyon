@@ -198,6 +198,17 @@ Footer (contact info)
 6. **Test on mobile** - Most emails are read on mobile devices
 7. **Keep it simple** - Don't overcrowd your email with too many elements
 
+## Related Functions
+
+Programmatic control of components via the store (available through `useEmailTemplateBuilder`):
+
+- **`addComponent(component)`** - Add a component to the template
+- **`updateComponent(id, updates)`** - Modify an existing component
+- **`deleteComponent(id)`** - Remove a component
+- **`duplicateComponent(id)`** - Duplicate a component and insert the copy right after the original, at the same level (root or inside a column)
+- **`moveComponent(id, newIndex)`** - Reorder components
+- **`insertComponentAt(type, index, props)`** - Insert a new component at a specific position
+
 ## Next Steps
 
 - **[Hooks](Hooks)** - Learn how to control components programmatically

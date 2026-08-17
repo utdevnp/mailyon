@@ -44,7 +44,7 @@ export const useEmailTemplateManager = () => {
   
   // Save template to localStorage
   const saveTemplateToStorage = (key: string = 'emailTemplate'): void => {
-    store.saveTemplate();
+    store.saveTemplate(key);
   };
   
   // Load template from localStorage
